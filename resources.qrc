@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/font/CascadiaCodePL-Regular.ttf</file>
+        <file>resources/font/Inter-Regular.ttf</file>
+        <file>resources/icon/silk/folder.png</file>
+        <file>resources/icon/silk/page_add.png</file>
+        <file>resources/icon/silk/cross.png</file>
+        <file>resources/icon/silk/information.png</file>
+        <file>resources/icon/icon.png</file>
+        <file>resources/images/default-avatar.jpg</file>
+        <file>resources/icon/silk/arrow_down.png</file>
+        <file>resources/icon/silk/arrow_up.png</file>
+        <file>resources/icon/silk/arrow_left.png</file>
+        <file>resources/font/NotoColorEmoji-Regular.ttf</file>
+        <file>resources/images/default-group.png</file>
+        <file>resources/images/call.png</file>
+    </qresource>
+</RCC>
