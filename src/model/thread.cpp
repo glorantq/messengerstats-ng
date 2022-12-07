@@ -75,7 +75,8 @@ data::Thread::Thread(QDir dataFolder,
         for (const auto& value : messagesArray) {
             QJsonObject object = value.toObject();
 
-            m_messages.push_back(Message(object, this, messageClassifiers));
+            m_messages.push_back(
+                Message(object, this, messageClassifiers, rootFolder));
         }
 
         std::sort(

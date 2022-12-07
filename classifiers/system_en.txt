@@ -1,0 +1,30 @@
+.*? cleared the nickname for .*\.?
+.*? cleared his own nickname\.?
+
+.*? created the group\.?
+.*? changed the group photo\.?
+.*? named the group .*\.?
+.*? changed the theme to .*\.?
+
+You can now call each other and see information such as Active Status and when you've read messages\.?
+This poll is no longer available\.?
+You are now connected on Messenger\.?
+
+.*? joined the video chat\.?
+.*? joined the call\.?
+.*? started sharing video\.?
+
+.*? set the quick reaction to .*\.?
+
+.* turned (?:off|on) member approval\s?.*? join the group\.?
+.*? (?:added|removed) .*? as a group admin\.?
+
+.*? waved hello to the group\.?
+.*? waved at .*?!
+
+.*? created the reminder: .*?\.
+Reminder at \d{1,2}:\d{1,2}\.
+Reminder, .*? until the event at .*\.
+Reminder happening now\.
+
+.*? named the plan .*?\.

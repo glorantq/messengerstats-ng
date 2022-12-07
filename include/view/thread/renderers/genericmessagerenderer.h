@@ -20,6 +20,13 @@ class GenericMessageRenderer : public IMessageRenderer {
     QSize sizeHint(const QStyleOptionViewItem& option,
                    const QModelIndex& index,
                    const RendererParameters&) const override;
+
+   private:
+    inline const QPixmap getPixmapFromCache(const QString& path,
+                                            const int& maxWidth) const;
+    inline const int calculateTotalPicturesHeight(const QStringList& paths,
+                                                 const int& totalWidth,
+                                                 const int& margin) const;
 };
 
 };  // namespace renderer

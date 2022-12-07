@@ -3,6 +3,7 @@
 #include "view/thread/threadlistmodel.h"
 
 #include <QPainterPath>
+#include <QPixmapCache>
 
 // Paints a call message, very similar to a regular message (has a chat bubble),
 // but contains a telephone icon
@@ -89,27 +90,39 @@ void renderer::CallMessageRenderer::paint(
     pixmapRect.moveLeft(opt.rect.left() + parameters.m_margin);
     pixmapRect.moveTop(opt.rect.top() + parameters.m_largeMargin);
 
-    // TODO: This right here should really be cached
-    QImage callIconImage =
-        QImage("://resources/images/call.png")
-            .scaled(parameters.m_iconSize, parameters.m_iconSize,
-                    Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    QString callIconKey = QString("call-icon-%1-%2-%3")
+                              .arg(parameters.m_textColor.red())
+                              .arg(parameters.m_textColor.green())
+                              .arg(parameters.m_textColor.blue());
 
-    for (int i = 0; i < callIconImage.width(); i++) {
-        for (int j = 0; j < callIconImage.height(); j++) {
-            QColor pixelColor = callIconImage.pixelColor(i, j);
+    QPixmap callIcon;
+    if (!QPixmapCache::find(callIconKey, &callIcon)) {
+        QImage callIconImage =
+            QImage("://resources/images/call.png")
+                .scaled(parameters.m_iconSize, parameters.m_iconSize,
+                        Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
-            callIconImage.setPixelColor(
-                i, j,
-                QColor(
-                    (pixelColor.red() * parameters.m_textColor.red()) / 255,
-                    (pixelColor.green() * parameters.m_textColor.green()) / 255,
-                    (pixelColor.blue() * parameters.m_textColor.blue()) / 255,
-                    pixelColor.alpha()));
+        for (int i = 0; i < callIconImage.width(); i++) {
+            for (int j = 0; j < callIconImage.height(); j++) {
+                QColor pixelColor = callIconImage.pixelColor(i, j);
+
+                callIconImage.setPixelColor(
+                    i, j,
+                    QColor(
+                        (pixelColor.red() * parameters.m_textColor.red()) / 255,
+                        (pixelColor.green() * parameters.m_textColor.green()) /
+                            255,
+                        (pixelColor.blue() * parameters.m_textColor.blue()) /
+                            255,
+                        pixelColor.alpha()));
+            }
         }
+
+        callIcon = QPixmap::fromImage(callIconImage);
+        QPixmapCache::insert(callIconKey, callIcon);
     }
 
-    painter->drawPixmap(pixmapRect, QPixmap::fromImage(callIconImage));
+    painter->drawPixmap(pixmapRect, callIcon);
 
     opt.rect.moveLeft(pixmapRect.right() + parameters.m_largeMargin);
 

@@ -2,6 +2,7 @@
 
 #include "model/common.h"
 
+#include <QDir>
 #include <QJsonObject>
 
 namespace data {
@@ -53,12 +54,17 @@ class Message {
 
     unsigned int m_callDuration;
 
+    QList<QString> m_pictures{};
+
     // This is an extension I added, and is not contained in the original JSON
     // object
     QString m_setNickname;
 
    public:
-    explicit Message(QJsonObject&, Thread* ownerThread, MessageClassifiers&);
+    explicit Message(QJsonObject&,
+                     Thread* ownerThread,
+                     MessageClassifiers&,
+                     QDir rootFolder);
 
     const ThreadParticipant& getSender() const { return m_sender; }
     const unsigned long long getTimestamp() const { return m_timestamp; }
@@ -69,6 +75,7 @@ class Message {
     const QList<ThreadParticipant>& getActedOn() const { return m_actedOn; }
     const unsigned int getCallDuration() const { return m_callDuration; }
     const QString& getSetNickname() const { return m_setNickname; }
+    const QList<QString>& getPictures() const { return m_pictures; }
 };
 
 };  // namespace data

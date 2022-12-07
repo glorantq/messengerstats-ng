@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QFontDatabase>
 #include <QLocale>
+#include <QPixmapCache>
 #include <QStyleFactory>
 #include <QTranslator>
 
@@ -92,6 +93,9 @@ int main(int argc, char* argv[]) {
             break;
         }
     }
+
+    // Reserve a good chunk of memory for pixmap caching
+    QPixmapCache::setCacheLimit(1024 * 1024);  // In kilobytes
 
     MainWindow w;
     w.show();

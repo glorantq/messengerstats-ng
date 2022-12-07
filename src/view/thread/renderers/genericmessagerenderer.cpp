@@ -2,7 +2,10 @@
 
 #include "view/thread/threadlistmodel.h"
 
+#include <QImageReader>
 #include <QPainterPath>
+#include <QPixmap>
+#include <QPixmapCache>
 
 // Paints the standard conversation chat bubbles. See the comment about size
 // hinting for these types of messages. All of that applies here as well.
@@ -27,6 +30,18 @@ void renderer::GenericMessageRenderer::paint(
         formatTimestamp(index.data(message::ModelData::Timestamp).toLongLong());
     QString reactionsText =
         index.data(message::ModelData::Reactions).toString();
+    QList<QString> picturePaths =
+        index.data(message::ModelData::Pictures).toStringList();
+
+    int availableWidthForPictures = opt.rect.width() * !picturePaths.isEmpty();
+    int totalPictureHeight =
+        calculateTotalPicturesHeight(picturePaths, availableWidthForPictures,
+                                    parameters.m_margin) +
+        parameters.m_largeMargin;
+
+    if (picturePaths.isEmpty()) {
+        totalPictureHeight = 0;
+    }
 
     QRect contentBoundingBox = fitText(opt.font, opt.rect, content);
 
@@ -43,10 +58,11 @@ void renderer::GenericMessageRenderer::paint(
         fitText(timestampFont, opt.rect, timestampString);
 
     opt.rect.setWidth(
-        vMin(opt.rect.width() + parameters.m_largeMargin,
-             vMax(contentBoundingBox.width(), nameBoundingBox.width(),
-                  timestampBoundingBox.width()) +
-                 parameters.m_largeMargin));
+        vMax(vMin(opt.rect.width() + parameters.m_largeMargin,
+                  vMax(contentBoundingBox.width(), nameBoundingBox.width(),
+                       timestampBoundingBox.width()) +
+                      parameters.m_largeMargin),
+             availableWidthForPictures));
 
     QColor bubbleColor = parameters.m_otherBubbleColor;
 
@@ -67,7 +83,7 @@ void renderer::GenericMessageRenderer::paint(
     bubbleRect.setHeight(contentBoundingBox.height() +
                          parameters.m_largeMargin + nameBoundingBox.height() +
                          parameters.m_margin + timestampBoundingBox.height() +
-                         parameters.m_largeMargin);
+                         parameters.m_largeMargin + totalPictureHeight);
 
     QPainterPath path;
     path.addRoundedRect(bubbleRect, parameters.m_cornerRadius,
@@ -87,6 +103,43 @@ void renderer::GenericMessageRenderer::paint(
 
     opt.rect.setTop(opt.rect.top() + contentBoundingBox.height() +
                     parameters.m_largeMargin);
+
+    if (picturePaths.count() > 0) {
+        int picturesPerRow = vMin(picturePaths.count(), 3);
+        int maxWidthPerPicture = (availableWidthForPictures -
+                                  (picturesPerRow * parameters.m_margin)) /
+                                     picturesPerRow -
+                                 parameters.m_margin;
+
+        int rowHeight = 0;
+
+        int column = 0;
+        for (const auto& path : picturePaths) {
+            QPixmap picture = getPixmapFromCache(path, maxWidthPerPicture);
+
+            int drawHeight =
+                ((float)picture.height() / (float)picture.width()) *
+                maxWidthPerPicture;
+
+            rowHeight = vMax(drawHeight, rowHeight);
+
+            painter->drawPixmap(
+                opt.rect.left() +
+                    (column * (maxWidthPerPicture + parameters.m_margin)),
+                opt.rect.top(), maxWidthPerPicture, drawHeight, picture);
+
+            if (++column == picturesPerRow) {
+                opt.rect.setTop(opt.rect.top() + rowHeight +
+                                parameters.m_margin);
+
+                column = 0;
+                rowHeight = 0;
+            }
+        }
+
+        opt.rect.setTop(opt.rect.top() + rowHeight + parameters.m_margin +
+                        parameters.m_largeMargin);
+    }
 
     painter->save();
     painter->setPen(QColor(parameters.m_textColor.red(),
@@ -165,6 +218,15 @@ QSize renderer::GenericMessageRenderer::sizeHint(
         contentBoundingBox.setHeight(0);
     }
 
+    QList<QString> picturePaths =
+        index.data(message::ModelData::Pictures).toStringList();
+
+    if (!picturePaths.isEmpty()) {
+        height += calculateTotalPicturesHeight(picturePaths, opt.rect.width(),
+                                              parameters.m_margin) +
+                  parameters.m_largeMargin;
+    }
+
     QFont timestampFont(opt.font);
     timestampFont.setPointSize(timestampFont.pointSize() - 2);
 
@@ -180,4 +242,57 @@ QSize renderer::GenericMessageRenderer::sizeHint(
     }
 
     return QSize(option.rect.width(), height + parameters.m_margin);
+}
+
+inline const QPixmap renderer::GenericMessageRenderer::getPixmapFromCache(
+    const QString& path,
+    const int& maxWidth) const {
+    QPixmap cached;
+    if (!QPixmapCache::find(path, &cached)) {
+        cached = QPixmap(path).scaledToWidth(vMin(maxWidth, 300),
+                                             Qt::SmoothTransformation);
+
+        QPixmapCache::insert(path, cached);
+    }
+
+    return cached;
+}
+
+inline const int renderer::GenericMessageRenderer::calculateTotalPicturesHeight(
+    const QStringList& paths,
+    const int& totalWidth,
+    const int& margin) const {
+    if (paths.isEmpty()) {
+        return 0;
+    }
+
+    int picturesPerRow = vMin(paths.count(), 3);
+    int maxWidthPerPicture =
+        (totalWidth - (picturesPerRow * margin)) / picturesPerRow - margin;
+
+    int totalPicturesHeight = 0;
+    int rowHeight = 0;
+
+    int column = 0;
+    for (const auto& path : paths) {
+        QPixmap picture = getPixmapFromCache(path, maxWidthPerPicture);
+
+        if (picture.width() == 0 || picture.height() == 0) {
+            continue;
+        }
+
+        int drawHeight = ((float)picture.height() / (float)picture.width()) *
+                         maxWidthPerPicture;
+
+        rowHeight = vMax(drawHeight, rowHeight);
+
+        if (++column == picturesPerRow) {
+            totalPicturesHeight += rowHeight + margin;
+
+            column = 0;
+            rowHeight = 0;
+        }
+    }
+
+    return totalPicturesHeight + rowHeight + margin;
 }

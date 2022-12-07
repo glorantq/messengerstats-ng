@@ -1,0 +1,6 @@
+.*? set the nickname for (?'subject'.*?) to (?'nickname'.*)\.
+.*? set (?'subject'his|her|their) own nickname to (?'nickname'.*)\.
+.*? set (?'subject'your) nickname to (?'nickname'.*)\.
+
+# (?:his|her|their) -> sender
+# your -> owner

@@ -6,7 +6,8 @@
 // Performs parsing of the JSON representation
 data::Message::Message(QJsonObject& object,
                        Thread* ownerThread,
-                       MessageClassifiers& messageClassifiers) {
+                       MessageClassifiers& messageClassifiers,
+                       QDir rootFolder) {
     QString messageType = object["type"].toString();
 
     if (messageType == "Generic") {
@@ -64,7 +65,19 @@ data::Message::Message(QJsonObject& object,
 
     m_callDuration = object["call_duration"].toInt();
 
-    // TODO: Load pictures, attachments and shares
+    if (object.contains("photos")) {
+        QJsonArray photosArray = object["photos"].toArray();
+        for (const auto& value : photosArray) {
+            QJsonObject object = value.toObject();
+
+            QString storedPath = object["uri"].toString();
+
+            m_pictures.push_back(rootFolder.filePath(
+                storedPath.mid(storedPath.indexOf('/') + 1)));
+        }
+    }
+
+    // TODO: Load attachments and shares
 
     // Determine if this should be a system message instead of what Facebook
     // tells us
@@ -79,8 +92,8 @@ data::Message::Message(QJsonObject& object,
     if (optionalNicknameChange) {
         ThreadParticipant actedOn{};
 
-        // Here, the subject is determined as precisely as possible using the
-        // information given to us in the parameters
+        // Here, the subject is determined as precisely as possible using
+        // the information given to us in the parameters
         nickname::ChangeSubject subject = optionalNicknameChange->m_subject;
         if (subject.m_subjectType == nickname::SubjectType::Sender) {
             actedOn = m_sender;

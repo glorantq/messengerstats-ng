@@ -14,8 +14,7 @@ void MessageItemDelegate::paint(QPainter* painter,
         (data::MessageType)index.data(message::ModelData::Type).toInt();
 
     painter->setRenderHints(QPainter::RenderHint::Antialiasing |
-                            QPainter::RenderHint::TextAntialiasing |
-                            QPainter::RenderHint::SmoothPixmapTransform);
+                            QPainter::RenderHint::TextAntialiasing);
 
     QStyleOptionViewItem opt(option);
     opt.font.setHintingPreference(QFont::PreferNoHinting);

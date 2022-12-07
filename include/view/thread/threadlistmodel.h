@@ -15,6 +15,7 @@ enum ModelData {
     CallDuration,
     AuthorIdentifier,
     OwnerIdentifier,
+    Pictures,
 };
 };  // namespace message
 

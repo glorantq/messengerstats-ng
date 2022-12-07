@@ -51,6 +51,10 @@ QVariant ThreadListModel::data(const QModelIndex& index, int role) const {
         return m_thread->getOwnerIdentifier();
     }
 
+    if (role == message::ModelData::Pictures) {
+        return message.getPictures();
+    }
+
     return {};
 }
 
