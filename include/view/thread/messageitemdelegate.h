@@ -81,4 +81,9 @@ class MessageItemDelegate : public QStyledItemDelegate {
     // though.
     QSize sizeHint(const QStyleOptionViewItem& option,
                    const QModelIndex& index) const override;
+
+   public slots:
+    // When this slot is called, we update the renderer parameters with the
+    // newly changed colours to make on-the-fly theme changes possible
+    void onAppColorSchemeChanged();
 };

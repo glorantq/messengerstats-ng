@@ -34,7 +34,7 @@ void renderer::GenericMessageRenderer::paint(
     QString reactionsText =
         index.data(message::ModelData::Reactions).toString();
     QList<QString> picturePaths =
-        index.data(message::ModelData::Pictures).toStringList();
+        index.data(message::ModelData::AllImageMedia).toStringList();
     QList<QString> attachmentNames =
         index.data(message::ModelData::AttachmentNames).toStringList();
     QString sharedLink = index.data(message::ModelData::SharedLink).toString();
@@ -47,6 +47,12 @@ void renderer::GenericMessageRenderer::paint(
 
     if (picturePaths.isEmpty()) {
         totalPictureHeight = 0;
+    } else if (picturePaths.count() == 1) {
+        int imageWidth =
+            getPixmapFromCache(picturePaths.first(), availableWidthForPictures)
+                .width();
+
+        availableWidthForPictures = imageWidth;
     }
 
     QSize totalAttachmentSize;
@@ -149,7 +155,6 @@ void renderer::GenericMessageRenderer::paint(
                                   (picturesPerRow * parameters.m_margin)) /
                                      picturesPerRow -
                                  parameters.m_margin;
-
         int rowHeight = 0;
 
         int column = 0;
@@ -380,7 +385,7 @@ QSize renderer::GenericMessageRenderer::sizeHint(
     }
 
     QList<QString> picturePaths =
-        index.data(message::ModelData::Pictures).toStringList();
+        index.data(message::ModelData::AllImageMedia).toStringList();
 
     if (!picturePaths.isEmpty()) {
         height += calculateTotalPicturesHeight(picturePaths, opt.rect.width(),
@@ -434,8 +439,9 @@ inline const QPixmap renderer::GenericMessageRenderer::getPixmapFromCache(
     const int& maxWidth) const {
     QPixmap cached;
     if (!QPixmapCache::find(path, &cached)) {
-        cached = QPixmap(path).scaledToWidth(vMin(maxWidth, 300),
-                                             Qt::SmoothTransformation);
+        cached = QPixmap(path);
+        cached = cached.scaledToWidth(vMin(maxWidth, 300, cached.width()),
+                                      Qt::SmoothTransformation);
 
         QPixmapCache::insert(path, cached);
     }
@@ -454,6 +460,7 @@ inline const int renderer::GenericMessageRenderer::calculateTotalPicturesHeight(
     int picturesPerRow = vMin(paths.count(), 3);
     int maxWidthPerPicture =
         (totalWidth - (picturesPerRow * margin)) / picturesPerRow - margin;
+    bool singlePicture = paths.count() == 1;
 
     int totalPicturesHeight = 0;
     int rowHeight = 0;
@@ -461,6 +468,10 @@ inline const int renderer::GenericMessageRenderer::calculateTotalPicturesHeight(
     int column = 0;
     for (const auto& path : paths) {
         QPixmap picture = getPixmapFromCache(path, maxWidthPerPicture);
+
+        if (singlePicture) {
+            maxWidthPerPicture = picture.width() - margin;
+        }
 
         if (picture.width() == 0 || picture.height() == 0) {
             continue;

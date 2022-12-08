@@ -65,16 +65,20 @@ data::Message::Message(QJsonObject& object,
 
     m_callDuration = object["call_duration"].toInt();
 
-    if (object.contains("photos")) {
-        QJsonArray photosArray = object["photos"].toArray();
-        for (const auto& value : photosArray) {
-            QJsonObject object = value.toObject();
+    auto loadPathArray = [&, rootFolder, object](const QString key,
+                                                 QStringList& array) {
+        QJsonArray jsonArray = object[key].toArray();
+        for (const auto& value : jsonArray) {
+            QJsonObject valueObject = value.toObject();
 
-            QString storedPath = object["uri"].toString();
-
-            m_pictures.push_back(rootFolder.filePath(
+            QString storedPath = valueObject["uri"].toString();
+            array.push_back(rootFolder.filePath(
                 storedPath.mid(storedPath.indexOf('/') + 1)));
         }
+    };
+
+    if (object.contains("photos")) {
+        loadPathArray("photos", m_pictures);
     }
 
     if (object.contains("share")) {
@@ -82,15 +86,18 @@ data::Message::Message(QJsonObject& object,
     }
 
     if (object.contains("files")) {
-        QJsonArray filesArray = object["files"].toArray();
-        for (const auto& value : filesArray) {
-            QJsonObject object = value.toObject();
+        loadPathArray("files", m_attachments);
+    }
 
-            QString storedPath = object["uri"].toString();
+    if (object.contains("gifs")) {
+        loadPathArray("gifs", m_gifs);
+    }
 
-            m_attachments.push_back(rootFolder.filePath(
-                storedPath.mid(storedPath.indexOf('/') + 1)));
-        }
+    if (object.contains("sticker")) {
+        QString storedPath = object["sticker"].toObject()["uri"].toString();
+
+        m_sticker =
+            rootFolder.filePath(storedPath.mid(storedPath.indexOf('/') + 1));
     }
 
     // Determine if this should be a system message instead of what Facebook

@@ -18,7 +18,10 @@ enum ModelData {
     Pictures,
     Attachments,
     AttachmentNames,
-    SharedLink
+    SharedLink,
+    Gifs,
+    Sticker,
+    AllImageMedia,
 };
 };  // namespace message
 

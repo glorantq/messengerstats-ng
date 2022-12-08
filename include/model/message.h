@@ -57,6 +57,8 @@ class Message {
     QList<QString> m_pictures{};
     QString m_sharedLink;
     QList<QString> m_attachments{};
+    QString m_sticker;
+    QList<QString> m_gifs{};
 
     // This is an extension I added, and is not contained in the original JSON
     // object
@@ -80,6 +82,8 @@ class Message {
     const QList<QString>& getPictures() const { return m_pictures; }
     const QString& getSharedLink() const { return m_sharedLink; }
     const QList<QString>& getAttachments() const { return m_attachments; }
+    const QString& getSticker() const { return m_sticker; }
+    const QList<QString>& getGifs() const { return m_gifs; }
 };
 
 };  // namespace data

@@ -53,3 +53,14 @@ QSize MessageItemDelegate::sizeHint(const QStyleOptionViewItem& option,
                    "fallback is nullptr!";
     return {};
 }
+
+void MessageItemDelegate::onAppColorSchemeChanged() {
+    m_rendererParameters.m_ownBubbleColor =
+        m_rendererParameters.m_parent->palette().color(QPalette::Highlight);
+    m_rendererParameters.m_textColor =
+        m_rendererParameters.m_parent->palette().color(QPalette::Text);
+    m_rendererParameters.m_darkOutline =
+        m_rendererParameters.m_parent->palette().color(QPalette::Window);
+    m_rendererParameters.m_otherBubbleColor =
+        m_rendererParameters.m_parent->palette().color(QPalette::Base);
+}

@@ -73,6 +73,20 @@ QVariant ThreadListModel::data(const QModelIndex& index, int role) const {
         return message.getSharedLink();
     }
 
+    if (role == message::ModelData::Gifs) {
+        return message.getGifs();
+    }
+
+    if (role == message::ModelData::Sticker) {
+        return message.getSticker();
+    }
+
+    if (role == message::ModelData::AllImageMedia) {
+        QString sticker = message.getSticker();
+        return message.getPictures() + message.getGifs() +
+               (sticker.isEmpty() ? QStringList{} : QStringList{sticker});
+    }
+
     return {};
 }
 
@@ -87,9 +101,14 @@ QHash<int, QByteArray> ThreadListModel::roleNames() const {
         {message::ModelData::RawPointer, "message_ptr"},
         {message::ModelData::CallDuration, "call_duration"},
         {message::ModelData::AuthorIdentifier, "sender_identifier"},
+        {message::ModelData::OwnerIdentifier, "owner_identifier"},
+        {message::ModelData::Pictures, "pictures"},
         {message::ModelData::AttachmentNames, "attachment_names"},
         {message::ModelData::Attachments, "attachments"},
         {message::ModelData::SharedLink, "shared_link"},
+        {message::ModelData::Gifs, "gifs"},
+        {message::ModelData::Sticker, "sticker"},
+        {message::ModelData::AllImageMedia, "all_image_media"},
     };
 }
 
