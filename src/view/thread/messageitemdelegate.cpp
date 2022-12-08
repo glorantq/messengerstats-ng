@@ -5,8 +5,6 @@
 
 #include "view/thread/threadlistmodel.h"
 
-// TODO: Share type messages (the generic renderer can probably do it)
-
 void MessageItemDelegate::paint(QPainter* painter,
                                 const QStyleOptionViewItem& option,
                                 const QModelIndex& index) const {

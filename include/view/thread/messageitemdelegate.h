@@ -32,6 +32,8 @@ class MessageItemDelegate : public QStyledItemDelegate {
              std::make_shared<renderer::CenteredMessageRenderer>()},
             {data::MessageType::NicknameChange,
              std::make_shared<renderer::CenteredMessageRenderer>()},
+            {data::MessageType::Share,
+             std::make_shared<renderer::GenericMessageRenderer>()},
         };
 
     const std::shared_ptr<renderer::IMessageRenderer> m_fallbackRenderer =

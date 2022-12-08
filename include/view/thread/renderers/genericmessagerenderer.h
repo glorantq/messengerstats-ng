@@ -25,8 +25,14 @@ class GenericMessageRenderer : public IMessageRenderer {
     inline const QPixmap getPixmapFromCache(const QString& path,
                                             const int& maxWidth) const;
     inline const int calculateTotalPicturesHeight(const QStringList& paths,
-                                                 const int& totalWidth,
-                                                 const int& margin) const;
+                                                  const int& totalWidth,
+                                                  const int& margin) const;
+    inline const QSize calculateTotalAttachmentsSize(const QStringList& names,
+                                                     const QRect& fitRectangle,
+                                                     const int iconSize,
+                                                     const int margin,
+                                                     const int largeMargin,
+                                                     const QFont& font) const;
 };
 
 };  // namespace renderer

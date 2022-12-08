@@ -55,6 +55,24 @@ QVariant ThreadListModel::data(const QModelIndex& index, int role) const {
         return message.getPictures();
     }
 
+    if (role == message::ModelData::Attachments) {
+        return message.getAttachments();
+    }
+
+    if (role == message::ModelData::AttachmentNames) {
+        QStringList attachmentNames;
+
+        for (const auto& path : message.getAttachments()) {
+            attachmentNames.push_back(QFileInfo(path).fileName());
+        }
+
+        return attachmentNames;
+    }
+
+    if (role == message::ModelData::SharedLink) {
+        return message.getSharedLink();
+    }
+
     return {};
 }
 
@@ -69,6 +87,9 @@ QHash<int, QByteArray> ThreadListModel::roleNames() const {
         {message::ModelData::RawPointer, "message_ptr"},
         {message::ModelData::CallDuration, "call_duration"},
         {message::ModelData::AuthorIdentifier, "sender_identifier"},
+        {message::ModelData::AttachmentNames, "attachment_names"},
+        {message::ModelData::Attachments, "attachments"},
+        {message::ModelData::SharedLink, "shared_link"},
     };
 }
 

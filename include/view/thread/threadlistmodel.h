@@ -16,6 +16,9 @@ enum ModelData {
     AuthorIdentifier,
     OwnerIdentifier,
     Pictures,
+    Attachments,
+    AttachmentNames,
+    SharedLink
 };
 };  // namespace message
 

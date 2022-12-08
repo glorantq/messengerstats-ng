@@ -14,5 +14,7 @@
         <file>resources/font/NotoColorEmoji-Regular.ttf</file>
         <file>resources/images/default-group.png</file>
         <file>resources/images/call.png</file>
+        <file>resources/images/file.png</file>
+        <file>resources/images/link.png</file>
     </qresource>
 </RCC>

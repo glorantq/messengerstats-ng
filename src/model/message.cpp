@@ -77,7 +77,21 @@ data::Message::Message(QJsonObject& object,
         }
     }
 
-    // TODO: Load attachments and shares
+    if (object.contains("share")) {
+        m_sharedLink = object["share"].toObject()["link"].toString();
+    }
+
+    if (object.contains("files")) {
+        QJsonArray filesArray = object["files"].toArray();
+        for (const auto& value : filesArray) {
+            QJsonObject object = value.toObject();
+
+            QString storedPath = object["uri"].toString();
+
+            m_attachments.push_back(rootFolder.filePath(
+                storedPath.mid(storedPath.indexOf('/') + 1)));
+        }
+    }
 
     // Determine if this should be a system message instead of what Facebook
     // tells us

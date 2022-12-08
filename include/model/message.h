@@ -55,6 +55,8 @@ class Message {
     unsigned int m_callDuration;
 
     QList<QString> m_pictures{};
+    QString m_sharedLink;
+    QList<QString> m_attachments{};
 
     // This is an extension I added, and is not contained in the original JSON
     // object
@@ -76,6 +78,8 @@ class Message {
     const unsigned int getCallDuration() const { return m_callDuration; }
     const QString& getSetNickname() const { return m_setNickname; }
     const QList<QString>& getPictures() const { return m_pictures; }
+    const QString& getSharedLink() const { return m_sharedLink; }
+    const QList<QString>& getAttachments() const { return m_attachments; }
 };
 
 };  // namespace data
