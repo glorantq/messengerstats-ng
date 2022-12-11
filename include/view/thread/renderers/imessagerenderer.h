@@ -25,7 +25,8 @@ struct RendererParameters {
     // bubble
     QColor m_darkOutline = QColor(18, 18, 18);
 
-    // Size of an icon if it is displayed in a message bubble (used for calls)
+    // Size of an icon if it is displayed in a message bubble (used for calls,
+    // attachments and links)
     int m_iconSize = 24;
 
     // The margin used when painting and size hinting elements, with
@@ -35,6 +36,10 @@ struct RendererParameters {
 
     // The radius of rounded rectangles
     int m_cornerRadius = 10;
+
+    int m_textSize = 9;
+
+    double m_thumbnailQuality = 1.;
 };
 
 // Superclass for all message renderers. Technically not an interface as it

@@ -23,15 +23,24 @@ ThreadPage::ThreadPage(QWidget* parent, data::Thread* thread)
 
     ui->nameLabel->setText(thread->getDisplayName());
 
-    if (thread->getThreadIcon()) {  // If the thread has an icon, use it
-        QPixmap iconPixmap(*thread->getThreadIcon());
-        ui->userPictureLabel->setPixmap(iconPixmap);
-    } else {
-        // Else, if this is a group use the default group avatar
+    auto setDefaultIcon = [&]() {
         if (thread->getThreadType() == data::ThreadType::RegularGroup) {
             ui->userPictureLabel->setPixmap(
                 QPixmap("://resources/images/default-group.png"));
         }
+    };
+
+    if (thread->getThreadIcon()) {  // If the thread has an icon, use it
+        QPixmap iconPixmap(*thread->getThreadIcon());
+
+        if (!iconPixmap.isNull()) {
+            ui->userPictureLabel->setPixmap(iconPixmap);
+        } else {
+            setDefaultIcon();
+        }
+    } else {
+        // Else, if this is a group use the default group avatar
+        setDefaultIcon();
     }
 
     // Set up the list view with out model and delegate. The model provides the
@@ -61,6 +70,30 @@ ThreadPage::ThreadPage(QWidget* parent, data::Thread* thread)
         Qt::ContextMenuPolicy::CustomContextMenu);
     connect(ui->messagesListView, &QListView::customContextMenuRequested, this,
             &ThreadPage::on_chatContextMenuRequested);
+
+    // This menu is shown when the user clicks on the hamburger menu to the
+    // right
+    QMenu* popupMenu = new QMenu;
+
+    QAction* threadInformationAction =
+        new QAction(QIcon("://resources/icon/silk/information.png"),
+                    tr("Thread information"), popupMenu);
+
+    QAction* threadStatisticsAction =
+        new QAction(QIcon("://resources/icon/silk/chart_bar.png"),
+                    tr("Statistics"), popupMenu);
+
+    QAction* threadOpenFolderAction =
+        new QAction(QIcon("://resources/icon/silk/folder.png"),
+                    tr("Open folder"), popupMenu);
+
+    popupMenu->addAction(threadInformationAction);
+    popupMenu->addAction(threadStatisticsAction);
+    popupMenu->addSeparator();
+    popupMenu->addAction(threadOpenFolderAction);
+
+    ui->menuButton->setMenu(popupMenu);
+    ui->menuButton->setStyleSheet("::menu-indicator{ image: none; }");
 }
 
 ThreadPage::~ThreadPage() {

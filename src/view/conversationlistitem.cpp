@@ -8,15 +8,24 @@ ConversationListItem::ConversationListItem(QWidget* parent,
 
     ui->userNameLabel->setText(thread->getDisplayName());
 
-    if (thread->getThreadIcon()) {  // If the thread has an icon use it
-        QPixmap iconPixmap(*thread->getThreadIcon());
-        ui->profilePictureLabel->setPixmap(iconPixmap);
-    } else {
-        // Else, if the thread is a group use the default group picture
+    auto setDefaultIcon = [&]() {
         if (thread->getThreadType() == data::ThreadType::RegularGroup) {
             ui->profilePictureLabel->setPixmap(
                 QPixmap("://resources/images/default-group.png"));
         }
+    };
+
+    if (thread->getThreadIcon()) {  // If the thread has an icon use it
+        QPixmap iconPixmap(*thread->getThreadIcon());
+
+        if (!iconPixmap.isNull()) {
+            ui->profilePictureLabel->setPixmap(iconPixmap);
+        } else {
+            // Else, if this is a group use the default group avatar
+            setDefaultIcon();
+        }
+    } else {
+        setDefaultIcon();
     }
 
     // If the thread is a group, display the number of participants as well as

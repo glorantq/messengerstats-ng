@@ -42,17 +42,20 @@ void renderer::GenericMessageRenderer::paint(
     int availableWidthForPictures = opt.rect.width() * !picturePaths.isEmpty();
     int totalPictureHeight =
         calculateTotalPicturesHeight(picturePaths, availableWidthForPictures,
-                                     parameters.m_margin) +
+                                     parameters.m_margin,
+                                     parameters.m_thumbnailQuality) +
         parameters.m_largeMargin;
 
     if (picturePaths.isEmpty()) {
         totalPictureHeight = 0;
     } else if (picturePaths.count() == 1) {
         int imageWidth =
-            getPixmapFromCache(picturePaths.first(), availableWidthForPictures)
-                .width();
+            getPixmapFromCache(picturePaths.first(), availableWidthForPictures,
+                               parameters.m_thumbnailQuality)
+                .width() /
+            parameters.m_thumbnailQuality;
 
-        availableWidthForPictures = imageWidth;
+        availableWidthForPictures = imageWidth - parameters.m_margin;
     }
 
     QSize totalAttachmentSize;
@@ -159,7 +162,8 @@ void renderer::GenericMessageRenderer::paint(
 
         int column = 0;
         for (const auto& path : picturePaths) {
-            QPixmap picture = getPixmapFromCache(path, maxWidthPerPicture);
+            QPixmap picture = getPixmapFromCache(path, maxWidthPerPicture,
+                                                 parameters.m_thumbnailQuality);
 
             int drawHeight =
                 ((float)picture.height() / (float)picture.width()) *
@@ -181,8 +185,7 @@ void renderer::GenericMessageRenderer::paint(
             }
         }
 
-        opt.rect.setTop(opt.rect.top() + rowHeight + parameters.m_margin +
-                        parameters.m_largeMargin);
+        opt.rect.setTop(opt.rect.top() + rowHeight + parameters.m_largeMargin);
     }
 
     if (attachmentNames.count() > 0) {
@@ -389,8 +392,9 @@ QSize renderer::GenericMessageRenderer::sizeHint(
 
     if (!picturePaths.isEmpty()) {
         height += calculateTotalPicturesHeight(picturePaths, opt.rect.width(),
-                                               parameters.m_margin) +
-                  parameters.m_largeMargin;
+                                               parameters.m_margin,
+                                               parameters.m_thumbnailQuality) +
+                  parameters.m_margin;
     }
 
     QList<QString> attachmentNames =
@@ -436,23 +440,36 @@ QSize renderer::GenericMessageRenderer::sizeHint(
 
 inline const QPixmap renderer::GenericMessageRenderer::getPixmapFromCache(
     const QString& path,
-    const int& maxWidth) const {
-    QPixmap cached;
-    if (!QPixmapCache::find(path, &cached)) {
-        cached = QPixmap(path);
-        cached = cached.scaledToWidth(vMin(maxWidth, 300, cached.width()),
-                                      Qt::SmoothTransformation);
+    const int& maxWidth,
+    const double& quality) const {
+    QString thumbnailPath =
+        QString("thumbnail-%1-%2-%3").arg(quality).arg(maxWidth).arg(path);
 
-        QPixmapCache::insert(path, cached);
+    QPixmap original;
+    QPixmap thumbnail;
+
+    if (!QPixmapCache::find(thumbnailPath, &thumbnail)) {
+        if (!QPixmapCache::find(path, &original)) {
+            original = QPixmap(path);
+
+            QPixmapCache::insert(path, original);
+        }
+
+        thumbnail = original.scaledToWidth(
+            vMin(maxWidth, 300, original.width()) * quality,
+            Qt::SmoothTransformation);
+
+        QPixmapCache::insert(thumbnailPath, thumbnail);
     }
 
-    return cached;
+    return thumbnail;
 }
 
 inline const int renderer::GenericMessageRenderer::calculateTotalPicturesHeight(
     const QStringList& paths,
     const int& totalWidth,
-    const int& margin) const {
+    const int& margin,
+    const double& quality) const {
     if (paths.isEmpty()) {
         return 0;
     }
@@ -467,10 +484,10 @@ inline const int renderer::GenericMessageRenderer::calculateTotalPicturesHeight(
 
     int column = 0;
     for (const auto& path : paths) {
-        QPixmap picture = getPixmapFromCache(path, maxWidthPerPicture);
+        QPixmap picture = getPixmapFromCache(path, maxWidthPerPicture, quality);
 
         if (singlePicture) {
-            maxWidthPerPicture = picture.width() - margin;
+            maxWidthPerPicture = (picture.width() / quality) - margin;
         }
 
         if (picture.width() == 0 || picture.height() == 0) {

@@ -16,6 +16,7 @@ void MessageItemDelegate::paint(QPainter* painter,
 
     QStyleOptionViewItem opt(option);
     opt.font.setHintingPreference(QFont::PreferNoHinting);
+    opt.font.setPointSize(m_rendererParameters.m_textSize);
 
 #ifdef QT_DEBUG
     // When debugging paint the clipping area of each item a dark shade of red,
@@ -41,6 +42,7 @@ QSize MessageItemDelegate::sizeHint(const QStyleOptionViewItem& option,
 
     QStyleOptionViewItem opt(option);
     opt.font.setHintingPreference(QFont::PreferNoHinting);
+    opt.font.setPointSize(m_rendererParameters.m_textSize);
 
     std::shared_ptr<renderer::IMessageRenderer> associatedRenderer =
         m_rendererMapping.value(messageType, m_fallbackRenderer);

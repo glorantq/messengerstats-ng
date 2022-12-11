@@ -77,6 +77,9 @@ set(PROJECT_SOURCES
         src/view/thread/renderers/fallbackmessagerenderer.cpp
         include/view/thread/renderers/imessagerenderer.h
         src/model/common.cpp
+        include/view/preferencesdialog.h
+        src/view/preferencesdialog.cpp
+        src/view/preferencesdialog.ui
         resources.qrc
 )
 

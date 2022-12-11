@@ -4,12 +4,12 @@
 <context>
     <name>ConversationListItem</name>
     <message>
-        <location filename="src/view/conversationlistitem.cpp" line="26"/>
+        <location filename="src/view/conversationlistitem.cpp" line="35"/>
         <source>%1 messages • %2 participants</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/conversationlistitem.cpp" line="31"/>
+        <location filename="src/view/conversationlistitem.cpp" line="40"/>
         <source>%1 messages</source>
         <translation type="unfinished"></translation>
     </message>
@@ -115,12 +115,12 @@
 <context>
     <name>IMessageRenderer</name>
     <message>
-        <location filename="include/view/thread/renderers/imessagerenderer.h" line="60"/>
+        <location filename="include/view/thread/renderers/imessagerenderer.h" line="65"/>
         <source>yyyy. MM. dd. hh:mm:ss</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/thread/renderers/imessagerenderer.h" line="67"/>
+        <location filename="include/view/thread/renderers/imessagerenderer.h" line="72"/>
         <source>%1 minutes, %2 seconds</source>
         <translation type="unfinished"></translation>
     </message>
@@ -138,28 +138,33 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.ui" line="78"/>
-        <location filename="src/view/mainwindow.ui" line="116"/>
+        <location filename="src/view/mainwindow.ui" line="79"/>
+        <location filename="src/view/mainwindow.ui" line="117"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.ui" line="92"/>
+        <location filename="src/view/mainwindow.ui" line="93"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.ui" line="104"/>
+        <location filename="src/view/mainwindow.ui" line="105"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.ui" line="125"/>
+        <location filename="src/view/mainwindow.ui" line="126"/>
         <source>About Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="106"/>
+        <location filename="src/view/mainwindow.ui" line="135"/>
+        <source>Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/mainwindow.cpp" line="107"/>
         <source>
 &lt;h2&gt;%1 &lt;small&gt;%2&lt;/small&gt;&lt;/h2&gt;
 &lt;p&gt;Marcella.&lt;/p&gt;
@@ -170,28 +175,125 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="122"/>
+        <location filename="src/view/mainwindow.cpp" line="129"/>
         <source>Open a data download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="164"/>
+        <location filename="src/view/mainwindow.cpp" line="171"/>
         <source>The selected directory does not exist!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="170"/>
+        <location filename="src/view/mainwindow.cpp" line="177"/>
         <source>The selected directory contains a messages directory, but changing to it failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="179"/>
+        <location filename="src/view/mainwindow.cpp" line="186"/>
         <source>The directory you selected does not appear to be a valid Messenger data download.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="207"/>
+        <location filename="src/view/mainwindow.cpp" line="214"/>
         <source>Failed to parse data archive: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PreferencesDialog</name>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="14"/>
+        <source>%1 - Preferences</source>
+        <comment>The placeholder is the application name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="37"/>
+        <source>Appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="49"/>
+        <source>Global</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="55"/>
+        <source>Background:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="72"/>
+        <source>Colour scheme:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="98"/>
+        <source>Messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="104"/>
+        <source>Text size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="114"/>
+        <source> pt.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="154"/>
+        <source>Advanced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="166"/>
+        <source>Performance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="172"/>
+        <source>Image cache size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="185"/>
+        <source> MB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="204"/>
+        <source>Thumbnail quality:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="217"/>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.ui" line="287"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ThreadPage</name>
+    <message>
+        <location filename="src/view/threadpage.cpp" line="80"/>
+        <source>Thread information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/threadpage.cpp" line="84"/>
+        <source>Statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/threadpage.cpp" line="88"/>
+        <source>Open folder</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

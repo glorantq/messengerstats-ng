@@ -28,6 +28,8 @@ class MainWindow : public QMainWindow {
     void on_navigateToConversation(data::Thread*);
     void on_threadBackPressed();
 
+    void on_action_preferences_triggered();
+
    private:
     Ui::MainWindow* ui;
 

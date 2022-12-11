@@ -7,6 +7,7 @@
 #include <QMessageBox>
 
 #include "view/conversationspage.h"
+#include "view/preferencesdialog.h"
 #include "view/threadpage.h"
 
 MainWindow::MainWindow(QWidget* parent)
@@ -116,6 +117,12 @@ void MainWindow::on_action_about_triggered() {
 
 void MainWindow::on_action_quit_triggered() {
     QCoreApplication::quit();
+}
+
+void MainWindow::on_action_preferences_triggered() {
+    PreferencesDialog preferencesDialog(this);
+
+    preferencesDialog.exec();
 }
 
 void MainWindow::on_action_openProject_triggered() {

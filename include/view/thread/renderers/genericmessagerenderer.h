@@ -23,10 +23,12 @@ class GenericMessageRenderer : public IMessageRenderer {
 
    private:
     inline const QPixmap getPixmapFromCache(const QString& path,
-                                            const int& maxWidth) const;
+                                            const int& maxWidth,
+                                            const double& quality) const;
     inline const int calculateTotalPicturesHeight(const QStringList& paths,
                                                   const int& totalWidth,
-                                                  const int& margin) const;
+                                                  const int& margin,
+                                                  const double& quality) const;
     inline const QSize calculateTotalAttachmentsSize(const QStringList& names,
                                                      const QRect& fitRectangle,
                                                      const int iconSize,

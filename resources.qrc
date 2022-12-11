@@ -16,5 +16,9 @@
         <file>resources/images/call.png</file>
         <file>resources/images/file.png</file>
         <file>resources/images/link.png</file>
+        <file>resources/icon/silk/wrench.png</file>
+        <file>resources/icon/silk/hamburger_menu.png</file>
+        <file>resources/icon/silk/chart_bar.png</file>
+        <file>resources/icon/silk/paint.png</file>
     </qresource>
 </RCC>
