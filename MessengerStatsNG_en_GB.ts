@@ -164,43 +164,51 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="107"/>
+        <location filename="src/view/mainwindow.cpp" line="109"/>
         <source>
 &lt;h2&gt;%1 &lt;small&gt;%2&lt;/small&gt;&lt;/h2&gt;
 &lt;p&gt;Marcella.&lt;/p&gt;
 
 &lt;h4&gt;Third-party attributions&lt;/h4&gt;
-&lt;p&gt;Uses the &quot;Silk&quot; icon set, licensed under CC-BY-2.5, from &lt;a href=&quot;http://www.famfamfam.com/lab/icons/silk/&quot;&gt;FAMFAMFAM&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Uses the &quot;Silk&quot; icon set, licensed under CC-BY-2.5, from &lt;a href=&quot;http://www.famfamfam.com/lab/icons/silk/&quot;&gt;FAMFAMFAM&lt;/a&gt;
+Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5, from &lt;a href=&quot;https://github.com/damieng/silk-companion&quot;&gt;damieng&lt;/a&gt;&lt;br&gt;&lt;/p&gt;
 </source>
+        <oldsource>
+&lt;h2&gt;%1 &lt;small&gt;%2&lt;/small&gt;&lt;/h2&gt;
+&lt;p&gt;Marcella.&lt;/p&gt;
+
+&lt;h4&gt;Third-party attributions&lt;/h4&gt;
+&lt;p&gt;Uses the &quot;Silk&quot; icon set, licensed under CC-BY-2.5, from &lt;a href=&quot;http://www.famfamfam.com/lab/icons/silk/&quot;&gt;FAMFAMFAM&lt;/a&gt;&lt;/p&gt;
+</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="127"/>
+        <location filename="src/view/mainwindow.cpp" line="138"/>
         <source>Some settings may need an application restart to take effect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="133"/>
+        <location filename="src/view/mainwindow.cpp" line="144"/>
         <source>Open a data download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="175"/>
+        <location filename="src/view/mainwindow.cpp" line="214"/>
         <source>The selected directory does not exist!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="181"/>
+        <location filename="src/view/mainwindow.cpp" line="220"/>
         <source>The selected directory contains a messages directory, but changing to it failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="190"/>
+        <location filename="src/view/mainwindow.cpp" line="229"/>
         <source>The directory you selected does not appear to be a valid Messenger data download.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="218"/>
+        <location filename="src/view/mainwindow.cpp" line="257"/>
         <source>Failed to parse data archive: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -332,28 +340,68 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="src/view/themeservice.cpp" line="51"/>
+        <source>Green</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="src/view/themeservice.cpp" line="52"/>
-        <source>Pastel blue</source>
+        <source>Light green</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="src/view/themeservice.cpp" line="53"/>
-        <source>Pastel light blue</source>
+        <source>Red</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="src/view/themeservice.cpp" line="54"/>
-        <source>Pastel orange</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="src/view/themeservice.cpp" line="55"/>
-        <source>Pastel pink</source>
+        <source>Yellow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="src/view/themeservice.cpp" line="56"/>
+        <source>Pastel blue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="57"/>
+        <source>Pastel light blue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="58"/>
+        <source>Pastel orange</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="59"/>
+        <source>Pastel pink</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="60"/>
         <source>Pastel purple</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="61"/>
+        <source>Pastel green</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="62"/>
+        <source>Pastel light green</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="63"/>
+        <source>Pastel red</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="64"/>
+        <source>Pastel yellow</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -365,12 +413,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/threadpage.cpp" line="84"/>
+        <location filename="src/view/threadpage.cpp" line="87"/>
         <source>Statistics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/threadpage.cpp" line="88"/>
+        <location filename="src/view/threadpage.cpp" line="91"/>
         <source>Open folder</source>
         <translation type="unfinished"></translation>
     </message>

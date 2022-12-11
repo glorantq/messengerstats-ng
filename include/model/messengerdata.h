@@ -23,6 +23,8 @@ class MessengerData {
     // All threads contained in this data download
     QList<std::shared_ptr<Thread>> m_threads{};
 
+    QDir m_rootDirectory;
+
    public:
     explicit MessengerData() {}
     MessengerData(const MessengerData&) {}
@@ -42,6 +44,8 @@ class MessengerData {
     const ThreadParticipant getOwner() const {
         return {m_ownerIdentifier, getNameForUUID(m_ownerIdentifier)};
     }
+
+    const QDir& getRootDirectory() const { return m_rootDirectory; }
 };
 
 };  // namespace data

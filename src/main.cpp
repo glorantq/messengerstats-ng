@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 
     QPixmapCache::setCacheLimit(pixmapCacheSize);  // In kilobytes
 
-    qDebug() << "Pixmap cache size set to" << pixmapCacheSize << "kB";
+    qDebug() << "Pixmap cache size set to:" << pixmapCacheSize / 1024 << "MB";
 
     MainWindow w;
     w.show();

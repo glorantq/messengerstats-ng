@@ -40,7 +40,6 @@ PreferencesDialog::PreferencesDialog(QWidget* parent)
         QStringList colorNames = theme::ThemeService::getColorNames();
 
         for (const auto& color : colorNames) {
-            qDebug() << color;
             ui->colorSchemeComboBox->addItem(color);
         }
 

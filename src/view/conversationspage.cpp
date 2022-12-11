@@ -134,6 +134,16 @@ void ConversationsPage::on_conversationList_itemDoubleClicked(
     emit navigateToConversation(thread);
 }
 
+void ConversationsPage::on_settingsChanged() {
+    QPalette listPalette = palette();
+    listPalette.setColor(QPalette::Highlight,
+                         palette().color(QPalette::AlternateBase));
+    listPalette.setColor(QPalette::Base, palette().color(QPalette::Window));
+    listPalette.setColor(QPalette::AlternateBase,
+                         palette().color(QPalette::Window));
+    ui->conversationList->setPalette(listPalette);
+}
+
 // The comparator for the thread items, allowing multiple sorting modes, based
 // on the value of QT_DATA_SORTING_MODE
 bool CustomListWidgetItem::operator<(const QListWidgetItem& other) const {

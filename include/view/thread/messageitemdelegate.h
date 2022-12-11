@@ -8,6 +8,7 @@
 #include "view/thread/renderers/genericmessagerenderer.h"
 #include "view/thread/renderers/imessagerenderer.h"
 
+#include <QApplication>
 #include <QMap>
 #include <QPainter>
 #include <QSettings>
@@ -46,20 +47,22 @@ class MessageItemDelegate : public QStyledItemDelegate {
     MessageItemDelegate(QWidget* parent) {
         m_rendererParameters.m_parent = parent;
 
+        refreshTheme();
+    }
+
+    void refreshTheme() {
         // These colours have sensible defaults set, but they are overridden
         // here by the palette of the parent widget to blend in with the
         // application's style, to allow easy theme switching (and because it
         // makes sense to use the parent's palette instead of defining an entire
         // new colour set just for messages)
 
+        QPalette palette = QApplication::palette();
         m_rendererParameters.m_ownBubbleColor =
-            parent->palette().color(QPalette::Highlight);
-        m_rendererParameters.m_textColor =
-            parent->palette().color(QPalette::Text);
-        m_rendererParameters.m_darkOutline =
-            parent->palette().color(QPalette::Window);
-        m_rendererParameters.m_otherBubbleColor =
-            parent->palette().color(QPalette::Base);
+            palette.color(QPalette::Highlight);
+        m_rendererParameters.m_textColor = palette.color(QPalette::Text);
+        m_rendererParameters.m_darkOutline = palette.color(QPalette::Window);
+        m_rendererParameters.m_otherBubbleColor = palette.color(QPalette::Base);
 
         QSettings settings;
 

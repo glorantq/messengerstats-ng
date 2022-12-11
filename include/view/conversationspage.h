@@ -43,6 +43,9 @@ class ConversationsPage : public QWidget {
     void on_sortOrderButton_clicked();
     void on_conversationList_itemDoubleClicked(QListWidgetItem* item);
 
+   public slots:
+    void on_settingsChanged();
+
    private:
     Ui::ConversationsPage* ui;
 

@@ -45,8 +45,9 @@ class Thread {
                     MessageClassifiers&,
                     std::shared_ptr<MessengerData>);
 
-    const QString getDisplayName() const { return m_displayName; }
-    const std::optional<QString> getThreadIcon() const { return m_threadIcon; }
+    const QString& getDisplayName() const { return m_displayName; }
+    const QString& getThreadPath() const { return m_threadPath; }
+    const std::optional<QString>& getThreadIcon() const { return m_threadIcon; }
     const ThreadType getThreadType() const { return m_threadType; }
 
     const QList<ThreadParticipant> getParticipants() const;
@@ -60,6 +61,10 @@ class Thread {
 
     const QUuid& getOwnerIdentifier() const;
     const ThreadParticipant getOwner() const;
+
+    const std::shared_ptr<MessengerData> getOwnerDownload() const {
+        return m_owner;
+    }
 };
 
 };  // namespace data

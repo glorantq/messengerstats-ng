@@ -16,6 +16,8 @@ std::shared_ptr<data::MessengerData> data::MessengerData::loadFromDirectory(
 
     std::shared_ptr<MessengerData> object = std::make_shared<MessengerData>();
 
+    object->m_rootDirectory = directory;
+
     // Try to determine the owner of this data download. If it's not possible,
     // just use a random string as a name. This doesn't really matter, as this
     // information is only used for rendering over in the view, and nickname

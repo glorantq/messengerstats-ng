@@ -79,6 +79,9 @@ ThreadPage::ThreadPage(QWidget* parent, data::Thread* thread)
         new QAction(QIcon("://resources/icon/silk/information.png"),
                     tr("Thread information"), popupMenu);
 
+    connect(threadInformationAction, &QAction::triggered,
+            [&]() { emit onThreadInformationPressed(m_thread); });
+
     QAction* threadStatisticsAction =
         new QAction(QIcon("://resources/icon/silk/chart_bar.png"),
                     tr("Statistics"), popupMenu);
@@ -87,12 +90,17 @@ ThreadPage::ThreadPage(QWidget* parent, data::Thread* thread)
         new QAction(QIcon("://resources/icon/silk/folder.png"),
                     tr("Open folder"), popupMenu);
 
+    connect(threadOpenFolderAction, &QAction::triggered,
+            [&]() { emit onOpenDirectoryPressed(m_thread); });
+
     popupMenu->addAction(threadInformationAction);
     popupMenu->addAction(threadStatisticsAction);
     popupMenu->addSeparator();
     popupMenu->addAction(threadOpenFolderAction);
 
     ui->menuButton->setMenu(popupMenu);
+
+    // Evil stylesheets
     ui->menuButton->setStyleSheet("::menu-indicator{ image: none; }");
 }
 
@@ -106,7 +114,11 @@ void ThreadPage::on_backButton_clicked() {
 }
 
 void ThreadPage::on_messagesListView_doubleClicked(const QModelIndex& index) {
-    qDebug() << "Double clicked" << index.row();
+    data::Message* messagePointer =
+        (data::Message*)index.data(message::ModelData::RawPointer)
+            .toULongLong();
+
+    emit onMessageInformationRequested(messagePointer);
 }
 
 void ThreadPage::on_chatContextMenuRequested(const QPoint& position) {
@@ -122,4 +134,23 @@ void ThreadPage::on_chatContextMenuRequested(const QPoint& position) {
 
     QPoint globalPos = ui->messagesListView->mapToGlobal(position);
     contextMenu.exec(globalPos);
+}
+
+void ThreadPage::on_settingsChanged() {
+    QPalette listPalette = palette();
+    listPalette.setColor(QPalette::Highlight,
+                         palette().color(QPalette::AlternateBase));
+    listPalette.setColor(QPalette::Base, palette().color(QPalette::Window));
+    listPalette.setColor(QPalette::AlternateBase,
+                         palette().color(QPalette::Window));
+    ui->messagesListView->setPalette(listPalette);
+
+    MessageItemDelegate* delegate =
+        (MessageItemDelegate*)ui->messagesListView->itemDelegate();
+
+    delegate->refreshTheme();
+
+    // This is why you don't use stylesheets, it needs to be set again to
+    // reflect palette changes
+    ui->menuButton->setStyleSheet("::menu-indicator{ image: none; }");
 }

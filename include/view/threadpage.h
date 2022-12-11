@@ -21,11 +21,17 @@ class ThreadPage : public QWidget {
 
    signals:
     void onBackPressed();
+    void onOpenDirectoryPressed(data::Thread*);
+    void onThreadInformationPressed(data::Thread*);
+    void onMessageInformationRequested(data::Message*);
 
    private slots:
     void on_backButton_clicked();
     void on_messagesListView_doubleClicked(const QModelIndex& index);
     void on_chatContextMenuRequested(const QPoint& position);
+
+   public slots:
+    void on_settingsChanged();
 
    private:
     Ui::ThreadPage* ui;

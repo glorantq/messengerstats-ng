@@ -48,12 +48,20 @@ const QList<QPair<QString, QColor>> theme::ThemeService::s_colors = {
     {tr("Orange"), QColor(255, 131, 16)},
     {tr("Pink"), QColor(255, 92, 161)},
     {tr("Purple"), QColor(165, 152, 255)},
+    {tr("Green"), QColor(0, 163, 44)},
+    {tr("Light green"), QColor(0, 201, 46)},
+    {tr("Red"), QColor(255, 49, 30)},
+    {tr("Yellow"), QColor(250, 175, 0)},
 
     {tr("Pastel blue"), QColor(152, 168, 248)},
     {tr("Pastel light blue"), QColor(188, 206, 248)},
     {tr("Pastel orange"), QColor(250, 171, 120)},
     {tr("Pastel pink"), QColor(255, 225, 225)},
     {tr("Pastel purple"), QColor(127, 102, 157)},
+    {tr("Pastel green"), QColor(130, 148, 96)},
+    {tr("Pastel light green"), QColor(198, 213, 126)},
+    {tr("Pastel red"), QColor(233, 119, 119)},
+    {tr("Pastel yellow"), QColor(252, 221, 176)},
 };
 
 void theme::ThemeService::apply(int baseIndex, int colorIndex) {

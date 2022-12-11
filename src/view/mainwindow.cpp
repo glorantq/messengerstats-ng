@@ -1,10 +1,12 @@
 #include "view/mainwindow.h"
 #include "./ui_mainwindow.h"
 
+#include <QDesktopServices>
 #include <QDir>
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QPixmapCache>
 
 #include "view/conversationspage.h"
 #include "view/preferencesdialog.h"
@@ -109,7 +111,8 @@ void MainWindow::on_action_about_triggered() {
 <p>Marcella.</p>
 
 <h4>Third-party attributions</h4>
-<p>Uses the "Silk" icon set, licensed under CC-BY-2.5, from <a href="http://www.famfamfam.com/lab/icons/silk/">FAMFAMFAM</a></p>
+<p>Uses the "Silk" icon set, licensed under CC-BY-2.5, from <a href="http://www.famfamfam.com/lab/icons/silk/">FAMFAMFAM</a>
+Uses the "Silk Icons Companion #1" icon set, licensed under CC-BY-2.5, from <a href="https://github.com/damieng/silk-companion">damieng</a><br></p>
 )")
                            .arg(QCoreApplication::applicationName())
                            .arg(QCoreApplication::applicationVersion()));
@@ -123,6 +126,14 @@ void MainWindow::on_action_preferences_triggered() {
     PreferencesDialog preferencesDialog(this);
 
     if (preferencesDialog.exec() == QDialog::Accepted) {
+        setPalette(QApplication::palette());
+
+        for (int i = 0; i < ui->stackedWidget->count(); i++) {
+            ui->stackedWidget->widget(i)->setPalette(palette());
+        }
+
+        emit onSettingsChanged();
+
         QMessageBox::warning(this, QCoreApplication::applicationName(),
                              tr("Some settings may need an application restart "
                                 "to take effect."));
@@ -153,10 +164,28 @@ void MainWindow::on_navigateToConversation(data::Thread* thread) {
     ui->stackedWidget->addWidget(threadPage);
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->count() - 1);
 
+    // Connect our settings changed event to the new page's slot so it can adapt
+    // to theme changes
+    connect(this, &MainWindow::onSettingsChanged, threadPage,
+            &ThreadPage::on_settingsChanged);
+
     // Connect the back button event of the newly opened page, so the user can
     // close it and open another thread instead
     connect(threadPage, &ThreadPage::onBackPressed, this,
             &MainWindow::on_threadBackPressed);
+
+    // Connect the event for opening the thread's directory, and actually
+    // perform said opening of directory
+    connect(threadPage, &ThreadPage::onOpenDirectoryPressed, this,
+            &MainWindow::on_threadOpenDirectoryPressed);
+
+    // Connect the event for opening information about this thread
+    connect(threadPage, &ThreadPage::onThreadInformationPressed, this,
+            &MainWindow::on_threadInformationPressed);
+
+    // Connect the event for opening information about a specific message
+    connect(threadPage, &ThreadPage::onMessageInformationRequested, this,
+            &MainWindow::on_messageInformationRequested);
 }
 
 // Handles the event of pressing the back button in a thread, emitted by
@@ -164,6 +193,16 @@ void MainWindow::on_navigateToConversation(data::Thread* thread) {
 void MainWindow::on_threadBackPressed() {
     popCurrentPage();
 }
+
+void MainWindow::on_threadOpenDirectoryPressed(data::Thread* thread) {
+    QDesktopServices::openUrl(QUrl::fromLocalFile(
+        thread->getOwnerDownload()->getRootDirectory().filePath(
+            thread->getThreadPath())));
+}
+
+void MainWindow::on_threadInformationPressed(data::Thread*) {}
+
+void MainWindow::on_messageInformationRequested(data::Message*) {}
 
 // Asks the user for a directory to open, then tries to parse it as a GDPR
 // data takeout. If it succeeds, then a navigation to the thread page occurs
@@ -230,6 +269,11 @@ void MainWindow::performDirectoryOpen(QString selectedPath) {
         // Connect the navigation signal so we can actually open threads
         connect(conversationsPage, &ConversationsPage::navigateToConversation,
                 this, &MainWindow::on_navigateToConversation);
+
+        // Connect our settings changed event to the new page's slot so it can
+        // adapt to theme changes
+        connect(this, &MainWindow::onSettingsChanged, conversationsPage,
+                &ConversationsPage::on_settingsChanged);
     }
 }
 
