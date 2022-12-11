@@ -1,6 +1,7 @@
 #pragma once
 
 #include "model/message.h"
+#include "view/settings.h"
 #include "view/thread/renderers/callmessagerenderer.h"
 #include "view/thread/renderers/centeredmessagerenderer.h"
 #include "view/thread/renderers/fallbackmessagerenderer.h"
@@ -9,6 +10,7 @@
 
 #include <QMap>
 #include <QPainter>
+#include <QSettings>
 #include <QStyledItemDelegate>
 
 #include <memory>
@@ -58,6 +60,21 @@ class MessageItemDelegate : public QStyledItemDelegate {
             parent->palette().color(QPalette::Window);
         m_rendererParameters.m_otherBubbleColor =
             parent->palette().color(QPalette::Base);
+
+        QSettings settings;
+
+        int textSize =
+            settings
+                .value(SETTINGS_KEY_TEXT_SIZE, m_rendererParameters.m_textSize)
+                .toInt();
+        m_rendererParameters.m_textSize = textSize;
+
+        double thumbnailQuality =
+            settings
+                .value(SETTINGS_KEY_THUMBNAIL_QUALITY,
+                       m_rendererParameters.m_thumbnailQuality)
+                .toDouble();
+        m_rendererParameters.m_thumbnailQuality = thumbnailQuality;
     }
 
     // Main rendering method of the delegate set on the list, it's funny because

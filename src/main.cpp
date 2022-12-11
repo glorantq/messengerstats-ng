@@ -4,10 +4,13 @@
 #include <QFontDatabase>
 #include <QLocale>
 #include <QPixmapCache>
+#include <QSettings>
 #include <QStyleFactory>
 #include <QTranslator>
 
 #include "generated/version.h"
+#include "view/settings.h"
+#include "view/themeservice.h"
 
 int main(int argc, char* argv[]) {
     qSetMessagePattern(
@@ -20,42 +23,12 @@ int main(int argc, char* argv[]) {
 
     QApplication a(argc, argv);
 
-    // Initialise the colour scheme of the application to closely mimic that of
-    // Messenger, just for fun
-
-    // TODO: Maybe more themes?
-
     a.setStyle(QStyleFactory::create("Fusion"));
 
-    QPalette darkPalette;
-    darkPalette.setColor(QPalette::Window, QColor(18, 18, 18));
-    darkPalette.setColor(QPalette::WindowText, QColor(239, 239, 239));
-    darkPalette.setColor(QPalette::Disabled, QPalette::WindowText,
-                         QColor(127, 127, 127));
-    darkPalette.setColor(QPalette::Base, QColor(28, 28, 28));
-    darkPalette.setColor(QPalette::AlternateBase, QColor(66, 66, 66));
-    darkPalette.setColor(QPalette::ToolTipBase, QColor(239, 239, 239));
-    darkPalette.setColor(QPalette::ToolTipText, QColor(239, 239, 239));
-    darkPalette.setColor(QPalette::Text, QColor(239, 239, 239));
-    darkPalette.setColor(QPalette::Disabled, QPalette::Text,
-                         QColor(127, 127, 127));
-    darkPalette.setColor(QPalette::Dark, QColor(18, 18, 18));
-    darkPalette.setColor(QPalette::Shadow, QColor(20, 20, 20));
-    darkPalette.setColor(QPalette::Button, QColor(18, 18, 18));
-    darkPalette.setColor(QPalette::ButtonText, QColor(239, 239, 239));
-    darkPalette.setColor(QPalette::Disabled, QPalette::ButtonText,
-                         QColor(127, 127, 127));
-    darkPalette.setColor(QPalette::BrightText, Qt::red);
-    darkPalette.setColor(QPalette::Link, QColor(0, 132, 255));
-    darkPalette.setColor(QPalette::Highlight, QColor(0, 132, 255));
-    darkPalette.setColor(QPalette::Disabled, QPalette::Highlight,
-                         QColor(80, 80, 80));
-    darkPalette.setColor(QPalette::HighlightedText, QColor(239, 239, 239));
-    darkPalette.setColor(QPalette::Disabled, QPalette::HighlightedText,
-                         QColor(127, 127, 127));
-    darkPalette.setColor(QPalette::PlaceholderText, QColor(239, 239, 239));
-
-    a.setPalette(darkPalette);
+    QSettings settings;
+    int baseIndex = settings.value(SETTINGS_KEY_BACKGROUND_THEME, 0).toInt();
+    int colorIndex = settings.value(SETTINGS_KEY_COLOR_SCHEME, 0).toInt();
+    theme::ThemeService::apply(baseIndex, colorIndex);
 
     // Load the fonts used for the UI
 
@@ -94,8 +67,12 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    // Reserve a good chunk of memory for pixmap caching
-    QPixmapCache::setCacheLimit(1024 * 1024);  // In kilobytes
+    unsigned int pixmapCacheSize =
+        settings.value(SETTINGS_KEY_IMAGE_CACHE_SIZE, 1024).toUInt() * 1024;
+
+    QPixmapCache::setCacheLimit(pixmapCacheSize);  // In kilobytes
+
+    qDebug() << "Pixmap cache size set to" << pixmapCacheSize << "kB";
 
     MainWindow w;
     w.show();

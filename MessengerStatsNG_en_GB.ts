@@ -175,27 +175,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="129"/>
+        <location filename="src/view/mainwindow.cpp" line="127"/>
+        <source>Some settings may need an application restart to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/mainwindow.cpp" line="133"/>
         <source>Open a data download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="171"/>
+        <location filename="src/view/mainwindow.cpp" line="175"/>
         <source>The selected directory does not exist!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="177"/>
+        <location filename="src/view/mainwindow.cpp" line="181"/>
         <source>The selected directory contains a messages directory, but changing to it failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="186"/>
+        <location filename="src/view/mainwindow.cpp" line="190"/>
         <source>The directory you selected does not appear to be a valid Messenger data download.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="214"/>
+        <location filename="src/view/mainwindow.cpp" line="218"/>
         <source>Failed to parse data archive: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -224,7 +229,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="72"/>
+        <location filename="src/view/preferencesdialog.ui" line="82"/>
         <source>Colour scheme:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -276,6 +281,79 @@
     <message>
         <location filename="src/view/preferencesdialog.ui" line="287"/>
         <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ThemeService</name>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="23"/>
+        <source>Dark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="24"/>
+        <source>Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="26"/>
+        <source>Pastel dark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="35"/>
+        <source>Pastel light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="46"/>
+        <source>Blue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="47"/>
+        <source>Light blue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="48"/>
+        <source>Orange</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="49"/>
+        <source>Pink</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="50"/>
+        <source>Purple</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="52"/>
+        <source>Pastel blue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="53"/>
+        <source>Pastel light blue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="54"/>
+        <source>Pastel orange</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="55"/>
+        <source>Pastel pink</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/themeservice.cpp" line="56"/>
+        <source>Pastel purple</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

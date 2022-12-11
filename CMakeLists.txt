@@ -80,6 +80,9 @@ set(PROJECT_SOURCES
         include/view/preferencesdialog.h
         src/view/preferencesdialog.cpp
         src/view/preferencesdialog.ui
+        include/view/settings.h
+        include/view/themeservice.h
+        src/view/themeservice.cpp
         resources.qrc
 )
 

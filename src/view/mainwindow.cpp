@@ -122,7 +122,11 @@ void MainWindow::on_action_quit_triggered() {
 void MainWindow::on_action_preferences_triggered() {
     PreferencesDialog preferencesDialog(this);
 
-    preferencesDialog.exec();
+    if (preferencesDialog.exec() == QDialog::Accepted) {
+        QMessageBox::warning(this, QCoreApplication::applicationName(),
+                             tr("Some settings may need an application restart "
+                                "to take effect."));
+    }
 }
 
 void MainWindow::on_action_openProject_triggered() {
