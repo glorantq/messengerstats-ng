@@ -39,6 +39,8 @@ class Thread {
     QList<Message> m_messages{};
     QList<QUuid> m_participants;
 
+    QMap<QUuid, QList<Nickname>> m_usedNicknames{};
+
    public:
     explicit Thread(QDir dataFolder,
                     QDir rootFolder,
@@ -64,6 +66,10 @@ class Thread {
 
     const std::shared_ptr<MessengerData> getOwnerDownload() const {
         return m_owner;
+    }
+
+    const QMap<QUuid, QList<Nickname>>& getNicknames() const {
+        return m_usedNicknames;
     }
 };
 

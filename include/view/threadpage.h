@@ -29,6 +29,7 @@ class ThreadPage : public QWidget {
     void on_backButton_clicked();
     void on_messagesListView_doubleClicked(const QModelIndex& index);
     void on_chatContextMenuRequested(const QPoint& position);
+    void openSearchDialog();
 
    public slots:
     void on_settingsChanged();

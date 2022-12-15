@@ -9,6 +9,7 @@
 #include <QScrollBar>
 
 #include "view/thread/messageitemdelegate.h"
+#include "view/thread/searchdialog.h"
 #include "view/thread/threadlistmodel.h"
 
 ThreadPage::ThreadPage(QWidget* parent, data::Thread* thread)
@@ -82,6 +83,12 @@ ThreadPage::ThreadPage(QWidget* parent, data::Thread* thread)
     connect(threadInformationAction, &QAction::triggered,
             [&]() { emit onThreadInformationPressed(m_thread); });
 
+    QAction* searchAction = new QAction(
+        QIcon("://resources/icon/silk/magnifier.png"), tr("Search"), popupMenu);
+
+    connect(searchAction, &QAction::triggered, this,
+            &ThreadPage::openSearchDialog);
+
     QAction* threadStatisticsAction =
         new QAction(QIcon("://resources/icon/silk/chart_bar.png"),
                     tr("Statistics"), popupMenu);
@@ -94,6 +101,8 @@ ThreadPage::ThreadPage(QWidget* parent, data::Thread* thread)
             [&]() { emit onOpenDirectoryPressed(m_thread); });
 
     popupMenu->addAction(threadInformationAction);
+    popupMenu->addSeparator();
+    popupMenu->addAction(searchAction);
     popupMenu->addAction(threadStatisticsAction);
     popupMenu->addSeparator();
     popupMenu->addAction(threadOpenFolderAction);
@@ -101,7 +110,7 @@ ThreadPage::ThreadPage(QWidget* parent, data::Thread* thread)
     ui->menuButton->setMenu(popupMenu);
 
     // Evil stylesheets
-    ui->menuButton->setStyleSheet("::menu-indicator{ image: none; }");
+    ui->menuButton->setStyleSheet("::menu-indicator { image: none; }");
 }
 
 ThreadPage::~ThreadPage() {
@@ -129,11 +138,40 @@ void ThreadPage::on_chatContextMenuRequested(const QPoint& position) {
 
     QModelIndex selected = selectedItems.first();
 
-    QMenu contextMenu;
-    contextMenu.addAction(QString("%1").arg(selected.row()));
+    data::Message* messagePointer =
+        (data::Message*)selected.data(message::ModelData::RawPointer)
+            .toULongLong();
+
+    QMenu contextMenu(this);
+    QAction showInformationAction(
+        QIcon("://resources/icon/silk/information.png"), tr("Show information"),
+        &contextMenu);
+
+    connect(&showInformationAction, &QAction::triggered,
+            [=]() { emit onMessageInformationRequested(messagePointer); });
+
+    contextMenu.addAction(&showInformationAction);
 
     QPoint globalPos = ui->messagesListView->mapToGlobal(position);
     contextMenu.exec(globalPos);
+}
+
+void ThreadPage::openSearchDialog() {
+    SearchDialog* searchDialog = new SearchDialog(this, m_thread);
+
+    connect(searchDialog, &SearchDialog::onScrollToMessageIndex,
+            [=](int index) {
+                QAbstractItemModel* model = ui->messagesListView->model();
+
+                while (model->rowCount() <= index &&
+                       model->canFetchMore(QModelIndex())) {
+                    model->fetchMore(QModelIndex());
+                }
+
+                ui->messagesListView->scrollTo(model->index(index, 0));
+            });
+
+    searchDialog->show();
 }
 
 void ThreadPage::on_settingsChanged() {
@@ -152,5 +190,5 @@ void ThreadPage::on_settingsChanged() {
 
     // This is why you don't use stylesheets, it needs to be set again to
     // reflect palette changes
-    ui->menuButton->setStyleSheet("::menu-indicator{ image: none; }");
+    ui->menuButton->setStyleSheet("::menu-indicator { image: none; }");
 }

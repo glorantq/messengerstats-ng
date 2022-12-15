@@ -17,20 +17,25 @@ struct ThreadParticipant {
     }
 };
 
-namespace nickname {
+struct Nickname {
+    QUuid m_performer;
+    QString m_nickname;
+    unsigned long long m_timestamp;
+};
 
+namespace nickname {
 // The type of a nickname change's subject, sender, if the message sender
-// changed their own nickname, owner, if the sender changed the nickname of the
-// owner of the data download, and other, if the sender changed the nickname for
-// a 3rd party
+// changed their own nickname, owner, if the sender changed the nickname of
+// the owner of the data download, and other, if the sender changed the
+// nickname for a 3rd party
 enum SubjectType {
     Sender,
     Owner,
     Other,
 };
 
-// Describes the subject with the type (see above) and their name. The name is
-// only used if the type is Other
+// Describes the subject with the type (see above) and their name. The name
+// is only used if the type is Other
 struct ChangeSubject {
     SubjectType m_subjectType;
     QString m_name;

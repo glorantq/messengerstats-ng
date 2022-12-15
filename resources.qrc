@@ -20,5 +20,6 @@
         <file>resources/icon/silk/hamburger_menu.png</file>
         <file>resources/icon/silk/chart_bar.png</file>
         <file>resources/icon/silk/paint.png</file>
+        <file>resources/icon/silk/magnifier.png</file>
     </qresource>
 </RCC>

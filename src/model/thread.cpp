@@ -66,8 +66,11 @@ data::Thread::Thread(QDir dataFolder,
 
         for (const auto& value : participantsArray) {
             QString name = value.toObject()["name"].toString();
+            QUuid identifier = owner->getIdentifierForName(name);
 
-            m_participants.push_back(m_owner->getIdentifierForName(name));
+            if (!m_participants.contains(identifier)) {
+                m_participants.push_back(identifier);
+            }
         }
 
         QJsonArray messagesArray = messageDocument["messages"].toArray();
@@ -88,6 +91,19 @@ data::Thread::Thread(QDir dataFolder,
 
     if (m_displayName.isEmpty()) {
         m_displayName = dataFolder.dirName();
+    }
+
+    for (const auto& message : m_messages) {
+        if (message.getType() != MessageType::NicknameChange) {
+            continue;
+        }
+
+        ThreadParticipant subject = message.getActedOn().first();
+        QString nickname = message.getSetNickname();
+
+        m_usedNicknames[subject.m_identifier].push_back(
+            {message.getSender().m_identifier, nickname,
+             message.getTimestamp()});
     }
 }
 

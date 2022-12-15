@@ -14,7 +14,9 @@ class PreferencesDialog : public QDialog {
     ~PreferencesDialog();
 
    private slots:
-    void on_okButton_clicked();
+    void on_buttonBox_accepted();
+    void on_buttonBox_rejected();
+    void on_buttonBox_resetRequested();
 
    private:
     Ui::PreferencesDialog* ui;

@@ -30,8 +30,12 @@ class MessengerData {
     MessengerData(const MessengerData&) {}
 
     // Method to load a GDPR download directory into a MessengerData object
-    static std::shared_ptr<MessengerData> loadFromDirectory(QDir directory,
-                                                            MessageClassifiers);
+    static std::shared_ptr<MessengerData> loadFromDirectory(
+        QDir directory,
+        MessageClassifiers,
+        std::function<void(int, int)> progressRangeCallback = [](int, int) {},
+        std::function<void(int, const QString&)> progressCallback =
+            [](int, const QString&) {});
 
     const QList<std::shared_ptr<Thread>>& getThreads() const {
         return m_threads;

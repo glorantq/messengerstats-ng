@@ -164,7 +164,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="109"/>
+        <location filename="src/view/mainwindow.cpp" line="113"/>
         <source>
 &lt;h2&gt;%1 &lt;small&gt;%2&lt;/small&gt;&lt;/h2&gt;
 &lt;p&gt;Marcella.&lt;/p&gt;
@@ -183,112 +183,180 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="138"/>
+        <location filename="src/view/mainwindow.cpp" line="142"/>
         <source>Some settings may need an application restart to take effect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="144"/>
+        <location filename="src/view/mainwindow.cpp" line="148"/>
         <source>Open a data download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="214"/>
+        <location filename="src/view/mainwindow.cpp" line="255"/>
         <source>The selected directory does not exist!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="220"/>
+        <location filename="src/view/mainwindow.cpp" line="261"/>
         <source>The selected directory contains a messages directory, but changing to it failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="229"/>
+        <location filename="src/view/mainwindow.cpp" line="270"/>
         <source>The directory you selected does not appear to be a valid Messenger data download.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="257"/>
+        <location filename="src/view/mainwindow.cpp" line="287"/>
+        <source>Loading archive...&lt;br&gt;(&lt;small&gt;preparing&lt;/small&gt;)</source>
+        <oldsource>Loading archive...&lt;br&gt;&lt;br&gt;(&lt;small&gt;preparing&lt;/small&gt;)</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/mainwindow.cpp" line="308"/>
+        <source>Loading archive...&lt;br&gt;(&lt;small&gt;%1&lt;/small&gt;)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/mainwindow.cpp" line="354"/>
         <source>Failed to parse data archive: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>NicknameItem</name>
+    <message>
+        <location filename="src/view/thread/nicknameitem.cpp" line="14"/>
+        <source>yyyy. MM. dd. hh:mm:ss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/nicknameitem.ui" line="20"/>
+        <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PreferencesDialog</name>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="14"/>
+        <location filename="src/view/preferencesdialog.ui" line="32"/>
         <source>%1 - Preferences</source>
         <comment>The placeholder is the application name</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="37"/>
+        <location filename="src/view/preferencesdialog.ui" line="55"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="49"/>
+        <location filename="src/view/preferencesdialog.ui" line="67"/>
         <source>Global</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="55"/>
+        <location filename="src/view/preferencesdialog.ui" line="73"/>
         <source>Background:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="82"/>
+        <location filename="src/view/preferencesdialog.ui" line="100"/>
         <source>Colour scheme:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="98"/>
+        <location filename="src/view/preferencesdialog.ui" line="116"/>
         <source>Messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="104"/>
+        <location filename="src/view/preferencesdialog.ui" line="122"/>
         <source>Text size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="114"/>
+        <location filename="src/view/preferencesdialog.ui" line="132"/>
         <source> pt.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="154"/>
+        <location filename="src/view/preferencesdialog.ui" line="172"/>
         <source>Advanced</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="166"/>
+        <location filename="src/view/preferencesdialog.ui" line="184"/>
         <source>Performance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="172"/>
+        <location filename="src/view/preferencesdialog.ui" line="190"/>
         <source>Image cache size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="185"/>
+        <location filename="src/view/preferencesdialog.ui" line="203"/>
         <source> MB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="204"/>
+        <location filename="src/view/preferencesdialog.ui" line="222"/>
         <source>Thumbnail quality:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="217"/>
+        <location filename="src/view/preferencesdialog.ui" line="235"/>
         <source>%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.ui" line="287"/>
-        <source>OK</source>
+        <location filename="src/view/preferencesdialog.cpp" line="108"/>
+        <source>Do you really want to reset all settings to their respective defaults?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SearchDialog</name>
+    <message>
+        <location filename="src/view/thread/searchdialog.ui" line="14"/>
+        <source>%1 - Search</source>
+        <extracomment>The placeholder is the application name</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/searchdialog.ui" line="56"/>
+        <source>Type here...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/searchdialog.ui" line="81"/>
+        <source>Match case</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/searchdialog.ui" line="88"/>
+        <source>Regular expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/searchdialog.ui" line="122"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/searchdialog.ui" line="148"/>
+        <source>Matching messages (%1)</source>
+        <oldsource>Matching messages</oldsource>
+        <extracomment>The placeholder is the number of matches</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SearchResultDelegate</name>
+    <message>
+        <location filename="src/view/thread/searchdialog.cpp" line="268"/>
+        <source>yyyy. MM. dd. hh:mm:ss</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -406,20 +474,88 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
     </message>
 </context>
 <context>
+    <name>ThreadInformationDialog</name>
+    <message>
+        <location filename="src/view/thread/threadinformationdialog.ui" line="106"/>
+        <source>Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/threadinformationdialog.ui" line="118"/>
+        <source>Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/threadinformationdialog.ui" line="138"/>
+        <source>Path:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/threadinformationdialog.ui" line="167"/>
+        <source>Participants</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/threadinformationdialog.ui" line="195"/>
+        <source>Nicknames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/threadinformationdialog.ui" line="210"/>
+        <source>Basic statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/threadinformationdialog.ui" line="229"/>
+        <source>Participants:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/threadinformationdialog.ui" line="242"/>
+        <source>Messages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/threadinformationdialog.cpp" line="26"/>
+        <source>Regular group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/threadinformationdialog.cpp" line="29"/>
+        <source>Regular direct message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/threadinformationdialog.cpp" line="33"/>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ThreadPage</name>
     <message>
-        <location filename="src/view/threadpage.cpp" line="80"/>
+        <location filename="src/view/threadpage.cpp" line="81"/>
         <source>Thread information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="src/view/threadpage.cpp" line="87"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/threadpage.cpp" line="94"/>
         <source>Statistics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/threadpage.cpp" line="91"/>
+        <location filename="src/view/threadpage.cpp" line="98"/>
         <source>Open folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/threadpage.cpp" line="147"/>
+        <source>Show information</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

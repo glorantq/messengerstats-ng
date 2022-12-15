@@ -7,7 +7,9 @@
 // Loads each thread from its directory into an object and stores it
 std::shared_ptr<data::MessengerData> data::MessengerData::loadFromDirectory(
     QDir directory,
-    MessageClassifiers messageClassifiers) {
+    MessageClassifiers messageClassifiers,
+    std::function<void(int, int)> progressRangeCallback,
+    std::function<void(int, const QString&)> progressCallback) {
     QDir inboxDirectory = directory.filePath("inbox/");
 
     if (!inboxDirectory.exists()) {
@@ -58,11 +60,17 @@ std::shared_ptr<data::MessengerData> data::MessengerData::loadFromDirectory(
             object->getIdentifierForName(QUuid::createUuid().toString());
     }
 
-    for (const auto& entry : inboxDirectory.entryList(
-             QDir::Filter::NoDotAndDotDot | QDir::Filter::Dirs)) {
+    QStringList threadEntries = inboxDirectory.entryList(
+        QDir::Filter::NoDotAndDotDot | QDir::Filter::Dirs);
+
+    progressRangeCallback(0, threadEntries.size());
+
+    int processedThreads = 0;
+    for (const auto& entry : threadEntries) {
         QDir threadDirectory =
             inboxDirectory.filePath(QString("%1/").arg(entry));
 
+        progressCallback(processedThreads++, threadDirectory.dirName());
         qDebug() << "Starting parse of:" << threadDirectory.dirName();
 
         std::shared_ptr<Thread> thread = std::make_shared<Thread>(

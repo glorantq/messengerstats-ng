@@ -5,11 +5,15 @@
 #include <QDir>
 #include <QFile>
 #include <QFileDialog>
+#include <QFutureWatcher>
 #include <QMessageBox>
 #include <QPixmapCache>
+#include <QProgressDialog>
+#include <QtConcurrentRun>
 
 #include "view/conversationspage.h"
 #include "view/preferencesdialog.h"
+#include "view/thread/threadinformationdialog.h"
 #include "view/threadpage.h"
 
 MainWindow::MainWindow(QWidget* parent)
@@ -101,11 +105,11 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_action_aboutQt_triggered() {
-    QMessageBox::aboutQt(this, QCoreApplication::applicationName());
+    QMessageBox::aboutQt(this, windowTitle());
 }
 
 void MainWindow::on_action_about_triggered() {
-    QMessageBox::about(this, QCoreApplication::applicationName(),
+    QMessageBox::about(this, windowTitle(),
                        tr(R"(
 <h2>%1 <small>%2</small></h2>
 <p>Marcella.</p>
@@ -200,9 +204,46 @@ void MainWindow::on_threadOpenDirectoryPressed(data::Thread* thread) {
             thread->getThreadPath())));
 }
 
-void MainWindow::on_threadInformationPressed(data::Thread*) {}
+void MainWindow::on_threadInformationPressed(data::Thread* thread) {
+    qDebug() << "Showing thread information for" << thread->getDisplayName();
 
-void MainWindow::on_messageInformationRequested(data::Message*) {}
+    ThreadInformationDialog* threadInformationDialog =
+        new ThreadInformationDialog(this, thread);
+    threadInformationDialog->setWindowTitle(
+        QString("%1 - %2").arg(windowTitle()).arg(thread->getDisplayName()));
+    threadInformationDialog->setWindowModality(
+        Qt::WindowModality::ApplicationModal);
+    threadInformationDialog->show();
+}
+
+void MainWindow::on_messageInformationRequested(data::Message* message) {
+    qDebug() << "Showing message information for" << message->getContent();
+}
+
+void MainWindow::performDirectoryOpenAsync(
+    QPromise<std::shared_ptr<data::MessengerData>>& promise,
+    QDir directory) {
+    try {
+        auto messengerData = data::MessengerData::loadFromDirectory(
+            directory,
+            {[this](QString content) {
+                 return this->isMessageSystemMessage(content);
+             },
+             [this](QString content) {
+                 return this->determineNicknameChange(content);
+             }},
+            [&](int min, int max) { promise.setProgressRange(min, max); },
+            [&](int value, const QString& text) {
+                promise.setProgressValueAndText(value, text);
+            });
+
+        promise.addResult(messengerData);
+    } catch (std::runtime_error& e) {
+        promise.setException(RuntimeError(e.what()));
+    }
+
+    promise.finish();
+}
 
 // Asks the user for a directory to open, then tries to parse it as a GDPR
 // data takeout. If it succeeds, then a navigation to the thread page occurs
@@ -241,40 +282,84 @@ void MainWindow::performDirectoryOpen(QString selectedPath) {
         }
     }
 
-    try {
-        m_messengerData = data::MessengerData::loadFromDirectory(
-            directory, {[this](QString content) {
-                            return this->isMessageSystemMessage(content);
-                        },
-                        [this](QString content) {
-                            return this->determineNicknameChange(content);
-                        }});
-    } catch (std::runtime_error& e) {
-        m_messengerData = nullptr;
+    QProgressDialog* progressDialog = new QProgressDialog(this);
+    progressDialog->setLabelText(
+        tr("Loading archive...<br>(<small>preparing</small>)"));
+    progressDialog->setWindowTitle(windowTitle());
+    progressDialog->setCancelButton(nullptr);
+    progressDialog->setWindowFlags(Qt::Window | Qt::WindowTitleHint |
+                                   Qt::CustomizeWindowHint);
+    progressDialog->setFixedSize(progressDialog->size());
+    progressDialog->setMinimumDuration(0);
 
-        QMessageBox::critical(
-            this, QCoreApplication::applicationName(),
-            tr("Failed to parse data archive: %1").arg(e.what()));
+    QFutureWatcher<std::shared_ptr<data::MessengerData>>* futureWatcher =
+        new QFutureWatcher<std::shared_ptr<data::MessengerData>>(this);
 
-        return;
-    }
+    connect(futureWatcher,
+            &QFutureWatcher<
+                std::shared_ptr<data::MessengerData>>::progressRangeChanged,
+            [=](int min, int max) { progressDialog->setRange(min, max); });
 
-    if (m_messengerData) {
-        ConversationsPage* conversationsPage = new ConversationsPage(
-            ui->stackedWidget, m_messengerData->getThreads());
+    connect(futureWatcher,
+            &QFutureWatcher<
+                std::shared_ptr<data::MessengerData>>::progressTextChanged,
+            [=](const QString& text) {
+                progressDialog->setLabelText(
+                    tr("Loading archive...<br>(<small>%1</small>)").arg(text));
+            });
 
-        ui->stackedWidget->addWidget(conversationsPage);
-        ui->stackedWidget->setCurrentIndex(1);
+    connect(futureWatcher,
+            &QFutureWatcher<
+                std::shared_ptr<data::MessengerData>>::progressValueChanged,
+            [=](int value) { progressDialog->setValue(value); });
 
-        // Connect the navigation signal so we can actually open threads
-        connect(conversationsPage, &ConversationsPage::navigateToConversation,
-                this, &MainWindow::on_navigateToConversation);
+    QFuture<std::shared_ptr<data::MessengerData>> future = QtConcurrent::run(
+        [=](QPromise<std::shared_ptr<data::MessengerData>>& promise,
+            QDir directory) {
+            this->performDirectoryOpenAsync(promise, directory);
+        },
+        directory);
 
-        // Connect our settings changed event to the new page's slot so it can
-        // adapt to theme changes
-        connect(this, &MainWindow::onSettingsChanged, conversationsPage,
-                &ConversationsPage::on_settingsChanged);
-    }
+    connect(
+        futureWatcher,
+        &QFutureWatcher<std::shared_ptr<data::MessengerData>>::finished, [=]() {
+            try {
+                m_messengerData = future.result();
+
+                if (m_messengerData) {
+                    ConversationsPage* conversationsPage =
+                        new ConversationsPage(ui->stackedWidget,
+                                              m_messengerData->getThreads());
+
+                    ui->stackedWidget->addWidget(conversationsPage);
+                    ui->stackedWidget->setCurrentIndex(1);
+
+                    // Connect the navigation signal so we can actually open
+                    // threads
+                    connect(conversationsPage,
+                            &ConversationsPage::navigateToConversation, this,
+                            &MainWindow::on_navigateToConversation);
+
+                    // Connect our settings changed event to the new page's slot
+                    // so it can adapt to theme changes
+                    connect(this, &MainWindow::onSettingsChanged,
+                            conversationsPage,
+                            &ConversationsPage::on_settingsChanged);
+
+                    progressDialog->close();
+                }
+            } catch (const RuntimeError& e) {
+                QMessageBox::critical(
+                    this, QCoreApplication::applicationName(),
+                    tr("Failed to parse data archive: %1").arg(e.what()));
+            }
+
+            progressDialog->deleteLater();
+            futureWatcher->deleteLater();
+        });
+
+    futureWatcher->setFuture(future);
+    progressDialog->exec();
 }
 
 // Closes the topmost page in the stackwidget, this is the implementation for

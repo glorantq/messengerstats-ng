@@ -31,11 +31,13 @@ endif()
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
     Widgets
-    LinguistTools)
+    LinguistTools
+    Concurrent)
 
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
     Widgets
-    LinguistTools)
+    LinguistTools
+    Concurrent)
 
 set(TS_FILES MessengerStatsNG_en_GB.ts)
 
@@ -83,6 +85,15 @@ set(PROJECT_SOURCES
         include/view/settings.h
         include/view/themeservice.h
         src/view/themeservice.cpp
+        include/view/thread/threadinformationdialog.h
+        src/view/thread/threadinformationdialog.cpp
+        src/view/thread/threadinformationdialog.ui
+        include/view/thread/nicknameitem.h
+        src/view/thread/nicknameitem.cpp
+        src/view/thread/nicknameitem.ui
+        include/view/thread/searchdialog.h
+        src/view/thread/searchdialog.cpp
+        src/view/thread/searchdialog.ui
         resources.qrc
 )
 
@@ -113,6 +124,7 @@ add_dependencies(MessengerStatsNG MessengerStatsNG_lupdate)
 
 target_link_libraries(MessengerStatsNG PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Concurrent
 )
 
 # Generate a header file so we can reference CMake version information in

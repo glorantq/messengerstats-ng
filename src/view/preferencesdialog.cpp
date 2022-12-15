@@ -2,6 +2,8 @@
 #include "./ui_preferencesdialog.h"
 
 #include <QCoreApplication>
+#include <QMessageBox>
+#include <QPushButton>
 #include <QSettings>
 
 #include "view/settings.h"
@@ -60,13 +62,17 @@ PreferencesDialog::PreferencesDialog(QWidget* parent)
         ui->imageQualitySpinBox->setValue(thumbnailQuality * 100);
         ui->pixmapCacheSpinBox->setValue(imageCacheSize);
     }
+
+    connect(ui->buttonBox->button(QDialogButtonBox::RestoreDefaults),
+            &QPushButton::clicked, this,
+            &PreferencesDialog::on_buttonBox_resetRequested);
 }
 
 PreferencesDialog::~PreferencesDialog() {
     delete ui;
 }
 
-void PreferencesDialog::on_okButton_clicked() {
+void PreferencesDialog::on_buttonBox_accepted() {
     QSettings settings;
 
     // Save appearance
@@ -91,4 +97,25 @@ void PreferencesDialog::on_okButton_clicked() {
     }
 
     accept();
+}
+
+void PreferencesDialog::on_buttonBox_rejected() {
+    reject();
+}
+
+void PreferencesDialog::on_buttonBox_resetRequested() {
+    if (QMessageBox::question(this, windowTitle(),
+                              tr("Do you really want to reset all settings to "
+                                 "their respective defaults?")) ==
+        QMessageBox::Yes) {
+        renderer::RendererParameters defaultRendererParameters{};
+
+        ui->backgroundComboBox->setCurrentIndex(0);
+        ui->colorSchemeComboBox->setCurrentIndex(0);
+        ui->textSizeSpinBox->setValue(defaultRendererParameters.m_textSize);
+
+        ui->pixmapCacheSpinBox->setValue(1024);
+        ui->imageQualitySpinBox->setValue(
+            defaultRendererParameters.m_thumbnailQuality * 100);
+    }
 }
