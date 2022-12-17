@@ -30,6 +30,7 @@ class ThreadPage : public QWidget {
     void on_messagesListView_doubleClicked(const QModelIndex& index);
     void on_chatContextMenuRequested(const QPoint& position);
     void openSearchDialog();
+    void openGallery();
 
    public slots:
     void on_settingsChanged();
@@ -38,4 +39,6 @@ class ThreadPage : public QWidget {
     Ui::ThreadPage* ui;
 
     data::Thread* m_thread = nullptr;
+
+    void scrollTo(int index);
 };

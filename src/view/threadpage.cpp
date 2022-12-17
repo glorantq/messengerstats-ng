@@ -8,6 +8,7 @@
 #include <QPainterPath>
 #include <QScrollBar>
 
+#include "view/gallery/gallerywidget.h"
 #include "view/thread/messageitemdelegate.h"
 #include "view/thread/searchdialog.h"
 #include "view/thread/threadlistmodel.h"
@@ -89,6 +90,12 @@ ThreadPage::ThreadPage(QWidget* parent, data::Thread* thread)
     connect(searchAction, &QAction::triggered, this,
             &ThreadPage::openSearchDialog);
 
+    QAction* galleryAction =
+        new QAction(QIcon("://resources/icon/silk/pictures.png"),
+                    tr("Open gallery"), popupMenu);
+
+    connect(galleryAction, &QAction::triggered, this, &ThreadPage::openGallery);
+
     QAction* threadStatisticsAction =
         new QAction(QIcon("://resources/icon/silk/chart_bar.png"),
                     tr("Statistics"), popupMenu);
@@ -103,6 +110,7 @@ ThreadPage::ThreadPage(QWidget* parent, data::Thread* thread)
     popupMenu->addAction(threadInformationAction);
     popupMenu->addSeparator();
     popupMenu->addAction(searchAction);
+    popupMenu->addAction(galleryAction);
     popupMenu->addAction(threadStatisticsAction);
     popupMenu->addSeparator();
     popupMenu->addAction(threadOpenFolderAction);
@@ -160,18 +168,68 @@ void ThreadPage::openSearchDialog() {
     SearchDialog* searchDialog = new SearchDialog(this, m_thread);
 
     connect(searchDialog, &SearchDialog::onScrollToMessageIndex,
-            [=](int index) {
-                QAbstractItemModel* model = ui->messagesListView->model();
+            [=](int index) { scrollTo(index); });
 
-                while (model->rowCount() <= index &&
-                       model->canFetchMore(QModelIndex())) {
-                    model->fetchMore(QModelIndex());
-                }
-
-                ui->messagesListView->scrollTo(model->index(index, 0));
+    connect(searchDialog, &SearchDialog::onOpenMessageInformation,
+            [=](data::Message* message) {
+                emit onMessageInformationRequested(message);
             });
 
     searchDialog->show();
+}
+
+void ThreadPage::openGallery() {
+    QList<GalleryItem> items{};
+
+    for (int i = 0; i < m_thread->getMessages().count(); i++) {
+        const data::Message& message = m_thread->getMessages().at(i);
+
+        for (const auto& path : message.getPictures()) {
+            items.push_back({
+                GalleryItemType::ImageItem,
+                path,
+                message.getSender().m_name,
+                message.getTimestamp(),
+                i,
+            });
+        }
+
+        for (const auto& path : message.getVideos()) {
+            items.push_back({
+                GalleryItemType::VideoItem,
+                path,
+                message.getSender().m_name,
+                message.getTimestamp(),
+                i,
+            });
+        }
+
+        for (const auto& path : message.getAudioFiles()) {
+            items.push_back({
+                GalleryItemType::AudioItem,
+                path,
+                message.getSender().m_name,
+                message.getTimestamp(),
+                i,
+            });
+        }
+    }
+
+    QDialog dialog(this);
+    QVBoxLayout* layout = new QVBoxLayout(&dialog);
+
+    GalleryWidget* galleryWidget = new GalleryWidget(&dialog, items, true);
+
+    connect(galleryWidget, &GalleryWidget::onNavigateToMessage,
+            [=](int index) { scrollTo(index); });
+
+    dialog.resize(galleryWidget->width(), galleryWidget->height());
+
+    layout->addWidget(galleryWidget);
+
+    dialog.setWindowTitle(
+        tr("%1 - Thread gallery").arg(QCoreApplication::applicationName()));
+    dialog.exec();
 }
 
 void ThreadPage::on_settingsChanged() {
@@ -191,4 +249,14 @@ void ThreadPage::on_settingsChanged() {
     // This is why you don't use stylesheets, it needs to be set again to
     // reflect palette changes
     ui->menuButton->setStyleSheet("::menu-indicator { image: none; }");
+}
+
+void ThreadPage::scrollTo(int index) {
+    QAbstractItemModel* model = ui->messagesListView->model();
+
+    while (model->rowCount() <= index && model->canFetchMore(QModelIndex())) {
+        model->fetchMore(QModelIndex());
+    }
+
+    ui->messagesListView->scrollTo(model->index(index, 0));
 }

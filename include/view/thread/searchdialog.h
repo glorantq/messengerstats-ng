@@ -18,7 +18,8 @@ enum SearchModelData {
     MatchEnd,
     MatchLength,
     SenderName,
-    Timestamp
+    Timestamp,
+    MessagePointer
 };
 
 class SearchResultDelegate : public QStyledItemDelegate {
@@ -54,12 +55,13 @@ class SearchDialog : public QDialog {
 
    signals:
     void onScrollToMessageIndex(int index);
+    void onOpenMessageInformation(data::Message*);
 
    private slots:
     void on_buttonBox_rejected();
     void on_searchButton_pressed();
-    void on_messagesList_currentItemChanged(QListWidgetItem* current,
-                                            QListWidgetItem* previous);
+    void on_messagesList_customContextMenuRequested(const QPoint& pos);
+    void on_messagesList_itemDoubleClicked(QListWidgetItem* item);
 
    private:
     Ui::SearchDialog* ui;

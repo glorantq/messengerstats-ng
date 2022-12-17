@@ -9,10 +9,12 @@
 #include <QMessageBox>
 #include <QPixmapCache>
 #include <QProgressDialog>
+#include <QSettings>
 #include <QtConcurrentRun>
 
 #include "view/conversationspage.h"
 #include "view/preferencesdialog.h"
+#include "view/settings.h"
 #include "view/thread/threadinformationdialog.h"
 #include "view/threadpage.h"
 
@@ -166,15 +168,23 @@ void MainWindow::on_navigateToConversation(data::Thread* thread) {
 
     ThreadPage* threadPage = new ThreadPage(ui->stackedWidget, thread);
     ui->stackedWidget->addWidget(threadPage);
-    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->count() - 1);
 
-    // Connect our settings changed event to the new page's slot so it can adapt
-    // to theme changes
+    QSettings settings;
+
+    int newIndex = ui->stackedWidget->count() - 1;
+    if (settings.value(SETTINGS_KEY_ANIMATE_PAGE_TRANSITION, true).toBool()) {
+        ui->stackedWidget->slideInIdx(newIndex);
+    } else {
+        ui->stackedWidget->setCurrentIndex(newIndex);
+    }
+
+    // Connect our settings changed event to the new page's slot so it
+    // can adapt to theme changes
     connect(this, &MainWindow::onSettingsChanged, threadPage,
             &ThreadPage::on_settingsChanged);
 
-    // Connect the back button event of the newly opened page, so the user can
-    // close it and open another thread instead
+    // Connect the back button event of the newly opened page, so the user
+    // can close it and open another thread instead
     connect(threadPage, &ThreadPage::onBackPressed, this,
             &MainWindow::on_threadBackPressed);
 
@@ -340,8 +350,8 @@ void MainWindow::performDirectoryOpen(QString selectedPath) {
                             &ConversationsPage::navigateToConversation, this,
                             &MainWindow::on_navigateToConversation);
 
-                    // Connect our settings changed event to the new page's slot
-                    // so it can adapt to theme changes
+                    // Connect our settings changed event to the new page's
+                    // slot so it can adapt to theme changes
                     connect(this, &MainWindow::onSettingsChanged,
                             conversationsPage,
                             &ConversationsPage::on_settingsChanged);
@@ -362,16 +372,32 @@ void MainWindow::performDirectoryOpen(QString selectedPath) {
     progressDialog->exec();
 }
 
-// Closes the topmost page in the stackwidget, this is the implementation for
-// the back button
+// Closes the topmost page in the stackwidget, this is the implementation
+// for the back button
 void MainWindow::popCurrentPage() {
     int i = ui->stackedWidget->count() - 1;
 
-    ui->stackedWidget->setCurrentIndex(i - 1);
+    QSettings settings;
 
-    QWidget* widget = ui->stackedWidget->widget(i);
-    ui->stackedWidget->removeWidget(widget);
-    widget->deleteLater();
+    if (settings.value(SETTINGS_KEY_ANIMATE_PAGE_TRANSITION, true).toBool()) {
+        QObject* context = new QObject(this);
+        connect(ui->stackedWidget, &SlidingStackedWidget::animationFinished,
+                context, [=]() {
+                    delete context;
+
+                    QWidget* widget = ui->stackedWidget->widget(i);
+                    ui->stackedWidget->removeWidget(widget);
+                    widget->deleteLater();
+                });
+
+        ui->stackedWidget->slideInIdx(i - 1);
+    } else {
+        ui->stackedWidget->setCurrentIndex(i - 1);
+
+        QWidget* widget = ui->stackedWidget->widget(i);
+        ui->stackedWidget->removeWidget(widget);
+        widget->deleteLater();
+    }
 }
 
 bool MainWindow::isMessageSystemMessage(QString content) {

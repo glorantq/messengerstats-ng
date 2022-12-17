@@ -2,6 +2,24 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_GB">
 <context>
+    <name>AudioGalleryItem</name>
+    <message>
+        <location filename="src/view/gallery/audiogalleryitem.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/gallery/audiogalleryitem.ui" line="51"/>
+        <source>Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/gallery/audiogalleryitem.cpp" line="65"/>
+        <source>Failed to play audio: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConversationListItem</name>
     <message>
         <location filename="src/view/conversationlistitem.cpp" line="35"/>
@@ -113,6 +131,54 @@
     </message>
 </context>
 <context>
+    <name>GalleryWidget</name>
+    <message>
+        <location filename="src/view/gallery/gallerywidget.ui" line="66"/>
+        <source>Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/gallery/gallerywidget.ui" line="80"/>
+        <source>This gallery is empty.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/gallery/gallerywidget.ui" line="113"/>
+        <source>Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/gallery/gallerywidget.ui" line="214"/>
+        <source>Scroll to message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/gallery/gallerywidget.ui" line="240"/>
+        <source>Open in native application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/gallery/gallerywidget.ui" line="266"/>
+        <source>Save a copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/gallery/gallerywidget.cpp" line="99"/>
+        <source>yyyy. MM. dd. hh:mm:ss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/gallery/gallerywidget.cpp" line="115"/>
+        <source>Save media</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/gallery/gallerywidget.cpp" line="122"/>
+        <source>Failed to copy file!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>IMessageRenderer</name>
     <message>
         <location filename="include/view/thread/renderers/imessagerenderer.h" line="65"/>
@@ -122,6 +188,19 @@
     <message>
         <location filename="include/view/thread/renderers/imessagerenderer.h" line="72"/>
         <source>%1 minutes, %2 seconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ImageGalleryItem</name>
+    <message>
+        <location filename="src/view/gallery/imagegalleryitem.ui" line="20"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/gallery/imagegalleryitem.cpp" line="35"/>
+        <source>Failed to open image!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -164,7 +243,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="113"/>
+        <location filename="src/view/mainwindow.cpp" line="115"/>
         <source>
 &lt;h2&gt;%1 &lt;small&gt;%2&lt;/small&gt;&lt;/h2&gt;
 &lt;p&gt;Marcella.&lt;/p&gt;
@@ -183,43 +262,43 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="142"/>
+        <location filename="src/view/mainwindow.cpp" line="144"/>
         <source>Some settings may need an application restart to take effect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="148"/>
+        <location filename="src/view/mainwindow.cpp" line="150"/>
         <source>Open a data download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="255"/>
+        <location filename="src/view/mainwindow.cpp" line="265"/>
         <source>The selected directory does not exist!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="261"/>
+        <location filename="src/view/mainwindow.cpp" line="271"/>
         <source>The selected directory contains a messages directory, but changing to it failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="270"/>
+        <location filename="src/view/mainwindow.cpp" line="280"/>
         <source>The directory you selected does not appear to be a valid Messenger data download.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="287"/>
+        <location filename="src/view/mainwindow.cpp" line="297"/>
         <source>Loading archive...&lt;br&gt;(&lt;small&gt;preparing&lt;/small&gt;)</source>
         <oldsource>Loading archive...&lt;br&gt;&lt;br&gt;(&lt;small&gt;preparing&lt;/small&gt;)</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="308"/>
+        <location filename="src/view/mainwindow.cpp" line="318"/>
         <source>Loading archive...&lt;br&gt;(&lt;small&gt;%1&lt;/small&gt;)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="354"/>
+        <location filename="src/view/mainwindow.cpp" line="364"/>
         <source>Failed to parse data archive: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -311,7 +390,12 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/preferencesdialog.cpp" line="108"/>
+        <location filename="src/view/preferencesdialog.ui" line="251"/>
+        <source>Animate page transitions:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/preferencesdialog.cpp" line="114"/>
         <source>Do you really want to reset all settings to their respective defaults?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -351,11 +435,21 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
         <extracomment>The placeholder is the number of matches</extracomment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="src/view/thread/searchdialog.cpp" line="54"/>
+        <source>Show information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/thread/searchdialog.cpp" line="61"/>
+        <source>View in chat</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SearchResultDelegate</name>
     <message>
-        <location filename="src/view/thread/searchdialog.cpp" line="268"/>
+        <location filename="src/view/thread/searchdialog.cpp" line="307"/>
         <source>yyyy. MM. dd. hh:mm:ss</source>
         <translation type="unfinished"></translation>
     </message>
@@ -534,28 +628,51 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
 <context>
     <name>ThreadPage</name>
     <message>
-        <location filename="src/view/threadpage.cpp" line="81"/>
+        <location filename="src/view/threadpage.cpp" line="82"/>
         <source>Thread information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/threadpage.cpp" line="87"/>
+        <location filename="src/view/threadpage.cpp" line="88"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/threadpage.cpp" line="94"/>
+        <location filename="src/view/threadpage.cpp" line="95"/>
+        <source>Open gallery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/threadpage.cpp" line="101"/>
         <source>Statistics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/threadpage.cpp" line="98"/>
+        <location filename="src/view/threadpage.cpp" line="105"/>
         <source>Open folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/threadpage.cpp" line="147"/>
+        <location filename="src/view/threadpage.cpp" line="155"/>
         <source>Show information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/threadpage.cpp" line="231"/>
+        <source>%1 - Thread gallery</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>VideoGalleryItem</name>
+    <message>
+        <location filename="src/view/gallery/videogalleryitem.ui" line="75"/>
+        <source>Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/gallery/videogalleryitem.cpp" line="104"/>
+        <source>Failed to play video: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

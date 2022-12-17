@@ -21,5 +21,17 @@
         <file>resources/icon/silk/chart_bar.png</file>
         <file>resources/icon/silk/paint.png</file>
         <file>resources/icon/silk/magnifier.png</file>
+        <file>resources/icon/silk/link_go.png</file>
+        <file>resources/icon/silk/arrow_right.png</file>
+        <file>resources/icon/silk/page_white_copy.png</file>
+        <file>resources/icon/silk/disk_download.png</file>
+        <file>resources/images/placeholder-image.jpg</file>
+        <file>resources/icon/silk/play_green.png</file>
+        <file>resources/icon/silk/pause_green.png</file>
+        <file>resources/icon/silk/arrow_out.png</file>
+        <file>resources/icon/silk/pictures.png</file>
+        <file>resources/icon/silk/application_go.png</file>
+        <file>resources/images/video.png</file>
+        <file>resources/images/audio.png</file>
     </qresource>
 </RCC>

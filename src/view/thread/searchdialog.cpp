@@ -1,6 +1,7 @@
 #include "view/thread/searchdialog.h"
 #include "./ui_searchdialog.h"
 
+#include <QMenu>
 #include <QPainter>
 
 #include "model/message.h"
@@ -21,6 +22,8 @@ SearchDialog::SearchDialog(QWidget* parent, data::Thread* thread)
 
     m_resultDelegate = new SearchResultDelegate(ui->messagesList);
     ui->messagesList->setItemDelegate(m_resultDelegate);
+    ui->messagesList->setContextMenuPolicy(
+        Qt::ContextMenuPolicy::CustomContextMenu);
 
     matchGroupBoxPattern = ui->matchesGroupBox->title();
     ui->matchesGroupBox->setTitle(matchGroupBoxPattern.arg(0));
@@ -29,6 +32,49 @@ SearchDialog::SearchDialog(QWidget* parent, data::Thread* thread)
 SearchDialog::~SearchDialog() {
     delete m_resultDelegate;
     delete ui;
+}
+
+void SearchDialog::on_messagesList_customContextMenuRequested(
+    const QPoint& position) {
+    auto selectedItems = ui->messagesList->selectionModel()->selectedRows();
+    if (selectedItems.count() == 0) {
+        return;
+    }
+
+    QModelIndex selected = selectedItems.first();
+
+    data::Message* messagePointer =
+        (data::Message*)selected.data(SearchModelData::MessagePointer)
+            .toULongLong();
+
+    int index = selected.data(SearchModelData::MessageIndex).toInt();
+
+    QMenu contextMenu(this);
+    QAction showInformationAction(
+        QIcon("://resources/icon/silk/information.png"), tr("Show information"),
+        &contextMenu);
+
+    connect(&showInformationAction, &QAction::triggered,
+            [=]() { emit onOpenMessageInformation(messagePointer); });
+
+    QAction scrollToAction(QIcon("://resources/icon/silk/link_go.png"),
+                           tr("View in chat"), &contextMenu);
+
+    connect(&scrollToAction, &QAction::triggered,
+            [=]() { emit onScrollToMessageIndex(index); });
+
+    contextMenu.addAction(&showInformationAction);
+    contextMenu.addAction(&scrollToAction);
+
+    QPoint globalPos = ui->messagesList->mapToGlobal(position);
+    contextMenu.exec(globalPos);
+}
+
+void SearchDialog::on_messagesList_itemDoubleClicked(QListWidgetItem* item) {
+    if (item != nullptr) {
+        int index = item->data(SearchModelData::MessageIndex).toInt();
+        emit onScrollToMessageIndex(index);
+    }
 }
 
 void SearchDialog::on_buttonBox_rejected() {
@@ -85,6 +131,8 @@ void SearchDialog::performSearch(const QRegularExpression& regularExpression) {
             item->setData(SearchModelData::SenderName,
                           message.getSender().m_name);
             item->setData(SearchModelData::Timestamp, message.getTimestamp());
+            item->setData(SearchModelData::MessagePointer,
+                          (unsigned long long)&message);
 
             ui->messagesList->addItem(item);
         }
@@ -92,15 +140,6 @@ void SearchDialog::performSearch(const QRegularExpression& regularExpression) {
 
     ui->matchesGroupBox->setTitle(
         matchGroupBoxPattern.arg(ui->messagesList->count()));
-}
-
-void SearchDialog::on_messagesList_currentItemChanged(
-    QListWidgetItem* current,
-    QListWidgetItem* previous) {
-    if (current != nullptr) {
-        int index = current->data(SearchModelData::MessageIndex).toInt();
-        emit onScrollToMessageIndex(index);
-    }
 }
 
 void SearchResultDelegate::paint(QPainter* painter,

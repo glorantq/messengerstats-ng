@@ -22,6 +22,8 @@ enum ModelData {
     Gifs,
     Sticker,
     AllImageMedia,
+    VideoNames,
+    AudioNames,
 };
 };  // namespace message
 

@@ -61,6 +61,9 @@ PreferencesDialog::PreferencesDialog(QWidget* parent)
 
         ui->imageQualitySpinBox->setValue(thumbnailQuality * 100);
         ui->pixmapCacheSpinBox->setValue(imageCacheSize);
+        ui->pageTransitionCheckBox->setChecked(
+            settings.value(SETTINGS_KEY_ANIMATE_PAGE_TRANSITION, true)
+                .toBool());
     }
 
     connect(ui->buttonBox->button(QDialogButtonBox::RestoreDefaults),
@@ -94,6 +97,9 @@ void PreferencesDialog::on_buttonBox_accepted() {
 
         settings.setValue(SETTINGS_KEY_THUMBNAIL_QUALITY,
                           ((double)ui->imageQualitySpinBox->value()) / 100.);
+
+        settings.setValue(SETTINGS_KEY_ANIMATE_PAGE_TRANSITION,
+                          ui->pageTransitionCheckBox->isChecked());
     }
 
     accept();
@@ -117,5 +123,6 @@ void PreferencesDialog::on_buttonBox_resetRequested() {
         ui->pixmapCacheSpinBox->setValue(1024);
         ui->imageQualitySpinBox->setValue(
             defaultRendererParameters.m_thumbnailQuality * 100);
+        ui->pageTransitionCheckBox->setChecked(true);
     }
 }

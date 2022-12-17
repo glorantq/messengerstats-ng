@@ -32,12 +32,18 @@ endif()
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
     Widgets
     LinguistTools
-    Concurrent)
+    Concurrent
+    Multimedia
+    MultimediaWidgets
+)
 
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
     Widgets
     LinguistTools
-    Concurrent)
+    Concurrent
+    Multimedia
+    MultimediaWidgets
+)
 
 set(TS_FILES MessengerStatsNG_en_GB.ts)
 
@@ -94,26 +100,44 @@ set(PROJECT_SOURCES
         include/view/thread/searchdialog.h
         src/view/thread/searchdialog.cpp
         src/view/thread/searchdialog.ui
+        include/view/gallery/gallerywidget.h
+        src/view/gallery/gallerywidget.cpp
+        src/view/gallery/gallerywidget.ui
+        include/view/gallery/imagegalleryitem.h
+        src/view/gallery/imagegalleryitem.cpp
+        src/view/gallery/imagegalleryitem.ui
+        include/view/gallery/videogalleryitem.h
+        src/view/gallery/videogalleryitem.cpp
+        src/view/gallery/videogalleryitem.ui
+        include/view/gallery/audiogalleryitem.h
+        src/view/gallery/audiogalleryitem.cpp
+        src/view/gallery/audiogalleryitem.ui
         resources.qrc
+)
+
+set(VENDOR_SOURCES
+    vendor/SlidingStackedWidget/slidingstackedwidget.cpp
+    vendor/SlidingStackedWidget/slidingstackedwidget.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(MessengerStatsNG
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ${VENDOR_SOURCES}
         ${WIN32_RESOURCES}
     )
 
     qt6_add_translations(MessengerStatsNG
         TS_FILES ${TS_FILES}
-        SOURCES ${PROJECT_SOURCES}
+        SOURCES ${PROJECT_SOURCES} ${VENDOR_SOURCES}
         LUPDATE_OPTIONS "-noobsolete"
     )
 else()
     if(ANDROID)
-        add_library(MessengerStatsNG SHARED ${PROJECT_SOURCES})
+        add_library(MessengerStatsNG SHARED ${PROJECT_SOURCES} ${VENDOR_SOURCES})
     else()
-        add_executable(MessengerStatsNG ${PROJECT_SOURCES} ${WIN32_RESOURCES})
+        add_executable(MessengerStatsNG ${PROJECT_SOURCES} ${VENDOR_SOURCES} ${WIN32_RESOURCES})
     endif()
 
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
@@ -125,6 +149,8 @@ add_dependencies(MessengerStatsNG MessengerStatsNG_lupdate)
 target_link_libraries(MessengerStatsNG PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Concurrent
+    Qt${QT_VERSION_MAJOR}::Multimedia
+    Qt${QT_VERSION_MAJOR}::MultimediaWidgets
 )
 
 # Generate a header file so we can reference CMake version information in
@@ -135,6 +161,7 @@ configure_file(
 
 target_include_directories(MessengerStatsNG PRIVATE
     include
+    vendor
     "${CMAKE_CURRENT_BINARY_DIR}/messengerstatsng/"
 )
 

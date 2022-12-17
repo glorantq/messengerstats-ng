@@ -12,6 +12,8 @@
 
 // Paints the standard conversation chat bubbles. See the comment about size
 // hinting for these types of messages. All of that applies here as well.
+
+// TODO: Video, audio
 void renderer::GenericMessageRenderer::paint(
     QPainter* painter,
     const QStyleOptionViewItem& option,
@@ -38,6 +40,34 @@ void renderer::GenericMessageRenderer::paint(
     QList<QString> attachmentNames =
         index.data(message::ModelData::AttachmentNames).toStringList();
     QString sharedLink = index.data(message::ModelData::SharedLink).toString();
+    QList<QString> videoNames =
+        index.data(message::ModelData::VideoNames).toStringList();
+    QList<QString> audioNames =
+        index.data(message::ModelData::AudioNames).toStringList();
+
+    QList<IconTextPair> iconTextPairs{};
+
+    {
+        for (const auto& attachmentName : attachmentNames) {
+            iconTextPairs.push_back(
+                {"file-icon", "://resources/images/file.png", attachmentName});
+        }
+
+        if (!sharedLink.isEmpty()) {
+            iconTextPairs.push_back(
+                {"link-icon", "://resources/images/link.png", sharedLink});
+        }
+
+        for (const auto& videoName : videoNames) {
+            iconTextPairs.push_back(
+                {"video-icon", "://resources/images/video.png", videoName});
+        }
+
+        for (const auto& audioName : audioNames) {
+            iconTextPairs.push_back(
+                {"audio-icon", "://resources/images/audio.png", audioName});
+        }
+    }
 
     int availableWidthForPictures = opt.rect.width() * !picturePaths.isEmpty();
     int totalPictureHeight =
@@ -58,34 +88,16 @@ void renderer::GenericMessageRenderer::paint(
         availableWidthForPictures = imageWidth - parameters.m_margin;
     }
 
-    QSize totalAttachmentSize;
+    QSize totalIconTextPairSize;
 
-    if (!attachmentNames.isEmpty()) {
-        totalAttachmentSize = calculateTotalAttachmentsSize(
-            attachmentNames, opt.rect, parameters.m_iconSize,
-            parameters.m_margin, parameters.m_largeMargin, opt.font);
+    if (!iconTextPairs.isEmpty()) {
+        totalIconTextPairSize = calculateTotalIconTextPairSize(
+            iconTextPairs, opt.rect, parameters.m_iconSize, parameters.m_margin,
+            parameters.m_largeMargin, opt.font);
 
-        totalAttachmentSize.setHeight(totalAttachmentSize.height() +
-                                      parameters.m_largeMargin +
-                                      parameters.m_margin);
-    }
-
-    QSize sharedLinkSize;
-
-    if (!sharedLink.isEmpty()) {
-        QRect actualFit(opt.rect);
-        actualFit.setWidth(actualFit.width() - parameters.m_iconSize -
-                           parameters.m_largeMargin - parameters.m_margin);
-
-        QRect textBounds = QFontMetrics(opt.font).boundingRect(
-            actualFit, Qt::AlignTop | Qt::AlignLeft | Qt::TextWrapAnywhere,
-            sharedLink);
-
-        sharedLinkSize = {vMin(opt.rect.width(), parameters.m_iconSize +
-                                                     parameters.m_largeMargin +
-                                                     textBounds.width()),
-                          vMax(parameters.m_iconSize, textBounds.height()) +
-                              parameters.m_largeMargin + parameters.m_margin};
+        totalIconTextPairSize.setHeight(totalIconTextPairSize.height() +
+                                        parameters.m_largeMargin +
+                                        parameters.m_margin);
     }
 
     QRect contentBoundingBox = fitText(opt.font, opt.rect, content);
@@ -102,13 +114,12 @@ void renderer::GenericMessageRenderer::paint(
     QRect timestampBoundingBox =
         fitText(timestampFont, opt.rect, timestampString);
 
-    opt.rect.setWidth(
-        vMax(vMin(opt.rect.width() + parameters.m_largeMargin,
-                  vMax(contentBoundingBox.width(), nameBoundingBox.width(),
-                       timestampBoundingBox.width(),
-                       totalAttachmentSize.width(), sharedLinkSize.width()) +
-                      parameters.m_largeMargin),
-             availableWidthForPictures));
+    opt.rect.setWidth(vMax(
+        vMin(opt.rect.width() + parameters.m_largeMargin,
+             vMax(contentBoundingBox.width(), nameBoundingBox.width(),
+                  timestampBoundingBox.width(), totalIconTextPairSize.width()) +
+                 parameters.m_largeMargin),
+        availableWidthForPictures));
 
     QColor bubbleColor = parameters.m_otherBubbleColor;
 
@@ -130,8 +141,7 @@ void renderer::GenericMessageRenderer::paint(
                          parameters.m_largeMargin + nameBoundingBox.height() +
                          parameters.m_margin + timestampBoundingBox.height() +
                          parameters.m_largeMargin + totalPictureHeight +
-                         totalAttachmentSize.height() +
-                         sharedLinkSize.height());
+                         totalIconTextPairSize.height());
 
     QPainterPath path;
     path.addRoundedRect(bubbleRect, parameters.m_cornerRadius,
@@ -188,24 +198,25 @@ void renderer::GenericMessageRenderer::paint(
         opt.rect.setTop(opt.rect.top() + rowHeight + parameters.m_largeMargin);
     }
 
-    if (attachmentNames.count() > 0) {
-        QString fileIconKey = QString("file-icon-%1-%2-%3")
-                                  .arg(parameters.m_textColor.red())
-                                  .arg(parameters.m_textColor.green())
-                                  .arg(parameters.m_textColor.blue());
+    for (const auto& pair : iconTextPairs) {
+        QString iconKey = QString("%1-%2-%3-%4")
+                              .arg(pair.m_iconName)
+                              .arg(parameters.m_textColor.red())
+                              .arg(parameters.m_textColor.green())
+                              .arg(parameters.m_textColor.blue());
 
-        QPixmap fileIcon;
-        if (!QPixmapCache::find(fileIconKey, &fileIcon)) {
-            QImage fileIconImage =
-                QImage("://resources/images/file.png")
+        QPixmap icon;
+        if (!QPixmapCache::find(iconKey, &icon)) {
+            QImage iconImage =
+                QImage(pair.m_iconPath)
                     .scaled(parameters.m_iconSize, parameters.m_iconSize,
                             Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
-            for (int i = 0; i < fileIconImage.width(); i++) {
-                for (int j = 0; j < fileIconImage.height(); j++) {
-                    QColor pixelColor = fileIconImage.pixelColor(i, j);
+            for (int i = 0; i < iconImage.width(); i++) {
+                for (int j = 0; j < iconImage.height(); j++) {
+                    QColor pixelColor = iconImage.pixelColor(i, j);
 
-                    fileIconImage.setPixelColor(
+                    iconImage.setPixelColor(
                         i, j,
                         QColor(
                             (pixelColor.red() * parameters.m_textColor.red()) /
@@ -220,78 +231,15 @@ void renderer::GenericMessageRenderer::paint(
                 }
             }
 
-            fileIcon = QPixmap::fromImage(fileIconImage);
-            QPixmapCache::insert(fileIconKey, fileIcon);
-        }
-
-        for (const auto& name : attachmentNames) {
-            QRect iconRectangle(opt.rect);
-            iconRectangle.setWidth(parameters.m_iconSize);
-            iconRectangle.setHeight(parameters.m_iconSize);
-
-            painter->drawPixmap(iconRectangle, fileIcon);
-
-            QRect textRectangle(opt.rect);
-            textRectangle.setLeft(iconRectangle.right() +
-                                  parameters.m_largeMargin);
-            textRectangle.setRight(textRectangle.right() - parameters.m_margin);
-
-            QRect nameBounds = QFontMetrics(opt.font).boundingRect(
-                textRectangle,
-                Qt::AlignTop | Qt::AlignLeft | Qt::TextWrapAnywhere, name);
-            painter->drawText(
-                textRectangle,
-                Qt::AlignTop | Qt::AlignLeft | Qt::TextWrapAnywhere, name);
-
-            opt.rect.setTop(opt.rect.top() +
-                            vMax(parameters.m_iconSize, nameBounds.height()) +
-                            parameters.m_margin);
-        }
-
-        opt.rect.setTop(opt.rect.top() + parameters.m_largeMargin);
-    }
-
-    if (!sharedLink.isEmpty()) {
-        QString linkIconKey = QString("link-icon-%1-%2-%3")
-                                  .arg(parameters.m_textColor.red())
-                                  .arg(parameters.m_textColor.green())
-                                  .arg(parameters.m_textColor.blue());
-
-        QPixmap linkIcon;
-        if (!QPixmapCache::find(linkIconKey, &linkIcon)) {
-            QImage linkIconImage =
-                QImage("://resources/images/link.png")
-                    .scaled(parameters.m_iconSize, parameters.m_iconSize,
-                            Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-
-            for (int i = 0; i < linkIconImage.width(); i++) {
-                for (int j = 0; j < linkIconImage.height(); j++) {
-                    QColor pixelColor = linkIconImage.pixelColor(i, j);
-
-                    linkIconImage.setPixelColor(
-                        i, j,
-                        QColor(
-                            (pixelColor.red() * parameters.m_textColor.red()) /
-                                255,
-                            (pixelColor.green() *
-                             parameters.m_textColor.green()) /
-                                255,
-                            (pixelColor.blue() *
-                             parameters.m_textColor.blue()) /
-                                255,
-                            pixelColor.alpha()));
-                }
-            }
-
-            linkIcon = QPixmap::fromImage(linkIconImage);
-            QPixmapCache::insert(linkIconKey, linkIcon);
+            icon = QPixmap::fromImage(iconImage);
+            QPixmapCache::insert(iconKey, icon);
         }
 
         QRect iconRectangle(opt.rect);
         iconRectangle.setWidth(parameters.m_iconSize);
         iconRectangle.setHeight(parameters.m_iconSize);
 
-        painter->drawPixmap(iconRectangle, linkIcon);
+        painter->drawPixmap(iconRectangle, icon);
 
         QRect textRectangle(opt.rect);
         textRectangle.setLeft(iconRectangle.right() + parameters.m_largeMargin);
@@ -299,14 +247,18 @@ void renderer::GenericMessageRenderer::paint(
 
         QRect nameBounds = QFontMetrics(opt.font).boundingRect(
             textRectangle, Qt::AlignTop | Qt::AlignLeft | Qt::TextWrapAnywhere,
-            sharedLink);
+            pair.m_text);
         painter->drawText(textRectangle,
                           Qt::AlignTop | Qt::AlignLeft | Qt::TextWrapAnywhere,
-                          sharedLink);
+                          pair.m_text);
 
         opt.rect.setTop(opt.rect.top() +
                         vMax(parameters.m_iconSize, nameBounds.height()) +
-                        parameters.m_margin + parameters.m_largeMargin);
+                        parameters.m_margin);
+    }
+
+    if (!iconTextPairs.isEmpty()) {
+        opt.rect.setTop(opt.rect.top() + parameters.m_largeMargin);
     }
 
     painter->save();
@@ -367,6 +319,36 @@ QSize renderer::GenericMessageRenderer::sizeHint(
     QString reactionsText =
         index.data(message::ModelData::Reactions).toString();
     QString sharedLink = index.data(message::ModelData::SharedLink).toString();
+    QList<QString> videoNames =
+        index.data(message::ModelData::VideoNames).toStringList();
+    QList<QString> attachmentNames =
+        index.data(message::ModelData::AttachmentNames).toStringList();
+    QList<QString> audioNames =
+        index.data(message::ModelData::AudioNames).toStringList();
+
+    QList<IconTextPair> iconTextPairs{};
+
+    {
+        for (const auto& attachmentName : attachmentNames) {
+            iconTextPairs.push_back(
+                {"file-icon", "://resources/images/file.png", attachmentName});
+        }
+
+        if (!sharedLink.isEmpty()) {
+            iconTextPairs.push_back(
+                {"link-icon", "://resources/images/link.png", sharedLink});
+        }
+
+        for (const auto& videoName : videoNames) {
+            iconTextPairs.push_back(
+                {"video-icon", "://resources/images/video.png", videoName});
+        }
+
+        for (const auto& audioName : audioNames) {
+            iconTextPairs.push_back(
+                {"audio-icon", "://resources/images/audio.png", audioName});
+        }
+    }
 
     QFont nameFont(opt.font);
     nameFont.setBold(true);
@@ -397,27 +379,11 @@ QSize renderer::GenericMessageRenderer::sizeHint(
                   parameters.m_margin;
     }
 
-    QList<QString> attachmentNames =
-        index.data(message::ModelData::AttachmentNames).toStringList();
-
-    if (!attachmentNames.isEmpty()) {
-        height += calculateTotalAttachmentsSize(
-                      attachmentNames, opt.rect, parameters.m_iconSize,
+    if (!iconTextPairs.isEmpty()) {
+        height += calculateTotalIconTextPairSize(
+                      iconTextPairs, opt.rect, parameters.m_iconSize,
                       parameters.m_margin, parameters.m_largeMargin, opt.font)
                       .height() +
-                  parameters.m_largeMargin + parameters.m_margin;
-    }
-
-    if (!sharedLink.isEmpty()) {
-        QRect actualFit(opt.rect);
-        actualFit.setWidth(actualFit.width() - parameters.m_iconSize -
-                           parameters.m_largeMargin - parameters.m_margin);
-
-        QRect textBounds = QFontMetrics(opt.font).boundingRect(
-            actualFit, Qt::AlignTop | Qt::AlignLeft | Qt::TextWrapAnywhere,
-            sharedLink);
-
-        height += vMax(parameters.m_iconSize, textBounds.height()) +
                   parameters.m_largeMargin + parameters.m_margin;
     }
 
@@ -510,27 +476,27 @@ inline const int renderer::GenericMessageRenderer::calculateTotalPicturesHeight(
     return totalPicturesHeight + rowHeight + margin;
 }
 
-const QSize renderer::GenericMessageRenderer::calculateTotalAttachmentsSize(
-    const QStringList& names,
+const QSize renderer::GenericMessageRenderer::calculateTotalIconTextPairSize(
+    const QList<IconTextPair>& items,
     const QRect& fitRectangle,
     const int iconSize,
     const int margin,
     const int largeMargin,
     const QFont& font) const {
-    if (names.isEmpty()) {
+    if (items.isEmpty()) {
         return {};
     }
 
     int maxWidth = 0;
     int totalHeight = 0;
 
-    for (const auto& name : names) {
+    for (const auto& item : items) {
         QRect actualFit(fitRectangle);
         actualFit.setWidth(actualFit.width() - iconSize - largeMargin - margin);
 
         QRect textBounds = QFontMetrics(font).boundingRect(
             actualFit, Qt::AlignTop | Qt::AlignLeft | Qt::TextWrapAnywhere,
-            name);
+            item.m_text);
 
         totalHeight += vMax(iconSize, textBounds.height());
         maxWidth = vMax(maxWidth, iconSize + largeMargin + textBounds.width());

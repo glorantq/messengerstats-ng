@@ -93,6 +93,14 @@ data::Message::Message(QJsonObject& object,
         loadPathArray("gifs", m_gifs);
     }
 
+    if (object.contains("videos")) {
+        loadPathArray("videos", m_videos);
+    }
+
+    if (object.contains("audio_files")) {
+        loadPathArray("audio_files", m_audioFiles);
+    }
+
     if (object.contains("sticker")) {
         QString storedPath = object["sticker"].toObject()["uri"].toString();
 

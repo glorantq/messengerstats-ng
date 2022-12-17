@@ -59,16 +59,6 @@ QVariant ThreadListModel::data(const QModelIndex& index, int role) const {
         return message.getAttachments();
     }
 
-    if (role == message::ModelData::AttachmentNames) {
-        QStringList attachmentNames;
-
-        for (const auto& path : message.getAttachments()) {
-            attachmentNames.push_back(QFileInfo(path).fileName());
-        }
-
-        return attachmentNames;
-    }
-
     if (role == message::ModelData::SharedLink) {
         return message.getSharedLink();
     }
@@ -85,6 +75,28 @@ QVariant ThreadListModel::data(const QModelIndex& index, int role) const {
         QString sticker = message.getSticker();
         return message.getPictures() + message.getGifs() +
                (sticker.isEmpty() ? QStringList{} : QStringList{sticker});
+    }
+
+    auto getFileNames = [](const QList<QString>& paths) {
+        QStringList names;
+
+        for (const auto& path : paths) {
+            names.push_back(QFileInfo(path).fileName());
+        }
+
+        return names;
+    };
+
+    if (role == message::ModelData::AttachmentNames) {
+        return getFileNames(message.getAttachments());
+    }
+
+    if (role == message::ModelData::VideoNames) {
+        return getFileNames(message.getVideos());
+    }
+
+    if (role == message::ModelData::AudioNames) {
+        return getFileNames(message.getAudioFiles());
     }
 
     return {};
@@ -109,6 +121,8 @@ QHash<int, QByteArray> ThreadListModel::roleNames() const {
         {message::ModelData::Gifs, "gifs"},
         {message::ModelData::Sticker, "sticker"},
         {message::ModelData::AllImageMedia, "all_image_media"},
+        {message::ModelData::VideoNames, "video_names"},
+        {message::ModelData::AudioNames, "audio_names"},
     };
 }
 

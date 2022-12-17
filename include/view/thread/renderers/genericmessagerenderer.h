@@ -6,6 +6,12 @@
 
 namespace renderer {
 
+struct IconTextPair {
+    QString m_iconName;
+    QString m_iconPath;
+    QString m_text;
+};
+
 // Responsible for regular chat messages, drawing the sender's name, content,
 // reactions, timestamp and any additional attachments a message might have
 class GenericMessageRenderer : public IMessageRenderer {
@@ -29,12 +35,13 @@ class GenericMessageRenderer : public IMessageRenderer {
                                                   const int& totalWidth,
                                                   const int& margin,
                                                   const double& quality) const;
-    inline const QSize calculateTotalAttachmentsSize(const QStringList& names,
-                                                     const QRect& fitRectangle,
-                                                     const int iconSize,
-                                                     const int margin,
-                                                     const int largeMargin,
-                                                     const QFont& font) const;
+    inline const QSize calculateTotalIconTextPairSize(
+        const QList<IconTextPair>& items,
+        const QRect& fitRectangle,
+        const int iconSize,
+        const int margin,
+        const int largeMargin,
+        const QFont& font) const;
 };
 
 };  // namespace renderer
