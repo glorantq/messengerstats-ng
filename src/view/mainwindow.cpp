@@ -13,6 +13,7 @@
 #include <QtConcurrentRun>
 
 #include "view/conversationspage.h"
+#include "view/message/messageinformationdialog.h"
 #include "view/preferencesdialog.h"
 #include "view/settings.h"
 #include "view/thread/threadinformationdialog.h"
@@ -223,11 +224,28 @@ void MainWindow::on_threadInformationPressed(data::Thread* thread) {
         QString("%1 - %2").arg(windowTitle()).arg(thread->getDisplayName()));
     threadInformationDialog->setWindowModality(
         Qt::WindowModality::ApplicationModal);
+
+    connect(threadInformationDialog,
+            &ThreadInformationDialog::onPersonInformationRequested, this,
+            &MainWindow::on_personInformationRequested);
+
     threadInformationDialog->show();
 }
 
 void MainWindow::on_messageInformationRequested(data::Message* message) {
     qDebug() << "Showing message information for" << message->getContent();
+
+    MessageInformationDialog* messageInformationDialog =
+        new MessageInformationDialog(this, message);
+    messageInformationDialog->setWindowTitle(
+        tr("%1 - Message information").arg(windowTitle()));
+    messageInformationDialog->setWindowModality(
+        Qt::WindowModality::ApplicationModal);
+    messageInformationDialog->show();
+}
+
+void MainWindow::on_personInformationRequested(const QUuid identifier) {
+    qDebug() << "Showing person information for" << identifier;
 }
 
 void MainWindow::performDirectoryOpenAsync(

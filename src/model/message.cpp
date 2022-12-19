@@ -7,7 +7,8 @@
 data::Message::Message(QJsonObject& object,
                        Thread* ownerThread,
                        MessageClassifiers& messageClassifiers,
-                       QDir rootFolder) {
+                       QDir rootFolder)
+    : m_thread(ownerThread) {
     QString messageType = object["type"].toString();
 
     if (messageType == "Generic") {

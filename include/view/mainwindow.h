@@ -32,6 +32,7 @@ class MainWindow : public QMainWindow {
     void on_threadOpenDirectoryPressed(data::Thread*);
     void on_threadInformationPressed(data::Thread*);
     void on_messageInformationRequested(data::Message*);
+    void on_personInformationRequested(const QUuid);
 
     void on_action_preferences_triggered();
 

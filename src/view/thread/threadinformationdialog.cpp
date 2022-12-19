@@ -2,6 +2,7 @@
 #include "./ui_threadinformationdialog.h"
 
 #include <QFontDatabase>
+#include <QMenu>
 
 #include "model/messengerdata.h"
 #include "view/thread/nicknameitem.h"
@@ -77,6 +78,9 @@ ThreadInformationDialog::ThreadInformationDialog(QWidget* parent,
         QString("%1").arg(thread->getParticipants().count()));
     ui->messagesLabel->setText(
         QString("%1").arg(thread->getMessages().count()));
+
+    ui->participantsList->setContextMenuPolicy(
+        Qt::ContextMenuPolicy::CustomContextMenu);
 }
 
 ThreadInformationDialog::~ThreadInformationDialog() {
@@ -100,4 +104,28 @@ void ThreadInformationDialog::on_participantsList_currentItemChanged(
         ui->nicknamesList->addItem(item);
         ui->nicknamesList->setItemWidget(item, nicknameWidget);
     }
+}
+
+void ThreadInformationDialog::on_participantsList_customContextMenuRequested(
+    const QPoint& pos) {
+    auto selectedItems = ui->participantsList->selectionModel()->selectedRows();
+    if (selectedItems.count() == 0) {
+        return;
+    }
+
+    QModelIndex selected = selectedItems.first();
+    QUuid identifier = selected.data(Qt::UserRole).toUuid();
+
+    QMenu contextMenu(this);
+    QAction showInformationAction(
+        QIcon("://resources/icon/silk/information.png"), tr("Show information"),
+        &contextMenu);
+
+    connect(&showInformationAction, &QAction::triggered,
+            [=]() { emit onPersonInformationRequested(identifier); });
+
+    contextMenu.addAction(&showInformationAction);
+
+    QPoint globalPos = ui->participantsList->mapToGlobal(pos);
+    contextMenu.exec(globalPos);
 }

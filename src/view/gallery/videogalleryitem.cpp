@@ -2,6 +2,7 @@
 #include "./ui_videogalleryitem.h"
 
 #include <QKeyEvent>
+#include <QMediaMetaData>
 #include <QMessageBox>
 #include <QMouseEvent>
 

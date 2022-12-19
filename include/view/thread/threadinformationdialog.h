@@ -16,9 +16,13 @@ class ThreadInformationDialog : public QDialog {
     explicit ThreadInformationDialog(QWidget* parent, data::Thread* thread);
     ~ThreadInformationDialog();
 
+   signals:
+    void onPersonInformationRequested(const QUuid);
+
    private slots:
     void on_participantsList_currentItemChanged(QListWidgetItem* current,
                                                 QListWidgetItem* previous);
+    void on_participantsList_customContextMenuRequested(const QPoint& pos);
 
    private:
     Ui::ThreadInformationDialog* ui;

@@ -5,7 +5,7 @@
 #include <QRegularExpression>
 #include <QStyledItemDelegate>
 
-#include "model/thread.h"
+#include "model/message.h"
 
 namespace Ui {
 class SearchDialog;
@@ -50,7 +50,8 @@ class SearchDialog : public QDialog {
     Q_OBJECT
 
    public:
-    explicit SearchDialog(QWidget* parent, data::Thread* thread);
+    explicit SearchDialog(QWidget* parent,
+                          const QList<const data::Message*>& messages);
     ~SearchDialog();
 
    signals:
@@ -65,9 +66,11 @@ class SearchDialog : public QDialog {
 
    private:
     Ui::SearchDialog* ui;
+
+    const QList<const data::Message*> m_messages{};
+
     SearchResultDelegate* m_resultDelegate;
 
-    data::Thread* m_thread;
     QString matchGroupBoxPattern;
 
     void performSearch(const QRegularExpression&);

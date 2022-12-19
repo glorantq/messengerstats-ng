@@ -96,9 +96,9 @@ ThreadPage::ThreadPage(QWidget* parent, data::Thread* thread)
 
     connect(galleryAction, &QAction::triggered, this, &ThreadPage::openGallery);
 
-    QAction* threadStatisticsAction =
-        new QAction(QIcon("://resources/icon/silk/chart_bar.png"),
-                    tr("Statistics"), popupMenu);
+    QMenu* threadStatisticsMenu = new QMenu(tr("Statistics"), popupMenu);
+    threadStatisticsMenu->setIcon(
+        QIcon("://resources/icon/silk/chart_bar.png"));
 
     QAction* threadOpenFolderAction =
         new QAction(QIcon("://resources/icon/silk/folder.png"),
@@ -111,7 +111,7 @@ ThreadPage::ThreadPage(QWidget* parent, data::Thread* thread)
     popupMenu->addSeparator();
     popupMenu->addAction(searchAction);
     popupMenu->addAction(galleryAction);
-    popupMenu->addAction(threadStatisticsAction);
+    popupMenu->addMenu(threadStatisticsMenu);
     popupMenu->addSeparator();
     popupMenu->addAction(threadOpenFolderAction);
 
@@ -165,7 +165,14 @@ void ThreadPage::on_chatContextMenuRequested(const QPoint& position) {
 }
 
 void ThreadPage::openSearchDialog() {
-    SearchDialog* searchDialog = new SearchDialog(this, m_thread);
+    const QList<data::Message>& threadMessages = m_thread->getMessages();
+    QList<const data::Message*> messages(threadMessages.count());
+
+    for (int i = 0; i < messages.count(); i++) {
+        messages[i] = &threadMessages[i];
+    }
+
+    SearchDialog* searchDialog = new SearchDialog(this, messages);
 
     connect(searchDialog, &SearchDialog::onScrollToMessageIndex,
             [=](int index) { scrollTo(index); });

@@ -33,5 +33,10 @@
         <file>resources/icon/silk/application_go.png</file>
         <file>resources/images/video.png</file>
         <file>resources/images/audio.png</file>
+        <file>resources/icon/silk/user.png</file>
+        <file>resources/icon/silk/text_ab.png</file>
+        <file>resources/icon/silk/thumb_up.png</file>
+        <file>resources/icon/silk/world_go.png</file>
+        <file>resources/icon/silk/page_white.png</file>
     </qresource>
 </RCC>

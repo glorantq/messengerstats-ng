@@ -12,8 +12,6 @@
 
 // Paints the standard conversation chat bubbles. See the comment about size
 // hinting for these types of messages. All of that applies here as well.
-
-// TODO: Video, audio
 void renderer::GenericMessageRenderer::paint(
     QPainter* painter,
     const QStyleOptionViewItem& option,

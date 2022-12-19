@@ -43,6 +43,8 @@ struct Reaction {
 // user who joined)
 class Message {
    private:
+    data::Thread* m_thread;
+
     ThreadParticipant m_sender;
 
     unsigned long long m_timestamp;
@@ -88,6 +90,8 @@ class Message {
     const QList<QString>& getGifs() const { return m_gifs; }
     const QList<QString>& getVideos() const { return m_videos; }
     const QList<QString>& getAudioFiles() const { return m_audioFiles; }
+
+    const data::Thread* getThread() const { return m_thread; }
 };
 
 };  // namespace data

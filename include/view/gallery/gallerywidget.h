@@ -29,7 +29,12 @@ class GalleryWidget : public QWidget {
     explicit GalleryWidget(QWidget* parent,
                            const QList<GalleryItem>& items,
                            bool allowMessageJumping = false);
+
+    explicit GalleryWidget(QWidget* parent = nullptr);
     ~GalleryWidget();
+
+    void setUpGallery(const QList<GalleryItem>& items,
+                      bool allowMessageJumping = false);
 
    signals:
     void onNavigateToMessage(int index);

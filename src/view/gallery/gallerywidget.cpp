@@ -18,6 +18,20 @@ GalleryWidget::GalleryWidget(QWidget* parent,
     : QWidget(parent), ui(new Ui::GalleryWidget) {
     ui->setupUi(this);
 
+    setUpGallery(items, allowMessageJumping);
+}
+
+GalleryWidget::GalleryWidget(QWidget* parent)
+    : QWidget(parent), ui(new Ui::GalleryWidget) {
+    ui->setupUi(this);
+}
+
+GalleryWidget::~GalleryWidget() {
+    delete ui;
+}
+
+void GalleryWidget::setUpGallery(const QList<GalleryItem>& items,
+                                 bool allowMessageJumping) {
     if (!items.isEmpty()) {
         QWidget* placeholderWidget = ui->stackedWidget->widget(0);
 
@@ -55,10 +69,6 @@ GalleryWidget::GalleryWidget(QWidget* parent,
     QGridLayout* actionsLayout = (QGridLayout*)ui->actionsGrid->layout();
     actionsLayout->setColumnMinimumWidth(0, minColumnWidth);
     actionsLayout->setColumnMinimumWidth(2, minColumnWidth);
-}
-
-GalleryWidget::~GalleryWidget() {
-    delete ui;
 }
 
 void GalleryWidget::on_leftButton_clicked() {

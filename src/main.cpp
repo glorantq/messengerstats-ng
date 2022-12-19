@@ -12,6 +12,10 @@
 #include "view/settings.h"
 #include "view/themeservice.h"
 
+// TODO: Person information dialog (signals need to be set up)
+// TODO: Global contact list
+// TODO: Global search
+
 int main(int argc, char* argv[]) {
     qSetMessagePattern(
         "%{time hh:mm:ss} [%{type}] %{file}:%{line} > %{message}");

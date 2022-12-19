@@ -112,6 +112,9 @@ set(PROJECT_SOURCES
         include/view/gallery/audiogalleryitem.h
         src/view/gallery/audiogalleryitem.cpp
         src/view/gallery/audiogalleryitem.ui
+        include/view/message/messageinformationdialog.h
+        src/view/message/messageinformationdialog.cpp
+        src/view/message/messageinformationdialog.ui
         resources.qrc
 )
 

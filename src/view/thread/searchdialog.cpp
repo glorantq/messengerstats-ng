@@ -6,8 +6,9 @@
 
 #include "model/message.h"
 
-SearchDialog::SearchDialog(QWidget* parent, data::Thread* thread)
-    : QDialog(parent), ui(new Ui::SearchDialog), m_thread(thread) {
+SearchDialog::SearchDialog(QWidget* parent,
+                           const QList<const data::Message*>& messages)
+    : QDialog(parent), ui(new Ui::SearchDialog), m_messages(messages) {
     ui->setupUi(this);
 
     setWindowTitle(windowTitle().arg(QCoreApplication::applicationName()));
@@ -114,25 +115,25 @@ void SearchDialog::on_searchButton_pressed() {
 void SearchDialog::performSearch(const QRegularExpression& regularExpression) {
     ui->messagesList->clear();
 
-    for (int i = 0; i < m_thread->getMessages().count(); i++) {
-        const data::Message& message = m_thread->getMessages()[i];
+    for (int i = 0; i < m_messages.count(); i++) {
+        const data::Message* message = m_messages[i];
 
         QRegularExpressionMatch match =
-            regularExpression.match(message.getContent());
+            regularExpression.match(message->getContent());
 
         if (match.hasMatch()) {
             QListWidgetItem* item = new QListWidgetItem(ui->messagesList);
             item->setData(SearchModelData::MessageIndex, i);
             item->setData(SearchModelData::MessageContent,
-                          message.getContent());
+                          message->getContent());
             item->setData(SearchModelData::MatchStart, match.capturedStart());
             item->setData(SearchModelData::MatchEnd, match.capturedEnd());
             item->setData(SearchModelData::MatchLength, match.capturedLength());
             item->setData(SearchModelData::SenderName,
-                          message.getSender().m_name);
-            item->setData(SearchModelData::Timestamp, message.getTimestamp());
+                          message->getSender().m_name);
+            item->setData(SearchModelData::Timestamp, message->getTimestamp());
             item->setData(SearchModelData::MessagePointer,
-                          (unsigned long long)&message);
+                          (unsigned long long)message);
 
             ui->messagesList->addItem(item);
         }
@@ -154,6 +155,8 @@ void SearchResultDelegate::paint(QPainter* painter,
 
     opt.font.setHintingPreference(QFont::PreferNoHinting);
     opt.fontMetrics = QFontMetrics(opt.font);
+
+    painter->setFont(opt.font);
 
     QFont boldFont(opt.font);
     boldFont.setBold(true);
@@ -242,14 +245,14 @@ QSize SearchResultDelegate::sizeHint(const QStyleOptionViewItem& option,
                                      const QModelIndex& index) const {
     QStyleOptionViewItem opt(option);
 
+    opt.font.setHintingPreference(QFont::PreferNoHinting);
+    opt.fontMetrics = QFontMetrics(opt.font);
+
     QFont boldFont(opt.font);
     boldFont.setBold(true);
 
     QFont smallFont(opt.font);
     smallFont.setPointSize(opt.font.pointSize() - 2);
-
-    opt.font.setHintingPreference(QFont::PreferNoHinting);
-    opt.fontMetrics = QFontMetrics(opt.font);
 
     QString senderName = index.data(SearchModelData::SenderName).toString();
     unsigned long long timestamp =
