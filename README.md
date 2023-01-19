@@ -15,4 +15,12 @@ This is a rewrite of my previous, unreleased project, that allows you to browse 
 | ![image](https://user-images.githubusercontent.com/17655680/213432304-cc8b791e-87a3-4751-a2b3-0c7c23cb17c6.png)| ![image(3)](https://user-images.githubusercontent.com/17655680/213432412-49a0ed89-0735-444c-b487-eb0e393f6aa2.png) |
 | ![image](https://user-images.githubusercontent.com/17655680/213432659-9c002f72-9f9c-4296-9913-6e4a36ffa2e7.png) | ![image](https://user-images.githubusercontent.com/17655680/213432688-c2d80dac-cefa-4a49-ab8c-25946e06155b.png) |
 
+### Getting started
 
+### Usage
+
+### Building
+
+### License
+
+### Contact
