@@ -31,4 +31,4 @@ You should have received a copy of the GNU General Public License along with thi
 ### Contact
 For discussion about this project, you can use the Discussions feature here on GitHub, or alternatively reach out to me:
 - via e-mail at: glorantv@student.elte.hu
-- via Discord at: glorantv#4954
+- via Discord at: `glorantv#4954`
