@@ -29,3 +29,6 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. 
 
 ### Contact
+For discussion about this project, you can use the Discussions feature here on GitHub, or alternatively reach out to me:
+- via e-mail at: glorantv@student.elte.hu
+- via Discord at: glorantv#4954
