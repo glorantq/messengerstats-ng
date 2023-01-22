@@ -20,6 +20,39 @@
     </message>
 </context>
 <context>
+    <name>BarChartStatisticProvider</name>
+    <message>
+        <location filename="include/view/statistics/impl/barchart.h" line="30"/>
+        <source>Value Axis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/barchart.h" line="31"/>
+        <source>Category Axis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/barchart.h" line="32"/>
+        <source>Legend</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/barchart.h" line="34"/>
+        <source>Animations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/barchart.h" line="37"/>
+        <source>Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/barchart.h" line="50"/>
+        <source>Bar Chart</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConversationListItem</name>
     <message>
         <location filename="src/view/conversationlistitem.cpp" line="35"/>
@@ -55,28 +88,33 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/conversationspage.cpp" line="45"/>
+        <location filename="src/view/conversationspage.cpp" line="47"/>
         <source>All conversations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/conversationspage.cpp" line="46"/>
+        <location filename="src/view/conversationspage.cpp" line="48"/>
         <source>Direct messages only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/conversationspage.cpp" line="47"/>
+        <location filename="src/view/conversationspage.cpp" line="49"/>
         <source>Groups only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/conversationspage.cpp" line="50"/>
+        <location filename="src/view/conversationspage.cpp" line="53"/>
         <source>Alphabetical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/conversationspage.cpp" line="50"/>
+        <location filename="src/view/conversationspage.cpp" line="54"/>
         <source>Messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/conversationspage.cpp" line="55"/>
+        <source>Participants</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -243,7 +281,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="116"/>
+        <location filename="src/view/mainwindow.cpp" line="120"/>
         <source>
 &lt;h2&gt;%1 &lt;small&gt;%2&lt;/small&gt;&lt;/h2&gt;
 &lt;p&gt;Marcella.&lt;/p&gt;
@@ -262,48 +300,48 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="145"/>
+        <location filename="src/view/mainwindow.cpp" line="149"/>
         <source>Some settings may need an application restart to take effect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="151"/>
+        <location filename="src/view/mainwindow.cpp" line="155"/>
         <source>Open a data download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="241"/>
+        <location filename="src/view/mainwindow.cpp" line="253"/>
         <source>%1 - Message information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="283"/>
+        <location filename="src/view/mainwindow.cpp" line="313"/>
         <source>The selected directory does not exist!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="289"/>
+        <location filename="src/view/mainwindow.cpp" line="319"/>
         <source>The selected directory contains a messages directory, but changing to it failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="298"/>
+        <location filename="src/view/mainwindow.cpp" line="328"/>
         <source>The directory you selected does not appear to be a valid Messenger data download.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="315"/>
+        <location filename="src/view/mainwindow.cpp" line="345"/>
         <source>Loading archive...&lt;br&gt;(&lt;small&gt;preparing&lt;/small&gt;)</source>
         <oldsource>Loading archive...&lt;br&gt;&lt;br&gt;(&lt;small&gt;preparing&lt;/small&gt;)</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="336"/>
+        <location filename="src/view/mainwindow.cpp" line="366"/>
         <source>Loading archive...&lt;br&gt;(&lt;small&gt;%1&lt;/small&gt;)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="382"/>
+        <location filename="src/view/mainwindow.cpp" line="412"/>
         <source>Failed to parse data archive: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -332,7 +370,7 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
     </message>
     <message>
         <location filename="src/view/message/messageinformationdialog.ui" line="110"/>
-        <location filename="src/view/message/messageinformationdialog.ui" line="127"/>
+        <location filename="src/view/message/messageinformationdialog.ui" line="142"/>
         <source>Dr. Lőrinczné Takáts Marcella</source>
         <translation type="unfinished"></translation>
     </message>
@@ -353,27 +391,27 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/message/messageinformationdialog.ui" line="145"/>
+        <location filename="src/view/message/messageinformationdialog.ui" line="199"/>
         <source>Content</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/message/messageinformationdialog.ui" line="201"/>
+        <location filename="src/view/message/messageinformationdialog.ui" line="255"/>
         <source>Shared link:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/message/messageinformationdialog.ui" line="252"/>
+        <location filename="src/view/message/messageinformationdialog.ui" line="306"/>
         <source>Media</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/message/messageinformationdialog.ui" line="266"/>
+        <location filename="src/view/message/messageinformationdialog.ui" line="320"/>
         <source>Attachments</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/message/messageinformationdialog.ui" line="382"/>
+        <location filename="src/view/message/messageinformationdialog.ui" line="436"/>
         <source>Reactions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -419,17 +457,17 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/message/messageinformationdialog.cpp" line="243"/>
+        <location filename="src/view/message/messageinformationdialog.cpp" line="253"/>
         <source>Do you really want to open this file? Make sure you trust it&apos;s safe before doing so.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/message/messageinformationdialog.cpp" line="229"/>
+        <location filename="src/view/message/messageinformationdialog.cpp" line="239"/>
         <source>Save media</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/message/messageinformationdialog.cpp" line="236"/>
+        <location filename="src/view/message/messageinformationdialog.cpp" line="246"/>
         <source>Failed to copy file!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -444,6 +482,34 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
     <message>
         <location filename="src/view/thread/nicknameitem.ui" line="20"/>
         <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PersonInformationDialog</name>
+    <message>
+        <location filename="src/view/personinformationdialog.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/personinformationdialog.ui" line="20"/>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/personinformationdialog.ui" line="26"/>
+        <source>Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/personinformationdialog.ui" line="40"/>
+        <source>Identifier:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/personinformationdialog.ui" line="62"/>
+        <source>Mutual threads</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -532,6 +598,434 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
     </message>
 </context>
 <context>
+    <name>QtBoolEdit</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="217"/>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="227"/>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="252"/>
+        <source>True</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="227"/>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="252"/>
+        <source>False</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtBoolPropertyManager</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="1450"/>
+        <source>True</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="1451"/>
+        <source>False</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtCharEdit</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qteditorfactory.cpp" line="1523"/>
+        <source>Clear Char</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtColorEditWidget</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qteditorfactory.cpp" line="2124"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtColorPropertyManager</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="6167"/>
+        <source>Red</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="6175"/>
+        <source>Green</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="6183"/>
+        <source>Blue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="6191"/>
+        <source>Alpha</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtCursorDatabase</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="18"/>
+        <source>Arrow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="20"/>
+        <source>Up Arrow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="22"/>
+        <source>Cross</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="24"/>
+        <source>Wait</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="26"/>
+        <source>IBeam</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="28"/>
+        <source>Size Vertical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="30"/>
+        <source>Size Horizontal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="32"/>
+        <source>Size Backslash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="34"/>
+        <source>Size Slash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="36"/>
+        <source>Size All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="38"/>
+        <source>Blank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="40"/>
+        <source>Split Vertical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="42"/>
+        <source>Split Horizontal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="44"/>
+        <source>Pointing Hand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="46"/>
+        <source>Forbidden</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="48"/>
+        <source>Open Hand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="50"/>
+        <source>Closed Hand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="52"/>
+        <source>What&apos;s This</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="54"/>
+        <source>Busy</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtFontEditWidget</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qteditorfactory.cpp" line="2321"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qteditorfactory.cpp" line="2341"/>
+        <source>Select Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtFontPropertyManager</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="5840"/>
+        <source>Family</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="5853"/>
+        <source>Point Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="5861"/>
+        <source>Bold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="5868"/>
+        <source>Italic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="5875"/>
+        <source>Underline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="5882"/>
+        <source>Strikeout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="5889"/>
+        <source>Kerning</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtLocalePropertyManager</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="2350"/>
+        <source>&lt;Invalid&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="2358"/>
+        <source>%1, %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="2408"/>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="2416"/>
+        <source>Territory</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtPointFPropertyManager</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="2826"/>
+        <source>(%1, %2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="2897"/>
+        <source>X</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="2905"/>
+        <source>Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtPointPropertyManager</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="2586"/>
+        <source>(%1, %2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="2623"/>
+        <source>X</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="2630"/>
+        <source>Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtPropertyBrowserUtils</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="147"/>
+        <source>[%1, %2, %3] (%4)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertybrowserutils.cpp" line="174"/>
+        <source>[%1, %2]</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtRectFPropertyManager</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="4331"/>
+        <source>[(%1, %2), %3 x %4]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="4487"/>
+        <source>X</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="4495"/>
+        <source>Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="4503"/>
+        <source>Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="4512"/>
+        <source>Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtRectPropertyManager</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="3901"/>
+        <source>[(%1, %2), %3 x %4]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="4021"/>
+        <source>X</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="4028"/>
+        <source>Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="4035"/>
+        <source>Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="4043"/>
+        <source>Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtSizeFPropertyManager</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="3509"/>
+        <source>%1 x %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="3639"/>
+        <source>Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="3648"/>
+        <source>Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtSizePolicyPropertyManager</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="5355"/>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="5356"/>
+        <source>&lt;Invalid&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="5357"/>
+        <source>[%1, %2, %3, %4]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="5402"/>
+        <source>Horizontal Policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="5411"/>
+        <source>Vertical Policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="5420"/>
+        <source>Horizontal Stretch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="5428"/>
+        <source>Vertical Stretch</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtSizePropertyManager</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="3145"/>
+        <source>%1 x %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="3241"/>
+        <source>Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qtpropertymanager.cpp" line="3249"/>
+        <source>Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QtTreePropertyBrowser</name>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qttreepropertybrowser.cpp" line="404"/>
+        <source>Property</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="vendor/qtpropertybrowser/qttreepropertybrowser.cpp" line="405"/>
+        <source>Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SearchDialog</name>
     <message>
         <location filename="src/view/thread/searchdialog.ui" line="14"/>
@@ -582,6 +1076,19 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
     <message>
         <location filename="src/view/thread/searchdialog.cpp" line="310"/>
         <source>yyyy. MM. dd. hh:mm:ss</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>StatisticsViewer</name>
+    <message>
+        <location filename="src/view/statistics/statisticsviewer.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/statistics/statisticsviewer.ui" line="86"/>
+        <source>No visualisation generated.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -779,23 +1286,41 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/threadpage.cpp" line="99"/>
+        <location filename="src/view/threadpage.cpp" line="101"/>
         <source>Statistics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/threadpage.cpp" line="105"/>
+        <location filename="src/view/threadpage.cpp" line="108"/>
         <source>Open folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/threadpage.cpp" line="155"/>
+        <location filename="src/view/threadpage.cpp" line="158"/>
         <source>Show information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/threadpage.cpp" line="238"/>
+        <location filename="src/view/threadpage.cpp" line="241"/>
         <source>%1 - Thread gallery</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TimeRangeStatisticProvider</name>
+    <message>
+        <location filename="include/view/statistics/impl/basic.h" line="19"/>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/basic.h" line="20"/>
+        <source>End</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/basic.h" line="29"/>
+        <source>Time Range</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

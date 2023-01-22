@@ -24,6 +24,8 @@ class ThreadInformationDialog : public QDialog {
                                                 QListWidgetItem* previous);
     void on_participantsList_customContextMenuRequested(const QPoint& pos);
 
+    void on_participantsList_itemDoubleClicked(QListWidgetItem* item);
+
    private:
     Ui::ThreadInformationDialog* ui;
 

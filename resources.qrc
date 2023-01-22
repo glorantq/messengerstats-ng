@@ -38,5 +38,6 @@
         <file>resources/icon/silk/thumb_up.png</file>
         <file>resources/icon/silk/world_go.png</file>
         <file>resources/icon/silk/page_white.png</file>
+        <file>resources/icon/silk/user_go.png</file>
     </qresource>
 </RCC>

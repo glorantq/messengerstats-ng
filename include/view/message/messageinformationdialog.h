@@ -46,12 +46,16 @@ class MessageInformationDialog : public QDialog {
     explicit MessageInformationDialog(QWidget* parent, data::Message* message);
     ~MessageInformationDialog();
 
+   signals:
+    void onPersonInformationRequested(const QUuid identifier);
+
    private slots:
     void on_openSharedLinkButton_clicked();
     void on_openFileButton_clicked();
     void on_saveFileButton_clicked();
     void onOpenSelectedAttachment(QString path);
     void on_attachmentsListWidget_itemDoubleClicked(QListWidgetItem* item);
+    void on_openPersonButton_clicked();
 
    private:
     Ui::MessageInformationDialog* ui;

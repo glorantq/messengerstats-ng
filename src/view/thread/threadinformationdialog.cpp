@@ -129,3 +129,11 @@ void ThreadInformationDialog::on_participantsList_customContextMenuRequested(
     QPoint globalPos = ui->participantsList->mapToGlobal(pos);
     contextMenu.exec(globalPos);
 }
+
+void ThreadInformationDialog::on_participantsList_itemDoubleClicked(
+    QListWidgetItem* item) {
+    if (item != nullptr) {
+        QUuid identifier = item->data(Qt::UserRole).toUuid();
+        emit onPersonInformationRequested(identifier);
+    }
+}

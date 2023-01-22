@@ -96,9 +96,12 @@ ThreadPage::ThreadPage(QWidget* parent, data::Thread* thread)
 
     connect(galleryAction, &QAction::triggered, this, &ThreadPage::openGallery);
 
-    QMenu* threadStatisticsMenu = new QMenu(tr("Statistics"), popupMenu);
-    threadStatisticsMenu->setIcon(
-        QIcon("://resources/icon/silk/chart_bar.png"));
+    QAction* threadStatisticsAction =
+        new QAction(QIcon("://resources/icon/silk/chart_bar.png"),
+                    tr("Statistics"), popupMenu);
+
+    connect(threadStatisticsAction, &QAction::triggered,
+            [&] { emit onThreadStatisticsPressed(m_thread); });
 
     QAction* threadOpenFolderAction =
         new QAction(QIcon("://resources/icon/silk/folder.png"),
@@ -111,7 +114,7 @@ ThreadPage::ThreadPage(QWidget* parent, data::Thread* thread)
     popupMenu->addSeparator();
     popupMenu->addAction(searchAction);
     popupMenu->addAction(galleryAction);
-    popupMenu->addMenu(threadStatisticsMenu);
+    popupMenu->addAction(threadStatisticsAction);
     popupMenu->addSeparator();
     popupMenu->addAction(threadOpenFolderAction);
 

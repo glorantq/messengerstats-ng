@@ -18,10 +18,15 @@ enum ModelData {
     MessageCount,
     ThreadType,
     SortingMode,
-    RawPointer
+    RawPointer,
+    ParticipantCount,
 };
 
-enum SortingMode { Alphabetical = 0, TotalMessageCount };
+enum SortingMode {
+    Alphabetical = 0,
+    TotalMessageCount,
+    Participants,
+};
 };  // namespace thread
 
 class ConversationsPage : public QWidget {

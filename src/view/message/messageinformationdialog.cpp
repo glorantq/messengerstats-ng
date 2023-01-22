@@ -111,6 +111,16 @@ MessageInformationDialog::MessageInformationDialog(QWidget* parent,
         });
     }
 
+    for (const auto& path : message->getGifs()) {
+        galleryItems.push_back({
+            GalleryItemType::ImageItem,
+            path,
+            message->getSender().m_name,
+            message->getTimestamp(),
+            0,
+        });
+    }
+
     for (const auto& path : message->getVideos()) {
         galleryItems.push_back({
             GalleryItemType::VideoItem,
@@ -357,4 +367,8 @@ QSize ReactionsItemDelegate::sizeHint(const QStyleOptionViewItem& option,
         QString("%1 - %2").arg(reaction).arg(name));
 
     return {textSize.width(), textSize.height()};
+}
+
+void MessageInformationDialog::on_openPersonButton_clicked() {
+    emit onPersonInformationRequested(m_message->getSender().m_identifier);
 }

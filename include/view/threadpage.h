@@ -24,6 +24,7 @@ class ThreadPage : public QWidget {
     void onOpenDirectoryPressed(data::Thread*);
     void onThreadInformationPressed(data::Thread*);
     void onMessageInformationRequested(data::Message*);
+    void onThreadStatisticsPressed(data::Thread*);
 
    private slots:
     void on_backButton_clicked();

@@ -30,6 +30,8 @@ ConversationsPage::ConversationsPage(
                       thread::SortingMode::Alphabetical);
         item->setData(thread::ModelData::RawPointer,
                       (unsigned long long)threadPtr.get());
+        item->setData(thread::ModelData::ParticipantCount,
+                      threadPtr->getParticipants().count());
     }
 
     // Integrate the look of the list with the window
@@ -47,7 +49,12 @@ ConversationsPage::ConversationsPage(
                                       tr("Groups only")});
     ui->threadTypeComboBox->setCurrentIndex(0);
 
-    ui->sortingMethodComboBox->addItems({tr("Alphabetical"), tr("Messages")});
+    ui->sortingMethodComboBox->addItems({
+        tr("Alphabetical"),
+        tr("Messages"),
+        tr("Participants"),
+    });
+
     ui->sortingMethodComboBox->setCurrentIndex(
         thread::SortingMode::Alphabetical);
 }
@@ -161,6 +168,12 @@ bool CustomListWidgetItem::operator<(const QListWidgetItem& other) const {
             other.data(thread::ModelData::MessageCount).toInt();
 
         return ownMessageCount < otherMessageCount;
+    } else if (sortingMethod == thread::SortingMode::Participants) {
+        int ownCount = data(thread::ModelData::ParticipantCount).toInt();
+        int otherCount =
+            other.data(thread::ModelData::ParticipantCount).toInt();
+
+        return ownCount < otherCount;
     }
 
     return this < &other;

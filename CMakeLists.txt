@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(MessengerStatsNG
-    VERSION 0.0.1
+    VERSION 0.1.0
     DESCRIPTION "Utility to calculate statistics on a Facebook data takeout"
     HOMEPAGE_URL "https://glorantv.hu/"
     LANGUAGES CXX)
@@ -35,6 +35,7 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS
     Concurrent
     Multimedia
     MultimediaWidgets
+    Charts
 )
 
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
@@ -43,6 +44,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
     Concurrent
     Multimedia
     MultimediaWidgets
+    Charts
 )
 
 set(TS_FILES MessengerStatsNG_en_GB.ts)
@@ -115,12 +117,40 @@ set(PROJECT_SOURCES
         include/view/message/messageinformationdialog.h
         src/view/message/messageinformationdialog.cpp
         src/view/message/messageinformationdialog.ui
+        include/view/personinformationdialog.h
+        src/view/personinformationdialog.cpp
+        src/view/personinformationdialog.ui
+        include/view/statistics/statisticsviewer.h
+        src/view/statistics/statisticsviewer.cpp
+        src/view/statistics/statisticsviewer.ui
+        include/view/statistics/statisticprovider.h
+        src/view/statistics/statisticprovider.cpp
+        include/view/statistics/impl/basic.h
+        include/view/statistics/impl/barchart.h
+        src/view/statistics/impl/barchart.cpp
         resources.qrc
 )
 
 set(VENDOR_SOURCES
     vendor/SlidingStackedWidget/slidingstackedwidget.cpp
     vendor/SlidingStackedWidget/slidingstackedwidget.h
+
+    vendor/qtpropertybrowser/qtbuttonpropertybrowser.cpp
+    vendor/qtpropertybrowser/qtbuttonpropertybrowser.h
+    vendor/qtpropertybrowser/qteditorfactory.cpp
+    vendor/qtpropertybrowser/qteditorfactory.h
+    vendor/qtpropertybrowser/qtgroupboxpropertybrowser.cpp
+    vendor/qtpropertybrowser/qtgroupboxpropertybrowser.h
+    vendor/qtpropertybrowser/qtpropertybrowser.cpp
+    vendor/qtpropertybrowser/qtpropertybrowser.h
+    vendor/qtpropertybrowser/qtpropertybrowserutils.cpp
+    vendor/qtpropertybrowser/qtpropertybrowserutils_p.h
+    vendor/qtpropertybrowser/qtpropertymanager.cpp
+    vendor/qtpropertybrowser/qtpropertymanager.h
+    vendor/qtpropertybrowser/qttreepropertybrowser.cpp
+    vendor/qtpropertybrowser/qttreepropertybrowser.h
+    vendor/qtpropertybrowser/qtvariantproperty.cpp
+    vendor/qtpropertybrowser/qtvariantproperty.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -154,6 +184,7 @@ target_link_libraries(MessengerStatsNG PRIVATE
     Qt${QT_VERSION_MAJOR}::Concurrent
     Qt${QT_VERSION_MAJOR}::Multimedia
     Qt${QT_VERSION_MAJOR}::MultimediaWidgets
+    Qt${QT_VERSION_MAJOR}::Charts
 )
 
 # Generate a header file so we can reference CMake version information in

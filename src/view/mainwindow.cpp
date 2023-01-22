@@ -14,8 +14,10 @@
 
 #include "view/conversationspage.h"
 #include "view/message/messageinformationdialog.h"
+#include "view/personinformationdialog.h"
 #include "view/preferencesdialog.h"
 #include "view/settings.h"
+#include "view/statistics/statisticsviewer.h"
 #include "view/thread/threadinformationdialog.h"
 #include "view/threadpage.h"
 
@@ -28,6 +30,8 @@ MainWindow::MainWindow(QWidget* parent)
     QDir classifierDirectory = QCoreApplication::applicationDirPath()
                                    .append("%1classifiers%1")
                                    .arg(QDir::separator());
+
+    qDebug() << "Looking for classifiers in:" << classifierDirectory;
 
     if (classifierDirectory.exists()) {
         for (const auto& entry : classifierDirectory.entryList(
@@ -153,7 +157,7 @@ void MainWindow::on_action_openProject_triggered() {
     openDialog.setFileMode(QFileDialog::Directory);
 
     if (openDialog.exec()) {
-        QString selectedPath = openDialog.selectedFiles().first();
+        QString selectedPath = openDialog.selectedFiles()[0];
         performDirectoryOpen(selectedPath);
     }
 }
@@ -201,6 +205,9 @@ void MainWindow::on_navigateToConversation(data::Thread* thread) {
     // Connect the event for opening information about a specific message
     connect(threadPage, &ThreadPage::onMessageInformationRequested, this,
             &MainWindow::on_messageInformationRequested);
+
+    connect(threadPage, &ThreadPage::onThreadStatisticsPressed, this,
+            &MainWindow::on_threadStatisticsRequested);
 }
 
 // Handles the event of pressing the back button in a thread, emitted by
@@ -237,6 +244,11 @@ void MainWindow::on_messageInformationRequested(data::Message* message) {
 
     MessageInformationDialog* messageInformationDialog =
         new MessageInformationDialog(this, message);
+
+    connect(messageInformationDialog,
+            &MessageInformationDialog::onPersonInformationRequested, this,
+            &MainWindow::on_personInformationRequested);
+
     messageInformationDialog->setWindowTitle(
         tr("%1 - Message information").arg(windowTitle()));
     messageInformationDialog->setWindowModality(
@@ -246,6 +258,24 @@ void MainWindow::on_messageInformationRequested(data::Message* message) {
 
 void MainWindow::on_personInformationRequested(const QUuid identifier) {
     qDebug() << "Showing person information for" << identifier;
+
+    PersonInformationDialog* personInformationDialog =
+        new PersonInformationDialog(this, identifier, m_messengerData.get());
+    personInformationDialog->setWindowTitle(
+        QString("%1 - %2")
+            .arg(windowTitle())
+            .arg(m_messengerData->getNameForUUID(identifier)));
+    personInformationDialog->setWindowModality(
+        Qt::WindowModality::ApplicationModal);
+    personInformationDialog->show();
+}
+
+void MainWindow::on_threadStatisticsRequested(data::Thread* thread) {
+    qDebug() << "Showing statistics for" << thread->getDisplayName();
+
+    StatisticsViewer* statisticsViewer = new StatisticsViewer(this, thread);
+    statisticsViewer->setWindowModality(Qt::WindowModality::ApplicationModal);
+    statisticsViewer->show();
 }
 
 void MainWindow::performDirectoryOpenAsync(

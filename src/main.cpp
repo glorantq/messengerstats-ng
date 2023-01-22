@@ -12,7 +12,6 @@
 #include "view/settings.h"
 #include "view/themeservice.h"
 
-// TODO: Person information dialog (signals need to be set up)
 // TODO: Global contact list
 // TODO: Global search
 
@@ -40,14 +39,14 @@ int main(int argc, char* argv[]) {
         QFontDatabase::addApplicationFont(":/resources/font/Inter-Regular.ttf");
     QFontDatabase::addApplicationFont(
         ":/resources/font/CascadiaCodePL-Regular.ttf");
-    QFontDatabase::addApplicationFont(
-        ":/resources/font/NotoColorEmoji-Regular.ttf");
 
-    // Sadly this doesn't work yet due to a bug in Qt
+    // Sadly this doesn't work yet due to a bug in Qt (on Windows)
+    /*QFontDatabase::addApplicationFont(
+        ":/resources/font/NotoColorEmoji-Regular.ttf");*/
 
-    /*QFont::insertSubstitution(
+    QFont::insertSubstitution(
         QFontDatabase::applicationFontFamilies(fontId).at(0),
-        QFontDatabase::applicationFontFamilies(2).at(0));*/
+        "Noto Color Emoji");
 
     QString family = QFontDatabase::applicationFontFamilies(fontId).at(0);
     QFont interFont(family);
@@ -58,8 +57,8 @@ int main(int argc, char* argv[]) {
     qDebug() << "UI font:" << QFontDatabase::applicationFontFamilies(0).at(0);
     qDebug() << "Monospaced font:"
              << QFontDatabase::applicationFontFamilies(1).at(0);
-    qDebug() << "Emoji font:"
-             << QFontDatabase::applicationFontFamilies(2).at(0);
+    /*qDebug() << "Emoji font:"
+             << QFontDatabase::applicationFontFamilies(2).at(0);*/
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();

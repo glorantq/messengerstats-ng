@@ -95,20 +95,20 @@ void theme::ThemeService::applyDefinition(const ThemeDefinition& definition) {
     darkPalette.setColor(QPalette::Base, definition.m_base.m_baseColor);
     darkPalette.setColor(QPalette::AlternateBase,
                          definition.m_base.m_alternateBaseColor);
-    darkPalette.setColor(QPalette::ToolTipBase, definition.m_base.m_textColor);
+    darkPalette.setColor(QPalette::ToolTipBase, definition.m_base.m_baseColor);
     darkPalette.setColor(QPalette::ToolTipText, definition.m_base.m_textColor);
     darkPalette.setColor(QPalette::Text, definition.m_base.m_textColor);
     darkPalette.setColor(QPalette::Disabled, QPalette::Text,
                          definition.m_base.m_disabledColor);
     darkPalette.setColor(QPalette::Dark,
-                         definition.m_base.m_baseColor.darker(250));
+                         definition.m_base.m_baseColor.darker());
     darkPalette.setColor(QPalette::Shadow,
                          definition.m_base.m_baseColor.darker(200));
     darkPalette.setColor(QPalette::Button, definition.m_base.m_backgroundColor);
     darkPalette.setColor(QPalette::ButtonText, definition.m_base.m_textColor);
     darkPalette.setColor(QPalette::Disabled, QPalette::ButtonText,
                          definition.m_base.m_disabledColor);
-    darkPalette.setColor(QPalette::BrightText, Qt::red);
+    darkPalette.setColor(QPalette::BrightText, definition.m_base.m_textColor);
     darkPalette.setColor(QPalette::Link, definition.m_primaryColor);
     darkPalette.setColor(QPalette::Highlight, definition.m_primaryColor);
     darkPalette.setColor(QPalette::Disabled, QPalette::Highlight,

@@ -33,6 +33,7 @@ class MainWindow : public QMainWindow {
     void on_threadInformationPressed(data::Thread*);
     void on_messageInformationRequested(data::Message*);
     void on_personInformationRequested(const QUuid);
+    void on_threadStatisticsRequested(data::Thread*);
 
     void on_action_preferences_triggered();
 
@@ -71,7 +72,9 @@ class MainWindow : public QMainWindow {
 
         // exception interface
        public:
-        const char* what() const override { return m_reason.toUtf8().data(); }
+        const char* what() const noexcept override {
+            return m_reason.toUtf8().data();
+        }
 
         // QException interface
        public:
