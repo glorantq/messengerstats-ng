@@ -67,6 +67,11 @@ data::Thread::Thread(QDir dataFolder,
             }
         }
 
+        if (m_threadType == ThreadType::UnknownThreadType &&
+            participantsArray.count() > 2) {
+            m_threadType = ThreadType::RegularGroup;
+        }
+
         QJsonArray messagesArray = messageDocument["messages"].toArray();
 
         for (const auto& value : messagesArray) {
@@ -97,6 +102,10 @@ data::Thread::Thread(QDir dataFolder,
         m_usedNicknames[subject.m_identifier].push_back(
             {message.getSender().m_identifier, nickname,
              message.getTimestamp()});
+    }
+
+    if (m_threadType == ThreadType::UnknownThreadType) {
+        m_threadType = ThreadType::Regular;
     }
 }
 

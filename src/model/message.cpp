@@ -23,11 +23,6 @@ data::Message::Message(QJsonObject& object,
         m_type = MessageType::Unsubscribe;
     }
 
-    if (m_type == MessageType::UnknownMessageType) {
-        qWarning() << "Things will probably break...";
-        m_type = MessageType::Generic;
-    }
-
     QString senderName = object["sender_name"].toString();
     m_sender = {ownerThread->getIdentifierForName(senderName), senderName};
 
@@ -62,7 +57,12 @@ data::Message::Message(QJsonObject& object,
         }
     }
 
-    m_callDuration = object["call_duration"].toInt();
+    if (object.contains("call_duration")) {
+        m_callDuration = object["call_duration"].toInt();
+        if (m_type == MessageType::UnknownMessageType) {
+            m_type = MessageType::Call;
+        }
+    }
 
     auto loadPathArray = [&, rootFolder, object](const QString key,
                                                  QStringList& array) {
@@ -82,6 +82,9 @@ data::Message::Message(QJsonObject& object,
 
     if (object.contains("share")) {
         m_sharedLink = object["share"].toObject()["link"].toString();
+        if (m_type == MessageType::UnknownMessageType) {
+            m_type = MessageType::Share;
+        }
     }
 
     if (object.contains("files")) {
@@ -138,5 +141,10 @@ data::Message::Message(QJsonObject& object,
         m_setNickname = optionalNicknameChange->m_nickname;
 
         m_type = MessageType::NicknameChange;
+    }
+
+    if (m_type == MessageType::UnknownMessageType) {
+        qWarning() << "Things will probably break...";
+        m_type = MessageType::Generic;
     }
 }

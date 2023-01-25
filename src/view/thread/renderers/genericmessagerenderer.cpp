@@ -374,7 +374,7 @@ QSize renderer::GenericMessageRenderer::sizeHint(
         height += calculateTotalPicturesHeight(picturePaths, opt.rect.width(),
                                                parameters.m_margin,
                                                parameters.m_thumbnailQuality) +
-                  parameters.m_margin;
+                  parameters.m_largeMargin;
     }
 
     if (!iconTextPairs.isEmpty()) {
