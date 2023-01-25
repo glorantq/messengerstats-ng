@@ -296,8 +296,8 @@ void MainWindow::performDirectoryOpenAsync(
             });
 
         promise.addResult(messengerData);
-    } catch (std::runtime_error& e) {
-        promise.setException(RuntimeError(e.what()));
+    } catch (RuntimeError& e) {
+        promise.setException(e);
     }
 
     promise.finish();
@@ -409,7 +409,7 @@ void MainWindow::performDirectoryOpen(QString selectedPath) {
             } catch (const RuntimeError& e) {
                 QMessageBox::critical(
                     this, QCoreApplication::applicationName(),
-                    tr("Failed to parse data archive: %1").arg(e.what()));
+                    tr("Failed to parse data archive: %1").arg(e.reason()));
             }
 
             progressDialog->deleteLater();

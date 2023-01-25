@@ -1,10 +1,32 @@
 #pragma once
 
+#include <QException>
 #include <QString>
 #include <QUuid>
 
 #include <functional>
 #include <optional>
+
+class RuntimeError : public QException {
+   private:
+    QString m_reason{};
+    QByteArray m_rawBytes{};
+
+   public:
+    explicit RuntimeError(const QString reason) : m_reason(std::move(reason)) {
+        m_rawBytes = m_reason.toUtf8();
+    }
+
+    // exception interface
+   public:
+    const char* what() const noexcept override { return m_rawBytes.data(); }
+    const QString& reason() const noexcept { return m_reason; }
+
+    // QException interface
+   public:
+    void raise() const override { throw *this; }
+    QException* clone() const override { return new RuntimeError(*this); }
+};
 
 namespace data {
 // Describes a single person with their unique identifier and name

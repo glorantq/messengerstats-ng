@@ -13,7 +13,7 @@ std::shared_ptr<data::MessengerData> data::MessengerData::loadFromDirectory(
     QDir inboxDirectory = directory.filePath("inbox/");
 
     if (!inboxDirectory.exists()) {
-        throw std::runtime_error("Specified directory does not exist!");
+        throw RuntimeError("Specified directory does not exist!");
     }
 
     std::shared_ptr<MessengerData> object = std::make_shared<MessengerData>();
@@ -40,7 +40,7 @@ std::shared_ptr<data::MessengerData> data::MessengerData::loadFromDirectory(
             QJsonDocument::fromJson(autofillContents.toUtf8(), &parseError);
 
         if (parseError.error != QJsonParseError::NoError) {
-            throw std::runtime_error(parseError.errorString().toUtf8().data());
+            throw RuntimeError(parseError.errorString());
         }
 
         QJsonObject autofillInformation =

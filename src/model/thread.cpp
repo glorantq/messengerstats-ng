@@ -32,7 +32,8 @@ data::Thread::Thread(QDir dataFolder,
             QJsonDocument::fromJson(fileContents.toUtf8(), &parseError);
 
         if (parseError.error != QJsonParseError::NoError) {
-            throw std::runtime_error(parseError.errorString().toUtf8().data());
+            throw RuntimeError(QString("Failed to parse message document: %1")
+                                   .arg(parseError.errorString()));
         }
 
         QString threadTypeString = messageDocument["thread_type"].toString();
@@ -43,10 +44,8 @@ data::Thread::Thread(QDir dataFolder,
         }
 
         if (m_threadType == ThreadType::UnknownThreadType) {
-            throw std::runtime_error(QString("Unknown thread type: %1")
-                                         .arg(threadTypeString)
-                                         .toUtf8()
-                                         .data());
+            throw RuntimeError(
+                QString("Unknown thread type: %1").arg(threadTypeString));
         }
 
         m_threadPath = messageDocument["thread_path"].toString();
@@ -82,11 +81,10 @@ data::Thread::Thread(QDir dataFolder,
                 Message(object, this, messageClassifiers, rootFolder));
         }
 
-        std::sort(
-            m_messages.begin(), m_messages.end(),
-            [](const auto& a, const auto& b) constexpr {
-                return a.getTimestamp() > b.getTimestamp();
-            });
+        std::sort(m_messages.begin(), m_messages.end(),
+                  [](const auto& a, const auto& b) constexpr {
+                      return a.getTimestamp() > b.getTimestamp();
+                  });
     }
 
     if (m_displayName.isEmpty()) {
