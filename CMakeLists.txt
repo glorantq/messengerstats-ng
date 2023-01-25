@@ -128,6 +128,10 @@ set(PROJECT_SOURCES
         include/view/statistics/impl/basic.h
         include/view/statistics/impl/barchart.h
         src/view/statistics/impl/barchart.cpp
+        include/view/statistics/impl/chart.h
+        src/view/statistics/impl/chart.cpp
+        include/view/statistics/impl/messages.h
+        src/view/statistics/impl/messages.cpp
         resources.qrc
 )
 

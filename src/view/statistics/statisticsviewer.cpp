@@ -2,6 +2,7 @@
 #include "./ui_statisticsviewer.h"
 
 #include "view/statistics/impl/basic.h"
+#include "view/statistics/impl/messages.h"
 #include "view/statistics/statisticprovider.h"
 
 #include <QVBoxLayout>
@@ -20,7 +21,10 @@ StatisticsViewer::StatisticsViewer(QWidget* parent, data::Thread* thread)
 
     // TODO (glorantv): testing
 
-    QList<StatisticProvider*> testing = {new TestingStatisticsProvider};
+    QList<StatisticProvider*> testing = {
+        new TestingStatisticsProvider,
+        new MonthlyMessageCountStatisticProvider(thread),
+    };
 
     for (const auto& e : testing) {
         ui->typeComboBox->addItem(e->getName(), (unsigned long long)e);

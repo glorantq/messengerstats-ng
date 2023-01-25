@@ -26,7 +26,7 @@ class TimeRangeStatisticProvider : public virtual StatisticProvider {
 
     // StatisticProvider interface
    public:
-    QString getName() const override { return tr("Time Range"); }
+    QString getName() const override { return tr("Time range"); }
 };
 
 class TestingStatisticsProvider : public TimeRangeStatisticProvider,
@@ -41,10 +41,11 @@ class TestingStatisticsProvider : public TimeRangeStatisticProvider,
 
     QString getName() const override { return "TestingStatisticsProvider"; }
     void update(data::Thread*) override {
-        QList<QPair<QString, long long>> data{
-            {"dikaz", 0},  {"dikaz1", 1}, {"dikaz2", 2},
-            {"dikaz3", 3}, {"dikaz4", 0},
-        };
+        QList<QPair<QString, long long>> data{};
+
+        for (int i = 0; i < 50; i++) {
+            data.append({QString("Value %1").arg(i), i});
+        }
 
         updateDataSet(data);
     }

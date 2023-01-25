@@ -2,29 +2,18 @@
 
 void BarChartStatisticProvider::onPropertyUpdated(const QString& object,
                                                   const QString& name) {
-    QString ownName = BarChartStatisticProvider::getName();
-    if (object != ownName) {
+    ChartStatisticProvider::onPropertyUpdated(object, name);
+
+    if (object != m_showCategoryAxis.object() && object != m_theme.object()) {
         return;
     }
 
-    if (name == m_showLegend.name()) {
-        m_chart->legend()->setVisible(m_showLegend->toBool());
-    } else if (name == m_showCategoryAxis.name() ||
-               name == m_showValueAxis.name()) {
+    if (name == m_showCategoryAxis.name()) {
         for (auto& axis : m_chart->axes()) {
             if (axis->inherits("QBarCategoryAxis")) {
                 axis->setVisible(m_showCategoryAxis->toBool());
             }
-
-            if (axis->inherits("QValueAxis")) {
-                axis->setVisible(m_showValueAxis->toBool());
-            }
         }
-    } else if (name == m_animationFlags.name()) {
-        m_chart->setAnimationOptions(
-            m_animationFlags->value<QChart::AnimationOptions>());
-    } else if (name == m_theme.name()) {
-        m_chart->setTheme(m_theme->value<QChart::ChartTheme>());
     } else {
         updateDataSet(m_dataSet);
     }
@@ -46,8 +35,8 @@ void BarChartStatisticProvider::updateDataSet(
     QStringList categories{};
     QBarSet* data = new QBarSet(m_valueLegend);
 
-    long long minimum = LONG_LONG_MAX;
-    long long maximum = LONG_LONG_MIN;
+    long long minimum = LONG_MAX;
+    long long maximum = LONG_MIN;
 
     for (const auto& [label, value] : dataSet) {
         categories.append(label);
@@ -62,11 +51,24 @@ void BarChartStatisticProvider::updateDataSet(
 
     m_chart->addSeries(series);
 
+    m_chart->setTheme(m_theme->value<QChart::ChartTheme>());
+
     if (m_showCategoryAxis->toBool()) {
         QBarCategoryAxis* categoryAxis = new QBarCategoryAxis;
+
+        categoryAxis->setLabelsVisible(true);
+        categoryAxis->setTruncateLabels(m_truncateLabels->toBool());
+        categoryAxis->setLabelsAngle(m_labelsAngle->toInt());
+
+        QFont labelFont = QFont(categoryAxis->labelsFont());
+        labelFont.setPointSize(m_labelSize->toInt());
+        categoryAxis->setLabelsFont(labelFont);
+
         categoryAxis->append(categories);
         m_chart->addAxis(categoryAxis, Qt::AlignBottom);
         series->attachAxis(categoryAxis);
+
+        categoryAxis->setRange(categories.first(), categories.last());
     }
 
     if (m_showValueAxis->toBool()) {

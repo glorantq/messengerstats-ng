@@ -22,33 +22,51 @@
 <context>
     <name>BarChartStatisticProvider</name>
     <message>
-        <location filename="include/view/statistics/impl/barchart.h" line="30"/>
-        <source>Value Axis</source>
+        <location filename="include/view/statistics/impl/barchart.h" line="24"/>
+        <source>Category axis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/barchart.h" line="25"/>
+        <source>Labels angle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="include/view/statistics/impl/barchart.h" line="31"/>
-        <source>Category Axis</source>
+        <source>Bar chart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/barchart.h" line="32"/>
+        <location filename="include/view/statistics/impl/barchart.h" line="26"/>
+        <source>Truncate labels</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChartStatisticProvider</name>
+    <message>
+        <location filename="include/view/statistics/impl/chart.h" line="28"/>
+        <source>Value axis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/chart.h" line="29"/>
         <source>Legend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/barchart.h" line="34"/>
+        <location filename="include/view/statistics/impl/chart.h" line="31"/>
         <source>Animations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/barchart.h" line="37"/>
+        <location filename="include/view/statistics/impl/chart.h" line="34"/>
         <source>Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/barchart.h" line="50"/>
-        <source>Bar Chart</source>
+        <location filename="include/view/statistics/impl/chart.h" line="47"/>
+        <source>Chart</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -469,6 +487,20 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
     <message>
         <location filename="src/view/message/messageinformationdialog.cpp" line="246"/>
         <source>Failed to copy file!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MonthlyMessageCountStatisticProvider</name>
+    <message>
+        <location filename="include/view/statistics/impl/messages.h" line="20"/>
+        <source>Messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/messages.h" line="21"/>
+        <location filename="include/view/statistics/impl/messages.h" line="30"/>
+        <source>Monthly message count</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1320,7 +1352,8 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
     </message>
     <message>
         <location filename="include/view/statistics/impl/basic.h" line="29"/>
-        <source>Time Range</source>
+        <source>Time range</source>
+        <oldsource>Time Range</oldsource>
         <translation type="unfinished"></translation>
     </message>
 </context>
