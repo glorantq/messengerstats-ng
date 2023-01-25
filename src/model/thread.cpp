@@ -43,11 +43,6 @@ data::Thread::Thread(QDir dataFolder,
             m_threadType = ThreadType::RegularGroup;
         }
 
-        if (m_threadType == ThreadType::UnknownThreadType) {
-            throw RuntimeError(
-                QString("Unknown thread type: %1").arg(threadTypeString));
-        }
-
         m_threadPath = messageDocument["thread_path"].toString();
         m_displayName = messageDocument["title"].toString(dataFolder.dirName());
 
