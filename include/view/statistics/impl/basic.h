@@ -1,6 +1,5 @@
 #pragma once
 
-#include "view/statistics/impl/barchart.h"
 #include "view/statistics/statisticprovider.h"
 
 #include <QCoreApplication>
@@ -27,26 +26,4 @@ class TimeRangeStatisticProvider : public virtual StatisticProvider {
     // StatisticProvider interface
    public:
     QString getName() const override { return tr("Time range"); }
-};
-
-class TestingStatisticsProvider : public TimeRangeStatisticProvider,
-                                  public BarChartStatisticProvider {
-    // StatisticProvider interface
-   public:
-    TestingStatisticsProvider()
-        : TimeRangeStatisticProvider(), BarChartStatisticProvider() {
-        m_valueLegend = "Messages";
-        m_chart->setTitle("Monthly message count");
-    }
-
-    QString getName() const override { return "TestingStatisticsProvider"; }
-    void update(data::Thread*) override {
-        QList<QPair<QString, long long>> data{};
-
-        for (int i = 0; i < 50; i++) {
-            data.append({QString("Value %1").arg(i), i});
-        }
-
-        updateDataSet(data);
-    }
 };

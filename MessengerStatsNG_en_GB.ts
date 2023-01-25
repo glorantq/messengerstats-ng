@@ -505,6 +505,25 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
     </message>
 </context>
 <context>
+    <name>MonthlyWordCountStatisticProvider</name>
+    <message>
+        <location filename="include/view/statistics/impl/messages.h" line="48"/>
+        <source>Messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/messages.h" line="49"/>
+        <location filename="include/view/statistics/impl/messages.h" line="61"/>
+        <source>Monthly word count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/messages.h" line="51"/>
+        <source>Minimum length</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>NicknameItem</name>
     <message>
         <location filename="src/view/thread/nicknameitem.cpp" line="14"/>
@@ -1341,17 +1360,17 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
 <context>
     <name>TimeRangeStatisticProvider</name>
     <message>
-        <location filename="include/view/statistics/impl/basic.h" line="19"/>
+        <location filename="include/view/statistics/impl/basic.h" line="18"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/basic.h" line="20"/>
+        <location filename="include/view/statistics/impl/basic.h" line="19"/>
         <source>End</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/basic.h" line="29"/>
+        <location filename="include/view/statistics/impl/basic.h" line="28"/>
         <source>Time range</source>
         <oldsource>Time Range</oldsource>
         <translation type="unfinished"></translation>

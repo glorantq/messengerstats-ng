@@ -45,3 +45,56 @@ void MonthlyMessageCountStatisticProvider::onPropertyUpdated(
 
     update(m_thread);
 }
+
+void MonthlyWordCountStatisticProvider::update(data::Thread* thread) {
+    const QList<data::Message>& messages = thread->getMessages();
+
+    QList<QPair<QString, long long>> dataSet = {};
+
+    QDateTime month = m_startDateTime->toDateTime();
+    int lastStop = messages.length() - 1;
+
+    while (month <= m_endDateTime->toDateTime()) {
+        long long wordCount = 0;
+
+        for (; lastStop >= 0; lastStop--) {
+            const data::Message& message = messages.at(lastStop);
+
+            QDateTime messageTime =
+                QDateTime::fromMSecsSinceEpoch(message.getTimestamp());
+
+            if (month.date().year() != messageTime.date().year() ||
+                month.date().month() != messageTime.date().month()) {
+                break;
+            }
+
+            if (message.getType() == data::MessageType::Generic ||
+                message.getType() == data::MessageType::Share) {
+                const auto& words = message.getContent().split(
+                    " ", Qt::SplitBehaviorFlags::SkipEmptyParts);
+
+                for (const auto& word : words) {
+                    if (word.length() >= m_minimumWordLength->toInt()) {
+                        wordCount++;
+                    }
+                }
+            }
+        }
+
+        dataSet.append({month.date().toString("yyyy. MMMM"), wordCount});
+        month = month.addMonths(1);
+    }
+
+    updateDataSet(dataSet);
+}
+
+void MonthlyWordCountStatisticProvider::onPropertyUpdated(const QString& object,
+                                                          const QString& name) {
+    if (object != m_startDateTime.object() &&
+        object != m_minimumWordLength.object()) {
+        BarChartStatisticProvider::onPropertyUpdated(object, name);
+        return;
+    }
+
+    update(m_thread);
+}

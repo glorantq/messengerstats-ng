@@ -1,7 +1,6 @@
 #include "include/view/statistics/statisticsviewer.h"
 #include "./ui_statisticsviewer.h"
 
-#include "view/statistics/impl/basic.h"
 #include "view/statistics/impl/messages.h"
 #include "view/statistics/statisticprovider.h"
 
@@ -19,21 +18,17 @@ StatisticsViewer::StatisticsViewer(QWidget* parent, data::Thread* thread)
     connect(m_propertyManager, &QtVariantPropertyManager::valueChanged, this,
             &StatisticsViewer::on_propertyManager_valueChanged);
 
-    // TODO (glorantv): testing
-
-    QList<StatisticProvider*> testing = {
-        new TestingStatisticsProvider,
+    QList<StatisticProvider*> statisticProviders = {
         new MonthlyMessageCountStatisticProvider(thread),
+        new MonthlyWordCountStatisticProvider(thread),
     };
 
-    for (const auto& e : testing) {
+    for (const auto& e : statisticProviders) {
         ui->typeComboBox->addItem(e->getName(), (unsigned long long)e);
     }
 }
 
 StatisticsViewer::~StatisticsViewer() {
-    // TODO (glorantv): testing
-
     for (int i = 0; i < ui->typeComboBox->count(); i++) {
         delete (StatisticProvider*)ui->typeComboBox->itemData(i).toULongLong();
     }
