@@ -24,8 +24,8 @@ data::Message::Message(QJsonObject& object,
     }
 
     if (m_type == MessageType::UnknownMessageType) {
-        throw RuntimeError(
-            QString("Unknown message type: %1").arg(messageType));
+        qWarning() << "Things will probably break...";
+        m_type = MessageType::Generic;
     }
 
     QString senderName = object["sender_name"].toString();
