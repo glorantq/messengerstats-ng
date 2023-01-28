@@ -274,6 +274,8 @@ void MainWindow::on_threadStatisticsRequested(data::Thread* thread) {
     qDebug() << "Showing statistics for" << thread->getDisplayName();
 
     StatisticsViewer* statisticsViewer = new StatisticsViewer(this, thread);
+    statisticsViewer->setWindowTitle(
+        QString("%1 - %2").arg(windowTitle()).arg(thread->getDisplayName()));
     statisticsViewer->setWindowModality(Qt::WindowModality::ApplicationModal);
     statisticsViewer->show();
 }

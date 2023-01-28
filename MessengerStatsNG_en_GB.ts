@@ -65,7 +65,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/chart.h" line="48"/>
+        <location filename="include/view/statistics/impl/chart.h" line="53"/>
         <source>Chart</source>
         <translation type="unfinished"></translation>
     </message>
@@ -333,33 +333,33 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="313"/>
+        <location filename="src/view/mainwindow.cpp" line="315"/>
         <source>The selected directory does not exist!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="319"/>
+        <location filename="src/view/mainwindow.cpp" line="321"/>
         <source>The selected directory contains a messages directory, but changing to it failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="328"/>
+        <location filename="src/view/mainwindow.cpp" line="330"/>
         <source>The directory you selected does not appear to be a valid Messenger data download.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="345"/>
+        <location filename="src/view/mainwindow.cpp" line="347"/>
         <source>Loading archive...&lt;br&gt;(&lt;small&gt;preparing&lt;/small&gt;)</source>
         <oldsource>Loading archive...&lt;br&gt;&lt;br&gt;(&lt;small&gt;preparing&lt;/small&gt;)</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="366"/>
+        <location filename="src/view/mainwindow.cpp" line="368"/>
         <source>Loading archive...&lt;br&gt;(&lt;small&gt;%1&lt;/small&gt;)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/view/mainwindow.cpp" line="412"/>
+        <location filename="src/view/mainwindow.cpp" line="414"/>
         <source>Failed to parse data archive: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1132,11 +1132,6 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
 </context>
 <context>
     <name>StatisticsViewer</name>
-    <message>
-        <location filename="src/view/statistics/statisticsviewer.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="src/view/statistics/statisticsviewer.ui" line="86"/>
         <source>No visualisation generated.</source>
