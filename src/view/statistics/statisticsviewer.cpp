@@ -46,7 +46,6 @@ void StatisticsViewer::on_typeComboBox_currentIndexChanged(int index) {
     for (int i = ui->graphStack->count() - 1; i > 0; i--) {
         QWidget* widget = ui->graphStack->widget(i);
         ui->graphStack->removeWidget(widget);
-        widget->deleteLater();
     }
 
     m_propertyManager->blockSignals(true);
