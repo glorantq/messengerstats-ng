@@ -49,10 +49,7 @@ class ChartStatisticProvider : public virtual StatisticProvider {
                          });
     }
 
-    ~ChartStatisticProvider() {
-        delete m_chartView;
-        delete m_chart;
-    }
+    ~ChartStatisticProvider() { delete m_chartView; }
 
     QWidget* getVisualisation() override { return m_chartView; }
     QString getName() const override { return tr("Chart"); }

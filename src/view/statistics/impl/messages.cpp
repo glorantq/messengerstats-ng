@@ -119,7 +119,10 @@ void ConversationShareStatisticProvider::update(data::Thread* thread) {
             const auto& words = message.getContent().split(
                 " ", Qt::SplitBehaviorFlags::SkipEmptyParts);
 
-            long long wordCount = 0;
+            long long wordCount = message.getPictures().count() +
+                                  message.getVideos().count() +
+                                  message.getAttachments().count() +
+                                  message.getAudioFiles().count();
 
             for (const auto& word : words) {
                 if (word.length() >= m_minimumWordLength->toInt()) {
