@@ -119,7 +119,7 @@ void MainWindow::on_action_about_triggered() {
     QMessageBox::about(this, windowTitle(),
                        tr(R"(
 <h2>%1 <small>%2</small></h2>
-<p>Marcella.</p>
+<p>Tool to view and calculate statistics on Messenger data takeouts</p>
 
 <h4>Third-party attributions</h4>
 <p>Uses the "Silk" icon set, licensed under CC-BY-2.5, from <a href="http://www.famfamfam.com/lab/icons/silk/">FAMFAMFAM</a>

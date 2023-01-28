@@ -22,22 +22,27 @@
 <context>
     <name>BarChartStatisticProvider</name>
     <message>
-        <location filename="include/view/statistics/impl/barchart.h" line="24"/>
-        <source>Category axis</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="include/view/statistics/impl/barchart.h" line="25"/>
-        <source>Labels angle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="include/view/statistics/impl/barchart.h" line="31"/>
-        <source>Bar chart</source>
+        <source>Value axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="include/view/statistics/impl/barchart.h" line="26"/>
+        <source>Category axis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/barchart.h" line="27"/>
+        <source>Labels angle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/barchart.h" line="33"/>
+        <source>Bar chart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/barchart.h" line="28"/>
         <source>Truncate labels</source>
         <translation type="unfinished"></translation>
     </message>
@@ -45,28 +50,33 @@
 <context>
     <name>ChartStatisticProvider</name>
     <message>
-        <location filename="include/view/statistics/impl/chart.h" line="28"/>
-        <source>Value axis</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="include/view/statistics/impl/chart.h" line="29"/>
+        <location filename="include/view/statistics/impl/chart.h" line="27"/>
         <source>Legend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/chart.h" line="31"/>
+        <location filename="include/view/statistics/impl/chart.h" line="29"/>
         <source>Animations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/chart.h" line="35"/>
+        <location filename="include/view/statistics/impl/chart.h" line="33"/>
         <source>Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/chart.h" line="53"/>
+        <location filename="include/view/statistics/impl/chart.h" line="58"/>
         <source>Chart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/chart.h" line="66"/>
+        <source>Save as image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/chart.h" line="72"/>
+        <source>Save image</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -80,6 +90,20 @@
     <message>
         <location filename="src/view/conversationlistitem.cpp" line="40"/>
         <source>%1 messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConversationShareStatisticProvider</name>
+    <message>
+        <location filename="include/view/statistics/impl/messages.h" line="80"/>
+        <location filename="include/view/statistics/impl/messages.h" line="92"/>
+        <source>Share in conversation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/messages.h" line="82"/>
+        <source>Minimum length</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -302,7 +326,7 @@
         <location filename="src/view/mainwindow.cpp" line="120"/>
         <source>
 &lt;h2&gt;%1 &lt;small&gt;%2&lt;/small&gt;&lt;/h2&gt;
-&lt;p&gt;Marcella.&lt;/p&gt;
+&lt;p&gt;Tool to view and calculate statistics on Messenger data takeouts&lt;/p&gt;
 
 &lt;h4&gt;Third-party attributions&lt;/h4&gt;
 &lt;p&gt;Uses the &quot;Silk&quot; icon set, licensed under CC-BY-2.5, from &lt;a href=&quot;http://www.famfamfam.com/lab/icons/silk/&quot;&gt;FAMFAMFAM&lt;/a&gt;
@@ -313,7 +337,8 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
 &lt;p&gt;Marcella.&lt;/p&gt;
 
 &lt;h4&gt;Third-party attributions&lt;/h4&gt;
-&lt;p&gt;Uses the &quot;Silk&quot; icon set, licensed under CC-BY-2.5, from &lt;a href=&quot;http://www.famfamfam.com/lab/icons/silk/&quot;&gt;FAMFAMFAM&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Uses the &quot;Silk&quot; icon set, licensed under CC-BY-2.5, from &lt;a href=&quot;http://www.famfamfam.com/lab/icons/silk/&quot;&gt;FAMFAMFAM&lt;/a&gt;
+Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5, from &lt;a href=&quot;https://github.com/damieng/silk-companion&quot;&gt;damieng&lt;/a&gt;&lt;br&gt;&lt;/p&gt;
 </oldsource>
         <translation type="unfinished"></translation>
     </message>
@@ -493,13 +518,13 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
 <context>
     <name>MonthlyMessageCountStatisticProvider</name>
     <message>
-        <location filename="include/view/statistics/impl/messages.h" line="20"/>
+        <location filename="include/view/statistics/impl/messages.h" line="21"/>
         <source>Messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/messages.h" line="21"/>
-        <location filename="include/view/statistics/impl/messages.h" line="30"/>
+        <location filename="include/view/statistics/impl/messages.h" line="22"/>
+        <location filename="include/view/statistics/impl/messages.h" line="31"/>
         <source>Monthly message count</source>
         <translation type="unfinished"></translation>
     </message>
@@ -507,18 +532,18 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
 <context>
     <name>MonthlyWordCountStatisticProvider</name>
     <message>
-        <location filename="include/view/statistics/impl/messages.h" line="48"/>
-        <source>Messages</source>
+        <location filename="include/view/statistics/impl/messages.h" line="49"/>
+        <source>Words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/messages.h" line="49"/>
-        <location filename="include/view/statistics/impl/messages.h" line="61"/>
+        <location filename="include/view/statistics/impl/messages.h" line="50"/>
+        <location filename="include/view/statistics/impl/messages.h" line="62"/>
         <source>Monthly word count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/messages.h" line="51"/>
+        <location filename="include/view/statistics/impl/messages.h" line="52"/>
         <source>Minimum length</source>
         <translation type="unfinished"></translation>
     </message>
@@ -561,6 +586,41 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
     <message>
         <location filename="src/view/personinformationdialog.ui" line="62"/>
         <source>Mutual threads</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PieChartStatisticProvider</name>
+    <message>
+        <location filename="include/view/statistics/impl/piechart.h" line="23"/>
+        <source>Show labels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/piechart.h" line="25"/>
+        <source>Label position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/piechart.h" line="27"/>
+        <source>Show name in label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/impl/piechart.h" line="30"/>
+        <source>Pie chart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/statistics/impl/piechart.cpp" line="47"/>
+        <source>%1:
+ %2% (%3 words)</source>
+        <oldsource>%1: %2% (%3 words)</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/view/statistics/impl/piechart.cpp" line="48"/>
+        <source>%1% (%2 words)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1135,6 +1195,36 @@ Uses the &quot;Silk Icons Companion #1&quot; icon set, licensed under CC-BY-2.5,
     <message>
         <location filename="src/view/statistics/statisticsviewer.ui" line="86"/>
         <source>No visualisation generated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/statisticsviewer.h" line="24"/>
+        <source>Axis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/statisticsviewer.h" line="25"/>
+        <source>Series</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/statisticsviewer.h" line="46"/>
+        <source>Outside</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/statisticsviewer.h" line="47"/>
+        <source>Inside (horizontal)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/statisticsviewer.h" line="48"/>
+        <source>Inside (tangental)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="include/view/statistics/statisticsviewer.h" line="49"/>
+        <source>Inside (normal)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

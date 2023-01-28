@@ -21,6 +21,7 @@ StatisticsViewer::StatisticsViewer(QWidget* parent, data::Thread* thread)
     QList<StatisticProvider*> statisticProviders = {
         new MonthlyMessageCountStatisticProvider(thread),
         new MonthlyWordCountStatisticProvider(thread),
+        new ConversationShareStatisticProvider(thread),
     };
 
     for (const auto& e : statisticProviders) {

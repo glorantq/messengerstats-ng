@@ -11,6 +11,7 @@ class BarChartStatisticProvider : public virtual ChartStatisticProvider {
     Q_DECLARE_TR_FUNCTIONS(BarChartStatisticProvider)
 
    private:
+    PropertyAccessor m_showValueAxis{};
     PropertyAccessor m_showCategoryAxis{};
     PropertyAccessor m_labelsAngle{};
     PropertyAccessor m_truncateLabels{};
@@ -21,8 +22,9 @@ class BarChartStatisticProvider : public virtual ChartStatisticProvider {
     // StatisticProvider interface
    public:
     BarChartStatisticProvider() : ChartStatisticProvider() {
+        m_showValueAxis = registerProperty(tr("Value axis"), true);
         m_showCategoryAxis = registerProperty(tr("Category axis"), true);
-        m_labelsAngle = registerProperty(tr("Labels angle"), 45);
+        m_labelsAngle = registerProperty(tr("Labels angle"), 90);
         m_truncateLabels = registerProperty(tr("Truncate labels"), false);
         m_labelSize =
             registerProperty("Label size", m_chart->font().pointSize());

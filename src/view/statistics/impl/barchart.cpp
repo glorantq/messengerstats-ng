@@ -14,6 +14,12 @@ void BarChartStatisticProvider::onPropertyUpdated(const QString& object,
                 axis->setVisible(m_showCategoryAxis->toBool());
             }
         }
+    } else if (name == m_showValueAxis.name()) {
+        for (auto& axis : m_chart->axes()) {
+            if (axis->inherits("QValueAxis")) {
+                axis->setVisible(m_showValueAxis->toBool());
+            }
+        }
     } else {
         updateDataSet(m_dataSet);
     }

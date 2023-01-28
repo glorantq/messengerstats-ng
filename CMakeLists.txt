@@ -132,6 +132,8 @@ set(PROJECT_SOURCES
         src/view/statistics/impl/chart.cpp
         include/view/statistics/impl/messages.h
         src/view/statistics/impl/messages.cpp
+        include/view/statistics/impl/piechart.h
+        src/view/statistics/impl/piechart.cpp
         resources.qrc
 )
 

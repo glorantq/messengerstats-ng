@@ -98,3 +98,57 @@ void MonthlyWordCountStatisticProvider::onPropertyUpdated(const QString& object,
 
     update(m_thread);
 }
+
+void ConversationShareStatisticProvider::update(data::Thread* thread) {
+    const QList<data::Message>& messages = thread->getMessages();
+
+    QList<QPair<QString, long long>> dataSet = {};
+    QMap<QString, long long> rawDataSet = {};
+
+    for (const auto& message : messages) {
+        QDateTime messageTime =
+            QDateTime::fromMSecsSinceEpoch(message.getTimestamp());
+
+        if (messageTime < m_startDateTime->toDateTime() ||
+            messageTime > m_endDateTime->toDateTime()) {
+            continue;
+        }
+
+        if (message.getType() == data::MessageType::Generic ||
+            message.getType() == data::MessageType::Share) {
+            const auto& words = message.getContent().split(
+                " ", Qt::SplitBehaviorFlags::SkipEmptyParts);
+
+            long long wordCount = 0;
+
+            for (const auto& word : words) {
+                if (word.length() >= m_minimumWordLength->toInt()) {
+                    wordCount++;
+                }
+            }
+
+            QString sender = message.getSender().m_name;
+            long long currentValue = rawDataSet.value(sender, 0);
+
+            rawDataSet[sender] = currentValue + 1;
+        }
+    }
+
+    for (const auto& key : rawDataSet.keys()) {
+        dataSet.append({key, rawDataSet[key]});
+    }
+
+    updateDataSet(dataSet);
+}
+
+void ConversationShareStatisticProvider::onPropertyUpdated(
+    const QString& object,
+    const QString& name) {
+    if (object != m_startDateTime.object() &&
+        object != m_minimumWordLength.object()) {
+        PieChartStatisticProvider::onPropertyUpdated(object, name);
+        return;
+    }
+
+    update(m_thread);
+}

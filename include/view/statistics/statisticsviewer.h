@@ -18,12 +18,37 @@ class StatisticsViewer : public QDialog {
     data::Thread* m_thread{};
 
     const QMap<QString, QStringList> m_flagTypeNames{
-        {"QFlags<QChart::AnimationOption>", {"Axis", "Series"}},
+        {
+            "QFlags<QChart::AnimationOption>",
+            {
+                tr("Axis"),
+                tr("Series"),
+            },
+        },
     };
     const QMap<QString, QStringList> m_enumTypeNames{
-        {"QChart::ChartTheme",
-         {"Light", "Blue Cerulean", "Dark", "Brown Sand", "Blue Ncs",
-          "High Contrast", "Blue Icy", "Qt"}},
+        {
+            "QChart::ChartTheme",
+            {
+                "Light",
+                "Blue Cerulean",
+                "Dark",
+                "Brown Sand",
+                "Blue Ncs",
+                "High Contrast",
+                "Blue Icy",
+                "Qt",
+            },
+        },
+        {
+            "QPieSlice::LabelPosition",
+            {
+                tr("Outside"),
+                tr("Inside (horizontal)"),
+                tr("Inside (tangental)"),
+                tr("Inside (normal)"),
+            },
+        },
     };
 
    public:

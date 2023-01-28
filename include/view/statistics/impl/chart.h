@@ -15,7 +15,6 @@ class ChartStatisticProvider : public virtual StatisticProvider {
 
     QString m_valueLegend{};
 
-    PropertyAccessor m_showValueAxis{};
     PropertyAccessor m_showLegend{};
     PropertyAccessor m_animationFlags{};
     PropertyAccessor m_theme{};
@@ -25,8 +24,7 @@ class ChartStatisticProvider : public virtual StatisticProvider {
     // StatisticProvider interface
    public:
     ChartStatisticProvider() : StatisticProvider() {
-        m_showValueAxis = registerProperty(tr("Value axis"), true);
-        m_showLegend = registerProperty(tr("Legend"), false);
+        m_showLegend = registerProperty(tr("Legend"), true);
         m_animationFlags = registerProperty(
             tr("Animations"), QVariant::fromValue<QChart::AnimationOptions>(
                                   QChart::AnimationOptions(
@@ -42,6 +40,13 @@ class ChartStatisticProvider : public virtual StatisticProvider {
 
         m_chartView = new QChartView(m_chart);
         m_chartView->setRenderHint(QPainter::RenderHint::Antialiasing);
+        m_chartView->setContextMenuPolicy(
+            Qt::ContextMenuPolicy::CustomContextMenu);
+
+        QObject::connect(m_chartView, &QChartView::customContextMenuRequested,
+                         [&](const QPoint& point) {
+                             this->onChartContextMenuRequested(point);
+                         });
     }
 
     ~ChartStatisticProvider() {
@@ -51,6 +56,33 @@ class ChartStatisticProvider : public virtual StatisticProvider {
 
     QWidget* getVisualisation() override { return m_chartView; }
     QString getName() const override { return tr("Chart"); }
+
+   private slots:
+    void onChartContextMenuRequested(const QPoint& point) {
+        QMenu menu;
+
+        QAction* saveImageAction =
+            new QAction(QIcon("://resources/icon/silk/disk_download.png"),
+                        tr("Save as image"));
+
+        QObject::connect(saveImageAction, &QAction::triggered, [&]() {
+            QPixmap image = m_chartView->grab();
+
+            QString selectedPath = QFileDialog::getSaveFileName(
+                m_chartView, tr("Save image"), QDir::homePath(), "*.png");
+
+            if (!selectedPath.isEmpty()) {
+                QFile file(selectedPath);
+                file.open(QIODevice::WriteOnly | QIODevice::Truncate);
+                image.save(&file, "PNG");
+                file.close();
+            }
+        });
+
+        menu.addAction(saveImageAction);
+
+        menu.exec(m_chartView->viewport()->mapToGlobal(point));
+    }
 
    protected:
     void onPropertyUpdated(const QString& object, const QString& name) override;
