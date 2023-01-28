@@ -43,9 +43,7 @@ void StatisticsViewer::on_typeComboBox_currentIndexChanged(int index) {
 
     ui->graphStack->setCurrentIndex(0);
 
-    while (ui->graphStack->count() > 1) {
-        int i = ui->graphStack->count() - 1;
-
+    for (int i = ui->graphStack->count(); i > 0; i--) {
         QWidget* widget = ui->graphStack->widget(i);
         ui->graphStack->removeWidget(widget);
         widget->deleteLater();
@@ -96,8 +94,8 @@ void StatisticsViewer::on_typeComboBox_currentIndexChanged(int index) {
 
     m_propertyManager->blockSignals(false);
 
-    ui->graphStack->addWidget(provider->getVisualisation());
-    ui->graphStack->setCurrentIndex(ui->graphStack->count() - 1);
+    ui->graphStack->setCurrentIndex(
+        ui->graphStack->addWidget(provider->getVisualisation()));
 
     provider->update(m_thread);
 }
