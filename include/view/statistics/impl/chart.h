@@ -44,6 +44,11 @@ class ChartStatisticProvider : public virtual StatisticProvider {
         m_chartView->setRenderHint(QPainter::RenderHint::Antialiasing);
     }
 
+    ~ChartStatisticProvider() {
+        delete m_chartView;
+        delete m_chart;
+    }
+
     QWidget* getVisualisation() override { return m_chartView; }
     QString getName() const override { return tr("Chart"); }
 
