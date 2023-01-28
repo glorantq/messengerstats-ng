@@ -63,7 +63,7 @@ class StatisticProvider {
             return m_defaultVariant;
         }
 
-        auto objectProperties = m_properties[object];
+        auto& objectProperties = m_properties[object];
 
         if (!objectProperties.contains(name)) {
             return m_defaultVariant;
