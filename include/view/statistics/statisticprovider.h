@@ -12,9 +12,9 @@ class StatisticProvider;
 
 class PropertyAccessor {
    private:
-    StatisticProvider* m_provider;
-    QString m_object;
-    QString m_name;
+    StatisticProvider* m_provider{};
+    QString m_object{};
+    QString m_name{};
 
    public:
     PropertyAccessor() : m_provider(nullptr), m_object(), m_name() {}
@@ -36,6 +36,7 @@ class PropertyAccessor {
 class StatisticProvider {
    private:
     QMap<QString, QMap<QString, QVariant>> m_properties{};
+    const QVariant m_defaultVariant{};
 
    public:
     virtual void update(data::Thread*) = 0;
@@ -57,9 +58,18 @@ class StatisticProvider {
                      const QString& name,
                      const QVariant& value);
 
-    const QVariant& getProperty(const QString& object,
-                                const QString& name) const {
-        return m_properties[object][name];
+    const QVariant& getProperty(const QString& object, const QString& name) {
+        if (!m_properties.contains(object)) {
+            return m_defaultVariant;
+        }
+
+        auto objectProperties = m_properties[object];
+
+        if (!objectProperties.contains(name)) {
+            return m_defaultVariant;
+        }
+
+        return objectProperties[name];
     }
 
     const QMap<QString, QMap<QString, QVariant>> getProperties() const {
