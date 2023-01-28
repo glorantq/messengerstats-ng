@@ -59,6 +59,7 @@ data::Message::Message(QJsonObject& object,
 
     if (object.contains("call_duration")) {
         m_callDuration = object["call_duration"].toInt();
+
         if (m_type == MessageType::UnknownMessageType) {
             m_type = MessageType::Call;
         }
@@ -82,6 +83,7 @@ data::Message::Message(QJsonObject& object,
 
     if (object.contains("share")) {
         m_sharedLink = object["share"].toObject()["link"].toString();
+
         if (m_type == MessageType::UnknownMessageType) {
             m_type = MessageType::Share;
         }
@@ -143,8 +145,8 @@ data::Message::Message(QJsonObject& object,
         m_type = MessageType::NicknameChange;
     }
 
+    // When we have no idea
     if (m_type == MessageType::UnknownMessageType) {
-        qWarning() << "Things will probably break...";
         m_type = MessageType::Generic;
     }
 }

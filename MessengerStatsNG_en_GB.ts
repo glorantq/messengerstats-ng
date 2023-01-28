@@ -60,12 +60,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/chart.h" line="34"/>
+        <location filename="include/view/statistics/impl/chart.h" line="35"/>
         <source>Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="include/view/statistics/impl/chart.h" line="47"/>
+        <location filename="include/view/statistics/impl/chart.h" line="48"/>
         <source>Chart</source>
         <translation type="unfinished"></translation>
     </message>

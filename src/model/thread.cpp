@@ -67,11 +67,6 @@ data::Thread::Thread(QDir dataFolder,
             }
         }
 
-        if (m_threadType == ThreadType::UnknownThreadType &&
-            participantsArray.count() > 2) {
-            m_threadType = ThreadType::RegularGroup;
-        }
-
         QJsonArray messagesArray = messageDocument["messages"].toArray();
 
         for (const auto& value : messagesArray) {
@@ -104,8 +99,25 @@ data::Thread::Thread(QDir dataFolder,
              message.getTimestamp()});
     }
 
+    // Guess the thread type
     if (m_threadType == ThreadType::UnknownThreadType) {
-        m_threadType = ThreadType::Regular;
+        if (m_participants.count() > 2) {
+            m_threadType = ThreadType::RegularGroup;
+        } else {
+            bool m_nameMatchesPerson = false;
+
+            for (const auto& id : m_participants) {
+                m_nameMatchesPerson =
+                    m_nameMatchesPerson ||
+                    m_displayName == owner->getNameForUUID(id);
+            }
+
+            if (m_nameMatchesPerson) {
+                m_threadType = ThreadType::Regular;
+            } else {
+                m_threadType = ThreadType::RegularGroup;
+            }
+        }
     }
 }
 

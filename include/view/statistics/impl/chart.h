@@ -29,7 +29,8 @@ class ChartStatisticProvider : public virtual StatisticProvider {
         m_showLegend = registerProperty(tr("Legend"), false);
         m_animationFlags = registerProperty(
             tr("Animations"), QVariant::fromValue<QChart::AnimationOptions>(
-                                  QChart::AnimationOption::AllAnimations));
+                                  QChart::AnimationOptions(
+                                      QChart::AnimationOption::AllAnimations)));
         m_theme = registerProperty(
             tr("Theme"),
             QVariant::fromValue<QChart::ChartTheme>(QChart::ChartThemeLight));
